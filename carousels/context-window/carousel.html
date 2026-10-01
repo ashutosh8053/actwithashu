@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside the Window</title>
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>
+:root {
+  --paper: #F1EEE7;
+  --ink: #121212;
+  --ink-2: #5E5B55;
+  --rule: #CFCAC0;
+  --blue: #2433FF;      /* the context window. Only ever means "what Claude can see" */
+  --blue-deep: #1A26C9;
+  --lime: #D6FF3D;      /* the user's question / the thing that matters */
+  --onblue: #F1EEE7;
+  --onblue-2: rgba(241,238,231,.62);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #6d6d6d; color: var(--ink); -webkit-font-smoothing: antialiased; }
+.slide { width: 1080px; height: 1350px; position: relative; overflow: hidden; background: var(--paper); margin-bottom: 40px; }
+.slide.blue { background: var(--blue); color: var(--onblue); }
+
+.serif { font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.02em; }
+.sans  { font-family: 'Instrument Sans', sans-serif; }
+.mono  { font-family: 'IBM Plex Mono', monospace; }
+
+/* section label */
+.sec { position: absolute; left: 72px; top: 72px; font: 500 18px/1 'IBM Plex Mono'; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); display: flex; gap: 18px; }
+.sec b { color: var(--ink); font-weight: 600; }
+.blue .sec, .blue .sec b { color: var(--onblue); } .blue .sec { color: var(--onblue-2); }
+.hdl { position: absolute; right: 72px; top: 72px; font: 500 18px/1 'IBM Plex Mono'; color: var(--ink-2); letter-spacing: .02em; }
+.blue .hdl { color: var(--onblue-2); }
+
+/* the gauge: navigation + metaphor */
+.gauge { position: absolute; left: 72px; right: 72px; bottom: 64px; }
+.gauge .row { display: flex; justify-content: space-between; font: 500 18px/1 'IBM Plex Mono'; letter-spacing: .12em; color: var(--ink-2); margin-bottom: 14px; }
+.gauge .row b { color: var(--ink); font-weight: 600; }
+.gauge .track { height: 14px; position: relative; border: 1.5px solid var(--ink); }
+.gauge .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--blue); }
+.gauge .ticks { position: absolute; inset: 0; display: flex; }
+.gauge .ticks i { flex: 1; border-right: 1.5px solid rgba(18,18,18,.35); }
+.gauge .ticks i:last-child { border-right: 0; }
+.blue .gauge .row, .blue .gauge .row b { color: var(--onblue); }
+.blue .gauge .track { border-color: var(--onblue); }
+.blue .gauge .ticks i { border-color: rgba(241,238,231,.4); }
+
+/* window frame: corner registration ticks */
+.win { position: absolute; background: var(--blue); color: var(--onblue); }
+.win.outline { background: transparent; border: 2px solid var(--blue); }
+.tick { position: absolute; width: 22px; height: 22px; border-color: var(--ink); border-style: solid; border-width: 0; }
+.tick.tl { left: -12px; top: -12px; border-left-width: 2px; border-top-width: 2px; }
+.tick.tr { right: -12px; top: -12px; border-right-width: 2px; border-top-width: 2px; }
+.tick.bl { left: -12px; bottom: -12px; border-left-width: 2px; border-bottom-width: 2px; }
+.tick.br { right: -12px; bottom: -12px; border-right-width: 2px; border-bottom-width: 2px; }
+.wlabel { position: absolute; font: 600 15px/1 'IBM Plex Mono'; letter-spacing: .16em; text-transform: uppercase; }
+
+.lead { position: absolute; background: var(--ink); }
+.dot { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
+.note { position: absolute; font: 500 19px/1.35 'IBM Plex Mono'; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- ============ 01 · HOOK: typography dominates ============ -->
+<section class="slide" id="s1" data-sec="01" data-name="Field note">
+  <!-- forgotten rules, drifting out above the window -->
+  <div class="mono" style="position:absolute;left:72px;top:136px;font:400 24px/1.6 'IBM Plex Mono';color:var(--ink)">
+    <div style="opacity:.16">&gt; never touch the payments module</div>
+    <div style="opacity:.24">&gt; follow the naming rules in /docs</div>
+    <div style="opacity:.34">&gt; use pnpm, not npm</div>
+    <div style="opacity:.46">&gt; tests before every commit</div>
+  </div>
+  <div class="win" style="left:72px;right:72px;top:330px;height:830px">
+    <i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i>
+    <div class="wlabel" style="left:44px;top:40px;color:var(--onblue-2)">Context window</div>
+    <div class="wlabel" style="right:44px;top:40px;color:var(--onblue-2)">Visible to Claude ↓</div>
+    <div class="serif" style="position:absolute;left:40px;top:150px;font-size:178px;line-height:.86;letter-spacing:-.035em">Claude didn't<br>get dumber.</div>
+    <div class="serif" style="position:absolute;left:44px;top:520px;font-size:120px;line-height:.9;font-style:italic;color:var(--lime);letter-spacing:-.03em">It ran out<br>of room.</div>
+    <div style="position:absolute;left:44px;right:44px;bottom:44px;border-top:1.5px solid rgba(241,238,231,.4);padding-top:26px;font:500 26px/1 'IBM Plex Mono';color:var(--onblue)">&gt; why did you edit /payments?<span style="display:inline-block;width:14px;height:28px;background:var(--lime);margin-left:8px;vertical-align:-5px"></span></div>
+  </div>
+  <div class="note" style="right:72px;top:150px;font-size:17px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:right">Your rules.<br>Out of view ↑</div>
+</section>
+
+<!-- ============ 02 · TENSION: the thread metaphor dominates ============ -->
+<section class="slide" id="s2" data-sec="02" data-name="The symptom">
+  <div class="serif" style="position:absolute;left:72px;top:170px;width:430px;font-size:76px;line-height:.98">Hour one, it follows every rule.</div>
+  <div class="serif" style="position:absolute;left:72px;top:520px;width:430px;font-size:76px;line-height:.98;font-style:italic;color:var(--blue)">Hour three, it's forgotten them.</div>
+  <p class="sans" style="position:absolute;left:72px;top:900px;width:400px;font:400 25px/1.45 'Instrument Sans';color:var(--ink-2)">The rules didn't stop mattering. They scrolled out of the part of the conversation Claude can still see.</p>
+  <div id="thread" style="position:absolute;left:560px;top:150px;width:448px;height:1050px"></div>
+</section>
+
+<!-- ============ 03 · INSIGHT: data dominates ============ -->
+<section class="slide" id="s3" data-sec="03" data-name="The insight">
+  <div class="serif" style="position:absolute;left:72px;top:170px;width:900px;font-size:104px;line-height:.94">Your question is the <span style="font-style:italic">smallest</span> thing in the room.</div>
+  <div id="bar" style="position:absolute;left:72px;right:72px;top:620px;height:250px"></div>
+  <div id="barlabels" style="position:absolute;left:72px;right:72px;top:900px;height:200px"></div>
+  <div class="note" style="left:72px;top:1150px;font-size:16px;letter-spacing:.06em">Illustrative breakdown of one long coding session. Proportions vary.</div>
+</section>
+
+<!-- ============ 04 · MECHANISM: diagram dominates ============ -->
+<section class="slide" id="s4" data-sec="04" data-name="The mechanism">
+  <div class="serif" style="position:absolute;left:72px;top:170px;width:880px;font-size:84px;line-height:.98">When the window fills, history gets <span style="font-style:italic;color:var(--blue)">summarised.</span> Details don't survive.</div>
+  <div id="states" style="position:absolute;left:72px;right:72px;top:560px;height:560px"></div>
+</section>
+
+<!-- ============ 05 · EXAMPLE: comparison dominates (half-bleed) ============ -->
+<section class="slide" id="s5" data-sec="05" data-name="Same task, twice">
+  <div style="position:absolute;left:540px;top:0;right:0;height:1170px;background:var(--blue)"></div>
+  <div id="cmp" style="position:absolute;inset:0"></div>
+</section>
+
+<!-- ============ 06 · DEVELOP: editorial composition ============ -->
+<section class="slide" id="s6" data-sec="06" data-name="The reframe">
+  <div style="position:absolute;left:72px;top:200px;width:96px;height:2px;background:var(--ink)"></div>
+  <div class="serif" style="position:absolute;left:66px;top:250px;width:960px;font-size:150px;line-height:.86;letter-spacing:-.04em">Stop polishing the prompt.</div>
+  <div class="serif" style="position:absolute;left:66px;top:660px;width:960px;font-size:150px;line-height:.86;letter-spacing:-.04em;font-style:italic;color:var(--blue)">Curate the window.</div>
+  <div style="position:absolute;left:540px;top:1000px;width:468px;border-top:2px solid var(--ink);padding-top:22px">
+    <div class="mono" style="font:600 16px/1 'IBM Plex Mono';letter-spacing:.16em;text-transform:uppercase">Context engineering, n.</div>
+    <p class="sans" style="font:400 25px/1.42 'Instrument Sans';color:var(--ink-2);margin-top:16px">Deciding what the model sees <i>before</i> deciding what to ask it.</p>
+  </div>
+</section>
+
+<!-- ============ 07 · APPLICATION: framework (spec sheet) ============ -->
+<section class="slide" id="s7" data-sec="07" data-name="The controls">
+  <div class="serif" style="position:absolute;left:72px;top:160px;font-size:96px;line-height:.95">Five controls.<br><span style="font-style:italic;color:var(--blue)">Use them in this order.</span></div>
+  <div id="spec" style="position:absolute;left:72px;right:72px;top:430px"></div>
+</section>
+
+<!-- ============ 08 · TAKEAWAY: minimal ============ -->
+<section class="slide" id="s8" data-sec="08" data-name="The rule">
+  <div class="win outline" style="left:640px;top:210px;width:368px;height:460px">
+    <i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i>
+    <div style="position:absolute;left:28px;right:28px;top:28px;height:52px;background:var(--ink);color:var(--paper);font:500 17px/52px 'IBM Plex Mono';padding-left:14px">CLAUDE.md</div>
+    <div style="position:absolute;left:28px;right:28px;bottom:28px;height:52px;background:var(--lime);color:var(--ink);font:500 17px/52px 'IBM Plex Mono';padding-left:14px">your question</div>
+    <div style="position:absolute;left:0;right:0;top:200px;text-align:center;font:600 16px 'IBM Plex Mono';letter-spacing:.2em;color:var(--blue)">ROOM TO THINK</div>
+    <div style="position:absolute;left:50%;top:104px;width:0;height:80px;border-left:2px dashed var(--blue)"></div>
+    <div style="position:absolute;left:50%;top:244px;width:0;height:110px;border-left:2px dashed var(--blue)"></div>
+  </div>
+  <div class="serif" style="position:absolute;left:72px;top:760px;width:900px;font-size:118px;line-height:.92">Manage the window,<br><span style="font-style:italic;color:var(--blue)">not the wording.</span></div>
+</section>
+
+<!-- ============ 09 · CLOSE: the reset ============ -->
+<section class="slide blue" id="s9" data-sec="09" data-name="Reset">
+  <div class="mono" style="position:absolute;left:72px;top:190px;font:500 40px/1 'IBM Plex Mono';color:var(--onblue)">&gt; /clear<span style="display:inline-block;width:22px;height:40px;background:var(--lime);margin-left:10px;vertical-align:-6px"></span></div>
+  <div class="serif" style="position:absolute;left:66px;top:330px;font-size:170px;line-height:.86;letter-spacing:-.04em">Fresh window.<br><span style="font-style:italic;color:var(--lime)">Sharper Claude.</span></div>
+  <div style="position:absolute;left:72px;right:72px;top:860px;border-top:2px solid var(--onblue);padding-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+    <div>
+      <div class="mono" style="font:600 16px/1 'IBM Plex Mono';letter-spacing:.16em;color:var(--onblue-2)">COMMENT</div>
+      <div class="serif" style="font-size:84px;line-height:1;margin-top:12px">“CONTEXT”</div>
+    </div>
+    <p class="sans" style="font:400 27px/1.42 'Instrument Sans';color:var(--onblue);padding-top:30px">I'll DM you the CLAUDE.md template I start every project with.</p>
+  </div>
+</section>
+
+<script>
+const HANDLE = "@theashutoshjain";
+const slides = [...document.querySelectorAll(".slide")];
+const N = slides.length;
+
+/* chrome: section label, handle, context gauge (fills as you swipe, resets on the last slide) */
+slides.forEach((s, i) => {
+  const last = i === N - 1;
+  const pct = last ? 0 : Math.round(((i + 1) / (N - 1)) * 96);
+  s.insertAdjacentHTML("beforeend", `
+    <div class="sec"><b>§${s.dataset.sec}</b><span>${s.dataset.name}</span></div>
+    <div class="hdl">${HANDLE}</div>
+    <div class="gauge">
+      <div class="row"><span><b>CONTEXT</b>&nbsp;&nbsp;${last ? "CLEARED" : "IN USE"}</span><span><b>${pct}%</b>&nbsp;&nbsp;·&nbsp;&nbsp;${String(i + 1).padStart(2, "0")}/${String(N).padStart(2, "0")}</span></div>
+      <div class="track"><div class="fill" style="width:${pct}%;${last ? "" : ""}"></div><div class="ticks">${Array(N - 1).fill("<i></i>").join("")}</div></div>
+    </div>`);
+});
+
+/* ---------- 02 thread ---------- */
+(() => {
+  const rows = [
+    ["09:02", "Use our naming rules. camelCase, no abbreviations.", 1],
+    ["09:03", "Never edit /payments without asking.", 1],
+    ["09:20", "Read src/api/users.ts", 0], ["09:41", "Fix the login redirect", 0], ["10:05", "Pastes a 600-line build log", 0],
+    ["10:30", "Refactor the session store", 0], ["10:58", "Why is CI red?", 0], ["11:22", "Read 9 more files", 0],
+    ["11:47", "Add rate limiting", 0], ["12:10", "Rename this helper", 0], ["12:31", "Update /payments retry logic", 2],
+  ];
+  const el = document.getElementById("thread");
+  const rowH = 82, winTop = 4 * rowH + 6;
+  el.innerHTML = rows.map(([t, m, k], i) => `
+    <div style="position:absolute;left:0;right:0;top:${i * rowH}px;height:${rowH - 14}px;display:grid;grid-template-columns:84px 1fr;align-items:center;gap:12px;
+      opacity:${i < 4 ? [.42, .5, .62, .8][i] : 1}">
+      <span style="font:500 20px 'IBM Plex Mono';color:${i >= 4 ? "rgba(241,238,231,.7)" : "var(--ink-2)"};position:relative;z-index:2">${t}</span>
+      <span style="font:${k ? 600 : 500} 24px/1.2 'Instrument Sans';color:${i >= 4 ? "var(--onblue)" : "var(--ink)"};position:relative;z-index:2;
+        ${k === 1 ? "text-decoration:line-through;text-decoration-color:var(--blue);text-decoration-thickness:2px" : ""}">${m}</span>
+    </div>`).join("") + `
+    <div style="position:absolute;left:-18px;right:-72px;top:${winTop}px;bottom:-20px;background:var(--blue);z-index:1"></div>
+    <div style="position:absolute;left:-18px;top:${winTop - 30}px;font:600 15px 'IBM Plex Mono';letter-spacing:.16em;color:var(--blue)">WINDOW STARTS HERE ↓</div>
+    <div style="position:absolute;left:96px;top:${10 * rowH + rowH - 10}px;z-index:3;font:600 22px/1.3 'IBM Plex Mono';color:var(--lime)">↑ edits /payments.<br>&nbsp;&nbsp;the rule is gone.</div>`;
+})();
+
+/* ---------- 03 stacked bar ---------- */
+(() => {
+  const segs = [
+    ["System + tools", 14, "#BFB9AD"], ["CLAUDE.md", 4, "#9C968A"], ["Files read", 31, "#121212"],
+    ["Tool output", 26, "#3A3936"], ["Chat history", 22, "#6E6A63"], ["Your question", 3, "var(--lime)"],
+  ];
+  let x = 0;
+  const bar = document.getElementById("bar"), lab = document.getElementById("barlabels");
+  const W = 936;
+  bar.innerHTML = `<div style="position:absolute;inset:-12px;border:2px solid var(--blue)"></div>` +
+    segs.map(([n, p, c]) => { const w = W * p / 100, h = `<div style="position:absolute;left:${x}px;top:0;width:${w - 3}px;height:100%;background:${c}"></div>`; x += w; return h; }).join("") +
+    `<div class="wlabel" style="left:-12px;top:-42px;color:var(--blue)">Context window · 100%</div>`;
+  x = 0;
+  const pos = segs.map(([, p]) => { const l = x; x += W * p / 100; return [l, W * p / 100]; });
+  /* labels inside the large segments, leaders for the two slivers */
+  bar.innerHTML += segs.map(([n, p, c], i) => {
+    const [l, w] = pos[i];
+    if (w < 60) return "";
+    const dark = i >= 2;
+    return `<div style="position:absolute;left:${l + 16}px;top:18px;width:${w - 30}px;color:${dark ? "var(--paper)" : "var(--ink)"}">
+      <div style="font:500 18px/1.2 'IBM Plex Mono'">${n}</div>
+      <div class="serif" style="font-size:64px;line-height:1;margin-top:96px">${p}%</div></div>`;
+  }).join("");
+  const [cl, cw] = pos[1], [ql, qw] = pos[5];
+  lab.innerHTML = `
+    <div style="position:absolute;left:${cl + cw / 2}px;top:-18px;width:2px;height:56px;background:var(--ink)"></div>
+    <div style="position:absolute;left:${cl + cw / 2 + 14}px;top:16px;font:500 20px 'IBM Plex Mono';color:var(--ink-2)">CLAUDE.md · 4%</div>
+    <div style="position:absolute;left:${ql + qw / 2 - 1}px;top:-18px;width:3px;height:96px;background:var(--ink)"></div>
+    <div style="position:absolute;right:0;top:92px;text-align:right">
+      <div style="font:600 20px 'IBM Plex Mono';letter-spacing:.1em">YOUR QUESTION</div>
+      <div class="serif" style="font-size:140px;line-height:.85;font-style:italic;margin-top:4px">3%</div></div>`;
+})();
+
+/* ---------- 04 three states ---------- */
+(() => {
+  const st = document.getElementById("states");
+  const colW = 250, gap = 93, H = 440;
+  const block = (y, h, bg, txt = "", extra = "") => `<div style="position:absolute;left:14px;right:14px;top:${y}px;height:${h}px;background:${bg};
+    font:500 17px/1.1 'IBM Plex Mono';color:var(--onblue);padding:10px 12px;letter-spacing:.02em;${extra}">${txt}</div>`;
+  const rules = (y) => block(y, 54, "var(--ink)", "RULES");
+  const work = (y, h, t) => block(y, h, "#7E7A72", t);
+  const states = [
+    ["01", "Filling", "Everything is still word for word.",
+      rules(H - 210) + work(H - 148, 60, "files") + work(H - 80, 66, "chat")],
+    ["02", "Full", "No room left for the next message.",
+      rules(14) + work(76, 90, "files") + work(174, 110, "tool output") + work(292, 70, "chat") + work(370, 56, "chat")],
+    ["03", "Compacted", "Old turns become a short summary.",
+      block(H - 330, 58, "repeating-linear-gradient(135deg,#3A3936 0 10px,#55524C 10px 20px)", "SUMMARY: “has some rules”") +
+      work(H - 264, 80, "recent files") + work(H - 176, 76, "recent chat") + block(H - 92, 78, "var(--lime)", "new question", "color:var(--ink)") ],
+  ];
+  st.innerHTML = states.map(([n, t, d, inner], i) => `
+    <div style="position:absolute;left:${i * (colW + gap)}px;top:0;width:${colW}px">
+      <div style="font:600 16px 'IBM Plex Mono';letter-spacing:.14em;color:var(--ink-2)">${n}</div>
+      <div class="serif" style="font-size:52px;line-height:1;margin-top:8px">${t}</div>
+      <div style="position:relative;height:${H}px;margin-top:22px;border:2px solid var(--blue)">${inner}</div>
+      <p style="font:500 23px/1.3 'Instrument Sans';color:var(--ink-2);margin-top:18px">${d}</p>
+    </div>
+    ${i < 2 ? `<div style="position:absolute;left:${(i + 1) * colW + i * gap + 18}px;top:${82 + H / 2}px;font:400 44px 'Instrument Serif';color:var(--ink)">→</div>` : ""}`).join("");
+  st.insertAdjacentHTML("beforeend", `<div style="position:absolute;left:${2 * (colW + gap) + 14}px;top:${82 + 22 + 440 - 330 - 46}px;font:600 15px 'IBM Plex Mono';color:var(--blue);letter-spacing:.06em">↓ the detail is gone</div>`);
+})();
+
+/* ---------- 05 comparison ---------- */
+(() => {
+  const lines = (n, c, seed) => Array.from({ length: n }, (_, k) => `<div style="height:9px;margin-top:9px;width:${55 + ((k * seed) % 40)}%;background:${c}"></div>`).join("");
+  document.getElementById("cmp").innerHTML = `
+    <div class="serif" style="position:absolute;left:72px;top:150px;font-size:96px;line-height:.9;width:440px">Same task.</div>
+    <div class="serif" style="position:absolute;left:612px;top:150px;font-size:96px;line-height:.9;font-style:italic;color:var(--lime)">Two sessions.</div>
+
+    <div style="position:absolute;left:72px;top:330px;width:396px">
+      <div style="font:600 16px 'IBM Plex Mono';letter-spacing:.14em;color:var(--ink-2)">SESSION A</div>
+      <div style="font:500 26px/1.3 'Instrument Sans';margin-top:12px">Three-hour thread.<br>One window for everything.</div>
+      <div style="position:relative;height:330px;border:2px solid var(--ink);margin-top:28px;padding:6px 18px 18px;overflow:hidden">${lines(17, "#BDB8AE", 7)}</div>
+      <div style="font:500 17px 'IBM Plex Mono';color:var(--ink-2);margin-top:28px;letter-spacing:.06em">OUTPUT</div>
+      <div style="font:500 26px 'IBM Plex Mono';margin-top:12px;background:var(--ink);color:var(--paper);padding:20px 22px">const <span style="text-decoration:line-through;text-decoration-color:#FF5A3C;text-decoration-thickness:3px">UsrData</span></div>
+      <div style="font:500 20px/1.35 'Instrument Sans';color:var(--ink-2);margin-top:14px">Naming rule ignored. It was set 3 hours ago.</div>
+    </div>
+
+    <div style="position:absolute;left:612px;top:330px;width:396px;color:var(--onblue)">
+      <div style="font:600 16px 'IBM Plex Mono';letter-spacing:.14em;color:var(--onblue-2)">SESSION B</div>
+      <div style="font:500 26px/1.3 'Instrument Sans';margin-top:12px">Fresh session.<br>Rules live in CLAUDE.md.</div>
+      <div style="position:relative;height:330px;border:2px solid var(--onblue);margin-top:28px;padding:6px 18px 18px">
+        <div style="height:40px;margin-top:12px;background:var(--onblue);color:var(--blue);font:600 15px/40px 'IBM Plex Mono';padding-left:12px;letter-spacing:.06em">CLAUDE.md · RULES</div>
+        ${lines(3, "rgba(241,238,231,.35)", 11)}
+        <div style="position:absolute;left:18px;right:18px;bottom:18px;height:34px;background:var(--lime)"></div>
+      </div>
+      <div style="font:500 17px 'IBM Plex Mono';color:var(--onblue-2);margin-top:28px;letter-spacing:.06em">OUTPUT</div>
+      <div style="font:500 26px 'IBM Plex Mono';margin-top:12px;background:var(--onblue);color:var(--blue);padding:20px 22px">const userData</div>
+      <div style="font:500 20px/1.35 'Instrument Sans';color:var(--onblue);margin-top:14px">Rule followed. It loads at the start of every session.</div>
+    </div>`;
+})();
+
+/* ---------- 07 spec sheet ---------- */
+document.getElementById("spec").innerHTML = [
+  ["/context", "See what's filling the window.", "Before you blame the model."],
+  ["CLAUDE.md", "Rules that load into every session.", "Anything you've typed twice."],
+  ["/clear", "Wipe the history, keep the rules.", "Every new task."],
+  ["/compact", "Summarise on your terms.", "“/compact keep the API decisions”"],
+  ["Subagents", "Side quests get their own window.", "Research, log digging, big reads."],
+].map(([c, w, when], i) => `
+  <div style="display:grid;grid-template-columns:60px 290px 1fr;align-items:baseline;padding:30px 0 28px;border-top:${i ? "1.5px solid var(--rule)" : "2px solid var(--ink)"}">
+    <span style="font:500 17px 'IBM Plex Mono';color:var(--ink-2)">0${i + 1}</span>
+    <span style="font:600 38px/1 'IBM Plex Mono';color:var(--blue);letter-spacing:-.02em">${c}</span>
+    <span><span style="display:block;font:500 28px/1.25 'Instrument Sans'">${w}</span>
+      <span style="display:block;font:400 21px/1.35 'IBM Plex Mono';color:var(--ink-2);margin-top:10px">${when}</span></span>
+  </div>`).join("") + `<div style="border-top:2px solid var(--ink)"></div>`;
+</script>
+</body>
+</html>
+<style>#s5 .hdl { color: var(--onblue-2); }</style>
