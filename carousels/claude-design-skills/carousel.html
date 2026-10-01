@@ -7,7 +7,7 @@
 <style>
   :root {
     --bg: #F3EEE5;
-    --bg-deep: #E9E1D4;
+    --bg-deep: #E8DFD1;
     --ink: #1D1A16;
     --muted: #6F665B;
     --accent: #D3633B;
@@ -23,8 +23,7 @@
 
   .slide {
     width: 1080px; height: 1350px; position: relative; overflow: hidden;
-    background:
-      radial-gradient(120% 80% at 50% 38%, var(--bg) 55%, var(--bg-deep) 100%);
+    background: radial-gradient(120% 80% at 50% 38%, var(--bg) 55%, var(--bg-deep) 100%);
     padding: 96px 88px 0;
     display: flex; flex-direction: column;
     margin-bottom: 40px;
@@ -32,9 +31,17 @@
   /* paper grain */
   .slide::before {
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg shape-rendering="crispEdges" xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .33  0 0 0 .18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .33  0 0 0 .18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
-  .slide > * { position: relative; }
+  /* faint dot grid fading out from the top */
+  .slide::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(29,26,22,.10) 2px, transparent 2.5px);
+    background-size: 36px 36px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 45%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 45%);
+  }
+  .slide > * { position: relative; z-index: 1; }
 
   .tag {
     align-self: flex-start; display: inline-block;
@@ -43,10 +50,10 @@
     padding: 20px 34px; border-radius: 999px;
     box-shadow: 0 6px 0 var(--accent-deep), 0 14px 30px rgba(180,78,42,.25);
   }
-  .tag.ghost { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 3px var(--accent); }
+  .tag.ghost { background: var(--card); color: var(--accent); box-shadow: inset 0 0 0 3px var(--accent); }
 
-  h1, h2 { font-family: 'Fraunces', serif; font-weight: 900; letter-spacing: -0.035em; font-variation-settings: "opsz" 144; }
-  h1 { font-size: 128px; line-height: .94; }
+  h1, h2 { font-family: 'Fraunces', serif; font-weight: 900; letter-spacing: -0.035em; }
+  h1 { font-size: 124px; line-height: .94; }
   h2 { font-size: 96px; line-height: .98; }
   em { font-style: italic; color: var(--accent); }
 
@@ -56,7 +63,7 @@
 
   /* footer */
   .foot {
-    position: absolute; left: 88px; right: 88px; bottom: 72px;
+    position: absolute; left: 88px; right: 88px; bottom: 72px; z-index: 2;
     display: flex; align-items: center; justify-content: space-between;
   }
   .handle { font: 700 26px/1 'Inter'; color: var(--muted); display: flex; align-items: center; gap: 14px; }
@@ -69,61 +76,116 @@
     padding: 20px 30px; border-radius: 999px; box-shadow: 0 5px 0 var(--accent-deep);
   }
 
-  /* cover */
-  .tiles { display: flex; gap: 22px; justify-content: center; margin-top: 44px; }
-  .tile {
-    width: 118px; height: 118px; border-radius: 30px; background: var(--card);
-    box-shadow: 0 2px 0 var(--line), 0 18px 32px rgba(60,40,20,.12);
-    display: grid; place-items: center; font: 800 46px/1 'Fraunces'; color: var(--ink);
-  }
-  .tile.a { background: var(--accent); color: #FFF4EA; }
-  .tile.n { background: var(--navy); color: #F3EEE5; }
-  .tile.s { background: var(--sage); color: #1D1A16; }
-  .tile.m { font: 700 38px/1 'JetBrains Mono'; }
+  svg.px { shape-rendering: crispEdges; display: block; }
+  .spark { position: absolute; z-index: 1; }
 
-  .sparkle { position: absolute; color: var(--gold); font-size: 54px; }
-
-  /* skill slide */
-  .skill-head { display: flex; justify-content: space-between; align-items: flex-start; }
-  .bignum {
-    font: italic 900 250px/.8 'Fraunces'; color: var(--accent); letter-spacing: -0.06em;
-    margin-top: -20px; margin-right: -8px;
+  /* ---- cover scene ---- */
+  .scene { margin: 36px -88px 0; height: 400px; position: relative; }
+  .scene svg { position: absolute; left: 0; bottom: 0; width: 1080px; }
+  .scene .pill {
+    position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
+    background: var(--ink); color: #F3EEE5; font: 800 24px/1 'Inter'; letter-spacing: .14em;
+    padding: 16px 26px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    display: flex; gap: 12px; align-items: center;
   }
-  .repo { font: 500 30px/1 'JetBrains Mono'; color: var(--muted); margin-top: 26px; }
+  .scene .pill b { width: 12px; height: 12px; background: var(--accent); border-radius: 3px; display: inline-block; }
+
+  /* ---- skill slide ---- */
+  .skill-head { display: grid; grid-template-columns: 1fr 330px; gap: 24px; align-items: start; }
+  .skill-head h2 { font-size: 84px; margin-top: 44px; }
+  .repo { font: 500 27px/1.2 'JetBrains Mono'; color: var(--muted); margin-top: 22px; }
+  .sticker {
+    width: 310px; height: 310px; border-radius: 44px; position: relative; margin-top: -6px;
+    border: 8px solid var(--card);
+    box-shadow: 0 3px 0 var(--line), 0 26px 50px rgba(60,40,20,.18);
+    display: grid; place-items: center;
+  }
+  .sticker::before { /* inner pixel grid texture */
+    content: ""; position: absolute; inset: 0; border-radius: 36px; opacity: .5;
+    background-image: linear-gradient(rgba(255,255,255,.45) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.45) 2px, transparent 2px);
+    background-size: 22px 22px;
+  }
+  .sticker svg { position: relative; }
+  .badge {
+    position: absolute; left: -34px; bottom: -30px; width: 116px; height: 116px; border-radius: 50%;
+    background: var(--accent); color: #FFF4EA; display: grid; place-items: center;
+    font: italic 900 58px/1 'Fraunces'; letter-spacing: -0.04em;
+    box-shadow: 0 6px 0 var(--accent-deep), 0 14px 24px rgba(180,78,42,.3);
+    border: 6px solid var(--card);
+  }
   .card {
-    background: var(--card); border-radius: 36px; padding: 44px 48px;
+    background: var(--card); border-radius: 36px; padding: 40px 46px;
     box-shadow: 0 2px 0 var(--line), 0 24px 50px rgba(60,40,20,.10);
   }
   .label { font: 800 22px/1 'Inter'; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
   .chips { display: flex; flex-wrap: wrap; gap: 14px; }
   .chip {
     font: 700 27px/1 'Inter'; padding: 16px 24px; border-radius: 999px;
-    background: transparent; box-shadow: inset 0 0 0 2.5px var(--ink); color: var(--ink);
+    background: var(--card); box-shadow: inset 0 0 0 2.5px var(--ink), 0 4px 0 var(--ink); color: var(--ink);
   }
   .cmd {
-    background: var(--ink); color: #F3EEE5; border-radius: 26px; padding: 34px 38px;
-    font: 500 29px/1.4 'JetBrains Mono'; word-break: break-word;
+    background: var(--ink); color: #F3EEE5; border-radius: 26px; padding: 30px 36px;
+    font: 500 28px/1.4 'JetBrains Mono'; overflow-wrap: anywhere;
     box-shadow: 0 6px 0 #000, 0 20px 40px rgba(0,0,0,.18);
   }
   .cmd .p { color: var(--accent); font-weight: 700; margin-right: 14px; }
   .cmd .f { color: var(--gold); }
+  .cmd-top { display: flex; gap: 10px; margin-bottom: 18px; }
+  .cmd-top i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
 
-  /* stack slide */
+  /* ---- problem slide: generic site mockup ---- */
+  .mock-wrap { position: relative; margin-top: 44px; height: 430px; }
+  .mock {
+    position: absolute; inset: 0 20px 0 20px; background: #fff; border-radius: 28px; overflow: hidden;
+    box-shadow: 0 3px 0 var(--line), 0 30px 60px rgba(60,40,20,.18); transform: rotate(-2deg);
+    filter: saturate(.85);
+  }
+  .mock .bar { height: 46px; background: #EFEAF7; display: flex; gap: 10px; align-items: center; padding: 0 20px; }
+  .mock .bar i { width: 14px; height: 14px; border-radius: 50%; background: #CFC6E6; }
+  .mock .bar u { margin-left: 18px; height: 20px; width: 340px; border-radius: 10px; background: #fff; }
+  .mock .hero {
+    height: 190px; background: linear-gradient(120deg, #6E5CF2, #B36BE8 60%, #E07BC9);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  }
+  .mock .hero s { display: block; height: 22px; border-radius: 11px; background: rgba(255,255,255,.9); }
+  .mock .hero .btn { width: 150px; height: 40px; border-radius: 20px; background: #fff; margin-top: 8px; }
+  .mock .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 26px 28px; }
+  .mock .c { height: 120px; border-radius: 18px; background: #F6F4FB; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .mock .c i { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(120deg,#6E5CF2,#B36BE8); }
+  .mock .c s { display: block; height: 12px; border-radius: 6px; background: #DCD7EA; }
+  .stamp {
+    position: absolute; right: -6px; top: 70px; transform: rotate(9deg);
+    border: 6px solid var(--accent); color: var(--accent); border-radius: 18px; padding: 14px 22px;
+    font: 900 34px/1 'Inter'; letter-spacing: .06em; text-transform: uppercase; background: rgba(251,248,243,.92);
+    text-align: center;
+  }
+  .stamp small { display: block; font: 700 18px/1 'Inter'; letter-spacing: .2em; margin-top: 8px; }
+  .callout {
+    position: absolute; background: var(--ink); color: #F3EEE5; font: 700 25px/1 'Inter';
+    padding: 15px 22px; border-radius: 999px; display: flex; gap: 12px; align-items: center;
+    box-shadow: 0 10px 22px rgba(0,0,0,.2);
+  }
+  .callout b { color: var(--accent); font-weight: 900; }
+
+  /* ---- stack slide ---- */
   .stack { display: flex; flex-direction: column; gap: 14px; }
-  .row { display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 28px;
-         background: var(--card); border-radius: 28px; padding: 24px 36px;
+  .row { display: grid; grid-template-columns: 92px 210px 1fr; align-items: center; gap: 22px;
+         background: var(--card); border-radius: 28px; padding: 18px 30px 18px 18px;
          box-shadow: 0 2px 0 var(--line), 0 14px 30px rgba(60,40,20,.08); }
-  .row .step { font: italic 900 46px/1 'Fraunces'; color: var(--accent); }
-  .row .what { font: 700 30px/1.25 'Inter'; }
-  .row .what span { display: block; font: 500 26px/1.3 'JetBrains Mono'; color: var(--muted); margin-top: 8px; }
+  .row .ico { width: 92px; height: 92px; border-radius: 22px; display: grid; place-items: center; }
+  .row .step { font: italic 900 42px/1 'Fraunces'; color: var(--accent); }
+  .row .what { font: 700 29px/1.25 'Inter'; }
+  .row .what span { display: block; font: 500 24px/1.3 'JetBrains Mono'; color: var(--muted); margin-top: 6px; }
 
-  /* problem slide */
-  .slop { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .slop div { background: var(--card); border-radius: 24px; padding: 24px 30px; font: 700 30px/1.25 'Inter';
-              box-shadow: 0 2px 0 var(--line); display: flex; gap: 18px; align-items: center; }
-  .slop div::before { content: "✕"; color: var(--accent); font-weight: 900; font-size: 30px; }
-
-  .pixel { image-rendering: pixelated; }
+  /* ---- CTA ---- */
+  .bubble {
+    position: absolute; background: var(--card); padding: 18px 26px; font: 900 34px/1 'Inter'; color: var(--accent);
+    box-shadow: 0 0 0 6px var(--ink), 0 14px 26px rgba(0,0,0,.15); border-radius: 4px; letter-spacing: .02em;
+  }
+  .bubble::after {
+    content: ""; position: absolute; width: 24px; height: 24px; background: var(--card);
+    left: 34px; bottom: -18px; box-shadow: 6px 6px 0 var(--ink); transform: skewX(-20deg);
+  }
 </style>
 </head>
 <body>
@@ -131,41 +193,38 @@
 <!-- 1 · COVER -->
 <section class="slide" id="s1">
   <div class="tag" style="align-self:center">Claude Code Skills</div>
-  <h1 style="text-align:center;margin-top:56px">Stop shipping<br>UI that looks<br><em>AI-made.</em></h1>
-  <p class="sub" style="text-align:center;margin-top:40px">7 free skills. One command each.</p>
-  <div class="tiles">
-    <div class="tile a">Aa</div>
-    <div class="tile m">{ }</div>
-    <div class="tile n">UX</div>
-    <div class="tile s">✦</div>
-    <div class="tile m">$_</div>
+  <h1 style="text-align:center;margin-top:52px">Stop shipping<br>UI that looks<br><em>AI-made.</em></h1>
+  <p class="sub" style="text-align:center;margin-top:34px">7 free skills. One command each.</p>
+  <div class="scene">
+    <svg class="px" id="crowd"></svg>
   </div>
-  <div style="display:flex;justify-content:center;margin-top:30px">
-    <svg shape-rendering="crispEdges" class="pixel mascot" data-size="17" width="300" height="300"></svg>
-  </div>
-  <span class="sparkle" style="left:250px;top:990px">✦</span>
-  <span class="sparkle" style="right:250px;top:930px;font-size:40px">✦</span>
-  <div class="foot"><div class="handle"><i></i>@actwithashu</div><div class="dots"></div><div class="swipe">SWIPE →</div></div>
+  <div class="foot"></div>
 </section>
 
 <!-- 2 · PROBLEM -->
 <section class="slide" id="s2">
   <div class="tag ghost">The problem</div>
   <h2 style="margin-top:44px">Why does every AI site look the <em>same?</em></h2>
-  <p class="body" style="margin-top:32px">No direction? Claude falls back to its <b>safest defaults</b>. You've seen them a thousand times:</p>
-  <div class="slop" style="margin-top:32px">
-    <div>Purple gradient hero</div>
-    <div>Three identical cards</div>
-    <div>Everything centered</div>
-    <div>Generic fade-ins</div>
-    <div>One default font</div>
-    <div>Emoji as icons</div>
+  <div class="mock-wrap">
+    <div class="mock">
+      <div class="bar"><i></i><i></i><i></i><u></u></div>
+      <div class="hero"><s style="width:420px;height:30px"></s><s style="width:300px"></s><div class="btn"></div></div>
+      <div class="cards">
+        <div class="c"><i></i><s style="width:70%"></s><s></s><s style="width:85%"></s></div>
+        <div class="c"><i></i><s style="width:70%"></s><s></s><s style="width:85%"></s></div>
+        <div class="c"><i></i><s style="width:70%"></s><s></s><s style="width:85%"></s></div>
+      </div>
+    </div>
+    <div class="stamp">Seen it<small>1,000 times</small></div>
+    <div class="callout" style="left:-14px;top:118px;transform:rotate(-4deg)"><b>✕</b>Purple gradient</div>
+    <div class="callout" style="right:-10px;bottom:150px;transform:rotate(3deg)"><b>✕</b>Everything centered</div>
+    <div class="callout" style="left:60px;bottom:-14px;transform:rotate(-2deg)"><b>✕</b>3 identical cards</div>
   </div>
-  <div class="card" style="margin-top:36px">
+  <div class="card" style="margin-top:44px">
     <div class="label">The fix</div>
-    <p class="body"><b>Skills</b> are instruction files Claude loads on its own. Install once, and the taste sticks in every session.</p>
+    <p class="body">No direction? Claude falls back to its <b>safest defaults</b>. <b>Skills</b> are instruction files it loads on its own, so your taste sticks in every session.</p>
   </div>
-  <div class="foot"><div class="handle"><i></i>@actwithashu</div><div class="dots"></div><div class="swipe">SWIPE →</div></div>
+  <div class="foot"></div>
 </section>
 
 <!-- 3–9 · SKILLS (filled by script) -->
@@ -175,106 +234,84 @@
 <section class="slide" id="s10">
   <div class="tag ghost">How they stack</div>
   <h2 style="margin-top:44px">Don't install all 7.<br>Use them in <em>order.</em></h2>
-  <div class="stack" style="margin-top:44px">
-    <div class="row"><div class="step">Direction</div><div class="what">Set the look before any code<span>design-taste-frontend</span></div></div>
-    <div class="row"><div class="step">Structure</div><div class="what">Make it usable and accessible<span>ux-designer</span></div></div>
-    <div class="row"><div class="step">Build</div><div class="what">Ship it as a real working app<span>web-artifacts-builder</span></div></div>
-    <div class="row"><div class="step">Motion</div><div class="what">Make it feel smooth, not slideshow<span>transitions-dev</span></div></div>
-    <div class="row"><div class="step">Launch</div><div class="what">Posters and store screenshots<span>canvas-design · app-store-screenshots</span></div></div>
-  </div>
-  <div class="foot"><div class="handle"><i></i>@actwithashu</div><div class="dots"></div><div class="swipe">SWIPE →</div></div>
+  <div class="stack" style="margin-top:48px" id="stack"></div>
+  <div class="foot"></div>
 </section>
 
 <!-- 11 · CTA -->
 <section class="slide" id="s11" style="align-items:center;text-align:center">
   <div class="tag" style="align-self:center">Save this</div>
-  <h1 style="margin-top:80px;font-size:112px">Your next build<br>deserves <em>taste.</em></h1>
-  <p class="sub" style="margin-top:32px;max-width:860px">Every command is tested. All public repos.<br>Nothing paid or sponsored.</p>
-  <div style="margin-top:28px">
-    <svg shape-rendering="crispEdges" class="pixel mascot" data-size="13" data-wave="1" width="240" height="240"></svg>
+  <h1 style="margin-top:56px;font-size:112px">Your next build<br>deserves <em>taste.</em></h1>
+  <p class="sub" style="margin-top:30px">Every command tested. All public repos.<br>Nothing paid or sponsored.</p>
+  <div style="position:relative;width:100%;height:320px;margin-top:18px">
+    <svg class="px" id="ctaScene" style="position:absolute;left:50%;transform:translateX(-50%);bottom:0"></svg>
+    <div class="bubble" style="left:600px;top:16px">SKILLS!</div>
   </div>
-  <div class="card" style="margin-top:28px;width:100%;padding:36px 48px">
+  <div class="card" style="margin-top:22px;width:100%;padding:34px 48px">
     <p style="font:800 44px/1.25 'Inter'">Comment <span style="color:var(--accent)">“SKILLS”</span></p>
-    <p class="body" style="margin-top:10px">and I'll DM you every install command.</p>
+    <p class="body" style="margin-top:8px">and I'll DM you every install command.</p>
   </div>
-  <div class="foot"><div class="handle"><i></i>@actwithashu</div><div class="dots"></div><div class="swipe">FOLLOW +</div></div>
+  <div class="foot"></div>
 </section>
 
 <script>
-/* ---------- skills data ---------- */
-const skills = [
-  { name: "Design Taste", repo: "Leonxlnx/taste-skill",
-    does: "The anti-slop skill. Claude <b>reads your brief, picks a real design direction</b> and runs a pre-flight check before it ships. No more template look.",
-    use: ["Landing pages", "Portfolios", "Redesigns"],
-    cmd: 'npx skills add Leonxlnx/taste-skill',
-    note: "Ships 13 skills, incl. minimalist + brutalist styles" },
-  { name: "UX Designer", repo: "szilu/ux-designer-skill",
-    does: "Turns Claude into a <b>UX reviewer</b>. Audits accessibility (WCAG 2.2), writes microcopy, and gets forms, tables and navigation right.",
-    use: ["UI audits", "Forms", "Dashboards", "Accessibility"],
-    cmd: 'git clone https://github.com/szilu/ux-designer-skill.git ~/.claude/skills/ux-designer' },
-  { name: "Transitions", repo: "Jakubantalik/transitions.dev",
-    does: "<b>Production-ready CSS motion</b> for modals, dropdowns, toasts, tabs and loaders, all tuned to one motion-token scale.",
-    use: ["Modals", "Toasts", "Loaders", "Hover states"],
-    cmd: 'npx skills add Jakubantalik/transitions.dev',
-    note: "Includes transitions-polish to tune existing motion" },
-  { name: "Canvas Design", repo: "anthropics/skills",
-    does: "Anthropic's own skill for <b>posters and visual art</b>. It writes a design philosophy first, then renders a finished PNG or PDF.",
-    use: ["Posters", "Covers", "Brand art"],
-    cmd: 'npx skills add anthropics/skills <span class="f">--skill canvas-design</span>' },
-  { name: "Web Artifacts", repo: "anthropics/skills",
-    does: "Builds <b>multi-page React apps</b> with Tailwind and shadcn/ui, then bundles everything into a single shareable HTML file.",
-    use: ["Dashboards", "Mini-apps", "Prototypes"],
-    cmd: 'npx skills add anthropics/skills <span class="f">--skill web-artifacts-builder</span>' },
-  { name: "App Store Shots", repo: "ParthJadhav/app-store-screenshots",
-    does: "Makes <b>App Store and Google Play marketing screenshots</b> with device mockups, ready to export for iOS, macOS and Android.",
-    use: ["iOS", "Android", "macOS", "Launch day"],
-    cmd: 'npx skills add ParthJadhav/app-store-screenshots' },
-  { name: "Redesign", repo: "Leonxlnx/taste-skill",
-    does: "Point it at a site that already exists. It <b>audits the design, flags the generic AI patterns</b> and upgrades them without breaking what works.",
-    use: ["Old sites", "Client work", "MVP polish"],
-    cmd: 'npx skills add Leonxlnx/taste-skill <span class="f">--skill redesign-existing-projects</span>' },
-];
+const HANDLE = "@theashutoshjain";
 
-const foot = (label = "SWIPE →") =>
-  `<div class="foot"><div class="handle"><i></i>@actwithashu</div><div class="dots"></div><div class="swipe">${label}</div></div>`;
+/* ================= pixel engine ================= */
+const PAL = {
+  k: "#1D1A16", o: "#D3633B", d: "#B44E2A", n: "#2C2F5B", w: "#FBF8F3", g: "#E8B34B",
+  s: "#8FA67E", S: "#6E8A5E", b: "#8B5A3C", B: "#D9A066", l: "#9CC8E6", L: "#6FA6CF",
+  y: "#E99AAE", r: "#C4BDB1", R: "#A39C91", W: "#E2DCD1", p: "#8B7BD8", P: "#6E5CF2",
+};
+function grid(w, h) {
+  const c = Array.from({ length: h }, () => Array(w).fill(null));
+  const set = (x, y, v) => { x = Math.round(x); y = Math.round(y); if (x >= 0 && y >= 0 && x < w && y < h) c[y][x] = v; };
+  const g = {
+    w, h, c,
+    px: (x, y, v) => (set(x, y, v), g),
+    rect: (x, y, rw, rh, v) => { for (let j = 0; j < rh; j++) for (let i = 0; i < rw; i++) set(x + i, y + j, v); return g; },
+    circle: (cx, cy, r, v) => { for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if ((x - cx) ** 2 + (y - cy) ** 2 <= r * r) set(x, y, v); return g; },
+    line: (x0, y0, x1, y1, v, t = 1) => {
+      const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0));
+      for (let i = 0; i <= n; i++) { const x = x0 + (x1 - x0) * i / n, y = y0 + (y1 - y0) * i / n;
+        for (let a = 0; a < t; a++) for (let b = 0; b < t; b++) set(x + a, y + b, v); }
+      return g;
+    },
+    art: (rows, ox = 0, oy = 0, map = {}) => { rows.forEach((r, y) => [...r].forEach((ch, x) => { if (ch !== ".") set(ox + x, oy + y, map[ch] || ch); })); return g; },
+    outline: (v = "k") => {
+      const add = [];
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (!c[y][x] &&
+        [[1,0],[-1,0],[0,1],[0,-1]].some(([dx, dy]) => c[y + dy] && c[y + dy][x + dx] && c[y + dy][x + dx] !== "_")) add.push([x, y]);
+      add.forEach(([x, y]) => (c[y][x] = v)); return g;
+    },
+    rows: () => c.map(r => r.map(v => (v && v !== "_" ? v : ".")).join("")),
+  };
+  return g;
+}
+/* grid -> svg rects (row runs merged to avoid seams) */
+function toSVG(g, px, ox = 0, oy = 0) {
+  let out = "";
+  g.c.forEach((row, y) => {
+    let x = 0;
+    while (x < g.w) {
+      const v = row[x]; if (!v || v === "_") { x++; continue; }
+      let e = x; while (e + 1 < g.w && row[e + 1] === v) e++;
+      out += `<rect x="${ox + x * px}" y="${oy + y * px}" width="${(e - x + 1) * px + .3}" height="${px + .3}" fill="${PAL[v] || v}"/>`;
+      x = e + 1;
+    }
+  });
+  return out;
+}
+function paint(svg, g, px) {
+  svg.setAttribute("width", g.w * px); svg.setAttribute("height", g.h * px);
+  svg.setAttribute("viewBox", `0 0 ${g.w * px} ${g.h * px}`);
+  svg.innerHTML = toSVG(g, px);
+}
 
-document.getElementById("skills").outerHTML = skills.map((s, i) => `
-<section class="slide" id="s${i + 3}">
-  <div class="skill-head">
-    <div>
-      <div class="tag ghost">Skill ${String(i + 1).padStart(2, "0")} / 07</div>
-      <h2 style="margin-top:56px;font-size:${s.name.length > 12 ? 92 : 108}px">${s.name}</h2>
-      <div class="repo">${s.repo}</div>
-    </div>
-    <div class="bignum">${String(i + 1).padStart(2, "0")}</div>
-  </div>
-  <div class="card" style="margin-top:44px">
-    <div class="label">What it does</div>
-    <p class="body">${s.does}</p>
-  </div>
-  <div style="margin-top:36px">
-    <div class="label">Use it for</div>
-    <div class="chips">${s.use.map(u => `<span class="chip">${u}</span>`).join("")}</div>
-  </div>
-  <div style="margin-top:36px">
-    <div class="label">Install</div>
-    <div class="cmd"><span class="p">$</span>${s.cmd}</div>
-    ${s.note ? `<p style="font:600 25px/1.3 Inter;color:var(--muted);margin-top:20px">+ ${s.note}</p>` : ""}
-  </div>
-  ${foot()}
-</section>`).join("");
-
-/* ---------- pagination dots ---------- */
-const slides = [...document.querySelectorAll(".slide")];
-slides.forEach((sl, idx) => {
-  sl.querySelector(".dots").innerHTML = slides.map((_, j) => `<span class="${j === idx ? "on" : ""}"></span>`).join("");
-});
-
-/* ---------- pixel mascot: a little painter bot ---------- */
-const C = { k: "#1D1A16", o: "#D3633B", d: "#B44E2A", n: "#2C2F5B", w: "#FBF8F3", g: "#E8B34B", s: "#8FA67E", b: "#8B5A3C" };
-const art = [
-  "........gg..........",
-  "........gg..........",
+/* mascot */
+const BOT = [
+  "....................",
+  "....................",
   ".........k..........",
   "....nnnnnnnnnnn.....",
   "...nnnnnnnnnnnnn....",
@@ -294,22 +331,184 @@ const art = [
   "....nnn....nnn......",
   "...kkkk....kkkk.....",
 ];
-const waveArt = art.map((r, y) => {
-  if (y === 12) return ".gooooooooooooooo....";
-  if (y === 11) return "g....ooooooooo......";
-  return r;
+const ANTENNA = ["........gg..........", "........gg.........."];
+const CROWN   = [".....g...g...g......", ".....ggggggggg......", "......gyggggyg......"];
+const GREY = { n: "R", w: "W", o: "r", d: "R", g: "R", s: "R", b: "R" };
+const SMILE = { 9: "...nwwkwwwwwkwwn....", 10: "...nnnkkkkkkknnn...." };
+
+/* ---- item sprites, 20x20, auto-outlined ---- */
+const SPRITES = {
+  palette: () => grid(20, 20).circle(9, 11, 7.6, "B").circle(12.5, 14, 1.8, "_")
+    .circle(5.5, 8, 1.4, "o").circle(9.5, 6.5, 1.4, "n").circle(4.8, 12.5, 1.4, "s").circle(8.5, 15.5, 1.4, "y").circle(13.5, 9, 1.4, "g")
+    .line(18, 1, 11, 9, "b", 2).rect(10, 9, 2, 2, "o").outline(),
+  magnifier: () => grid(20, 20).circle(8, 8, 6.6, "n").circle(8, 8, 4.8, "l")
+    .rect(5, 5, 2, 1, "w").rect(5, 6, 1, 2, "w").rect(9, 9, 3, 1, "L").rect(11, 7, 1, 2, "L")
+    .line(13, 13, 17, 17, "o", 3).outline(),
+  motion: () => grid(20, 20).circle(13.5, 10, 4.8, "o").rect(11, 7, 2, 2, "w").rect(14, 13, 3, 1, "d").rect(17, 10, 1, 3, "d")
+    .rect(1, 7, 6, 2, "g").rect(3, 10.5, 5, 2, "y").rect(0, 14, 7, 2, "g").outline(),
+  easel: () => grid(20, 20).line(10, 4, 4, 18, "b", 2).line(9, 4, 15, 18, "b", 2).line(9, 4, 9, 18, "b", 2)
+    .rect(2, 2, 16, 11, "w").circle(13, 5.5, 1.6, "g").rect(3, 9, 14, 3, "s").rect(5, 7, 5, 2, "s").rect(6, 6, 3, 1, "s").rect(12, 8, 4, 1, "S")
+    .rect(2, 13, 16, 1, "B").outline(),
+  browser: () => grid(20, 20).rect(1, 2, 18, 15, "w").rect(1, 2, 18, 3, "n").px(3, 3, "o").px(5, 3, "g").px(7, 3, "s")
+    .rect(3, 7, 9, 3, "o").rect(13, 7, 4, 3, "y").rect(3, 11, 7, 1, "r").rect(3, 13, 4, 2, "l").rect(8, 13, 4, 2, "s").rect(13, 13, 4, 2, "g").outline(),
+  phone: () => grid(20, 20).rect(5, 0, 10, 20, "n").px(5, 0, null).px(14, 0, null).px(5, 19, null).px(14, 19, null)
+    .rect(6, 2, 8, 14, "l").rect(7, 3, 6, 5, "o").rect(9, 4, 2, 2, "g").rect(7, 9, 6, 1, "w").rect(7, 11, 4, 1, "w").rect(7, 13, 6, 2, "g")
+    .rect(9, 17, 2, 1, "w").outline(),
+  wrench: () => grid(20, 20).line(3, 16, 11, 8, "r", 3).circle(13, 6, 3.8, "r").rect(13, 2, 3, 4, null).rect(4, 15, 2, 2, "R")
+    .rect(16, 13, 1, 5, "g").rect(14, 15, 5, 1, "g").rect(3, 2, 1, 5, "g").rect(1, 4, 5, 1, "g").outline(),
+  heart: () => { const g = grid(18, 16).circle(5, 5, 3.6, "o").circle(12, 5, 3.6, "o"); for (let i = 0; i < 8; i++) g.rect(2 + i, 6 + i, 14 - 2 * i, 1, "o"); return g.rect(3, 3, 2, 2, "w").outline(); },
+  bookmark: () => { const g = grid(14, 18).rect(1, 1, 12, 16, "g"); for (let i = 0; i < 4; i++) g.rect(6 - i, 13 + i, 2 + 2 * i, 1, null); return g.rect(3, 3, 2, 5, "w").outline(); },
+  spark: (c = "g") => grid(9, 9).rect(4, 0, 1, 9, c).rect(0, 4, 9, 1, c).rect(3, 3, 3, 3, c),
+};
+
+/* ================= content ================= */
+const skills = [
+  { name: "Design Taste", repo: "Leonxlnx/taste-skill", sprite: "palette", tint: "#F6DCCB",
+    does: "The anti-slop skill. Claude <b>reads your brief, picks a real design direction</b> and runs a pre-flight check before it ships.",
+    use: ["Landing pages", "Portfolios", "Redesigns"],
+    cmd: 'npx skills add Leonxlnx/taste-skill', note: "Ships 13 skills, incl. minimalist + brutalist styles" },
+  { name: "UX Designer", repo: "szilu/ux-designer-skill", sprite: "magnifier", tint: "#DCE6F0",
+    does: "Turns Claude into a <b>UX reviewer</b>. Audits accessibility (WCAG 2.2), writes microcopy, fixes forms and navigation.",
+    use: ["UI audits", "Forms", "Accessibility"],
+    cmd: 'git clone https://github.com/szilu/ux-designer-skill.git ~/.claude/skills/ux-designer' },
+  { name: "Transitions", repo: "Jakubantalik/transitions.dev", sprite: "motion", tint: "#F7E6C4",
+    does: "<b>Production-ready CSS motion</b> for modals, dropdowns, toasts, tabs and loaders, all on one motion-token scale.",
+    use: ["Modals", "Toasts", "Loaders", "Hovers"],
+    cmd: 'npx skills add Jakubantalik/transitions.dev', note: "Includes transitions-polish to tune existing motion" },
+  { name: "Canvas Design", repo: "anthropics/skills", sprite: "easel", tint: "#E3EAD9",
+    does: "Anthropic's own skill for <b>posters and visual art</b>. Writes a design philosophy first, then renders a PNG or PDF.",
+    use: ["Posters", "Covers", "Brand art"],
+    cmd: 'npx skills add anthropics/skills <span class="f">--skill canvas-design</span>' },
+  { name: "Web Artifacts", repo: "anthropics/skills", sprite: "browser", tint: "#E8E1F3",
+    does: "Builds <b>multi-page React apps</b> with Tailwind and shadcn/ui, bundled into one shareable HTML file.",
+    use: ["Dashboards", "Mini-apps", "Prototypes"],
+    cmd: 'npx skills add anthropics/skills <span class="f">--skill web-artifacts-builder</span>' },
+  { name: "App Store Shots", repo: "ParthJadhav/app-store-screenshots", sprite: "phone", tint: "#DCEBF2",
+    does: "Makes <b>App Store and Google Play screenshots</b> with device mockups, ready to export for iOS, macOS and Android.",
+    use: ["iOS", "Android", "macOS", "Launch day"],
+    cmd: 'npx skills add ParthJadhav/app-store-screenshots' },
+  { name: "Redesign", repo: "Leonxlnx/taste-skill", sprite: "wrench", tint: "#F3D9D2",
+    does: "Point it at a site that already exists. It <b>flags the generic AI patterns</b> and upgrades them without breaking what works.",
+    use: ["Old sites", "Client work", "MVP polish"],
+    cmd: 'npx skills add Leonxlnx/taste-skill <span class="f">--skill redesign-existing-projects</span>' },
+];
+
+document.getElementById("skills").outerHTML = skills.map((s, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `
+<section class="slide" id="s${i + 3}">
+  <div class="skill-head">
+    <div>
+      <div class="tag ghost">Skill ${n} / 07</div>
+      <h2>${s.name}</h2>
+      <div class="repo">${s.repo}</div>
+    </div>
+    <div class="sticker" style="background:${s.tint};transform:rotate(${i % 2 ? -4 : 4}deg)">
+      <svg class="px sprite" data-sprite="${s.sprite}" data-px="12"></svg>
+      <div class="badge">${n}</div>
+      <svg class="px spark-svg" data-px="5" style="position:absolute;right:-18px;top:-22px"></svg>
+    </div>
+  </div>
+  <div class="card" style="margin-top:72px">
+    <div class="label">What it does</div>
+    <p class="body">${s.does}</p>
+  </div>
+  <div style="margin-top:52px">
+    <div class="label">Use it for</div>
+    <div class="chips">${s.use.map(u => `<span class="chip">${u}</span>`).join("")}</div>
+  </div>
+  <div style="margin-top:52px">
+    <div class="cmd"><div class="cmd-top"><i style="background:#D3633B"></i><i style="background:#E8B34B"></i><i style="background:#8FA67E"></i></div><span class="p">$</span>${s.cmd}</div>
+    ${s.note ? `<p style="font:600 25px/1.3 Inter;color:var(--muted);margin-top:18px">+ ${s.note}</p>` : ""}
+  </div>
+  <div class="foot"></div>
+</section>`;
+}).join("");
+
+/* stack rows */
+const stack = [
+  ["Direction", "Set the look before any code", "design-taste-frontend", "palette", "#F6DCCB"],
+  ["Structure", "Make it usable and accessible", "ux-designer", "magnifier", "#DCE6F0"],
+  ["Build", "Ship it as a real working app", "web-artifacts-builder", "browser", "#E8E1F3"],
+  ["Motion", "Make it feel smooth", "transitions-dev", "motion", "#F7E6C4"],
+  ["Launch", "Posters + store screenshots", "canvas-design · app-store-…", "phone", "#DCEBF2"],
+];
+document.getElementById("stack").innerHTML = stack.map(([step, what, sk, spr, tint]) =>
+  `<div class="row"><div class="ico" style="background:${tint}"><svg class="px sprite" data-sprite="${spr}" data-px="3.6"></svg></div>
+   <div class="step">${step}</div><div class="what">${what}<span>${sk}</span></div></div>`).join("");
+
+/* footers + dots */
+const slides = [...document.querySelectorAll(".slide")];
+slides.forEach((sl, idx) => {
+  const last = idx === slides.length - 1;
+  sl.querySelector(".foot").innerHTML =
+    `<div class="handle"><i></i>${HANDLE}</div>
+     <div class="dots">${slides.map((_, j) => `<span class="${j === idx ? "on" : ""}"></span>`).join("")}</div>
+     <div class="swipe">${last ? "FOLLOW +" : "SWIPE →"}</div>`;
 });
-document.querySelectorAll("svg.mascot").forEach(svg => {
-  const grid = svg.dataset.wave ? waveArt : art;
-  const px = +svg.dataset.size;
-  const cols = Math.max(...grid.map(r => r.length));
-  svg.setAttribute("viewBox", `0 0 ${cols * px} ${grid.length * px + px * 2}`);
-  let out = `<ellipse cx="${(cols * px) / 2 - px}" cy="${grid.length * px + px * .8}" rx="${cols * px * .32}" ry="${px * .7}" fill="rgba(60,40,20,.14)"/>`;
-  grid.forEach((row, y) => [...row].forEach((ch, x) => {
-    if (C[ch]) out += `<rect x="${x * px}" y="${y * px}" width="${px + .5}" height="${px + .5}" fill="${C[ch]}"/>`;
-  }));
-  svg.innerHTML = out;
-});
+
+/* paint sprites */
+document.querySelectorAll("svg.sprite").forEach(svg => paint(svg, SPRITES[svg.dataset.sprite](), +svg.dataset.px));
+document.querySelectorAll("svg.spark-svg").forEach(svg => paint(svg, SPRITES.spark(), +svg.dataset.px));
+
+/* scattered sparkles */
+const sparkSpots = {
+  s1: [[70, 300, "g", 6], [960, 250, "o", 5], [930, 470, "g", 4], [110, 560, "s", 4]],
+  s2: [[960, 120, "g", 6], [40, 1110, "o", 4]],
+  s10: [[960, 130, "g", 6], [1000, 330, "o", 4]],
+  s11: [[90, 260, "g", 6], [960, 330, "o", 5], [150, 800, "s", 5], [920, 900, "g", 4]],
+};
+skills.forEach((_, i) => (sparkSpots["s" + (i + 3)] = [[56, 560, i % 2 ? "o" : "g", 4], [1010, 520, "s", 4]]));
+Object.entries(sparkSpots).forEach(([id, spots]) => spots.forEach(([x, y, c, p]) => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.classList.add("px", "spark"); svg.style.left = x + "px"; svg.style.top = y + "px";
+  paint(svg, SPRITES.spark(c), p); document.getElementById(id).appendChild(svg);
+}));
+
+/* ---- cover crowd scene: identical grey bots, one hero ---- */
+(() => {
+  const W = 216, H = 80, g = grid(W, H);
+  const grey = BOT.slice(2);
+  const rows = [[2, 0], [12, 12], [2, 24]];
+  rows.forEach(([ox, oy], ri) => {
+    for (let x = ox - 20; x < W; x += 20) {
+      if (ri === 2 && x > 60 && x < 140) continue;        // gap for the hero
+      g.art(grey, x, oy, GREY);
+    }
+  });
+  const hero = BOT.slice(); hero[0] = CROWN[0]; hero[1] = CROWN[1]; hero[2] = CROWN[2];
+  Object.entries(SMILE).forEach(([y, r]) => (hero[y] = r));
+  const svg = document.getElementById("crowd");
+  const px = 1080 / W;
+  const heroPx = px * 3, heroW = 20 * heroPx, heroH = 20 * heroPx;
+  const hx = (1080 - heroW) / 2 + heroPx, hy = H * px - heroH;
+  const hg = grid(20, 20).art(hero);
+  svg.setAttribute("viewBox", `0 0 1080 ${H * px}`); svg.setAttribute("height", H * px);
+  svg.innerHTML =
+    `<defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0EAE0" stop-opacity=".55"/><stop offset="1" stop-color="#F0EAE0" stop-opacity="0"/></linearGradient>
+     <radialGradient id="glow"><stop offset="0" stop-color="#E8B34B" stop-opacity=".6"/><stop offset="1" stop-color="#E8B34B" stop-opacity="0"/></radialGradient></defs>` +
+    toSVG(g, px) +
+    `<rect x="0" y="0" width="1080" height="${H * px}" fill="url(#fade)"/>` +
+    `<ellipse cx="540" cy="${hy + heroH * .45}" rx="${heroW * .75}" ry="${heroH * .62}" fill="url(#glow)"/>` +
+    `<ellipse cx="${hx + heroW / 2 - heroPx * 1.5}" cy="${hy + heroH - heroPx * .2}" rx="${heroW * .34}" ry="${heroPx * .9}" fill="rgba(60,40,20,.18)"/>` +
+    toSVG(hg, heroPx, hx, hy);
+})();
+
+/* ---- CTA scene: bot waving, heart + bookmark ---- */
+(() => {
+  const bot = BOT.slice(); bot[0] = ANTENNA[0]; bot[1] = ANTENNA[1];
+  Object.entries(SMILE).forEach(([y, r]) => (bot[y] = r));
+  bot[11] = "g....ooooooooo......"; bot[12] = ".gooooooooooooooo....";
+  const g = grid(64, 22);
+  g.art(SPRITES.heart().rows(), 2, 5);
+  g.art(bot, 22, 2);
+  g.art(SPRITES.bookmark().rows(), 46, 4);
+  const svg = document.getElementById("ctaScene");
+  const px = 13;
+  svg.setAttribute("width", g.w * px); svg.setAttribute("height", g.h * px + 20);
+  svg.setAttribute("viewBox", `0 0 ${g.w * px} ${g.h * px + 20}`);
+  svg.innerHTML = `<ellipse cx="${(22 + 9) * px}" cy="${21.6 * px}" rx="${7 * px}" ry="${px * .8}" fill="rgba(60,40,20,.16)"/>` + toSVG(g, px);
+})();
 </script>
 </body>
 </html>
