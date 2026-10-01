@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Claude Is Coding Blind</title>
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>
+:root {
+  --cream: #F2E9DE;
+  --mist: #E7E6EC;
+  --sand: #EEE3D5;
+  --forest: #1D3A32;
+  --night: #15161B;
+  --ink: #1B1A18;
+  --ink-2: #4A4743;
+  --orange: #E4683C;
+  --orange-deep: #C9532A;
+  --free: #1F9D58;
+  --card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #777; font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.slide { width: 1080px; height: 1350px; position: relative; overflow: hidden; margin-bottom: 40px; }
+.slide::after { /* soft paper vignette, as in the reference */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(60,40,20,.10) 100%);
+}
+.slide.dark::after { background: radial-gradient(120% 90% at 50% 35%, transparent 50%, rgba(0,0,0,.35) 100%); }
+.slide > * { position: absolute; z-index: 1; }
+
+/* ---------- type ---------- */
+.serif { font-family: 'Fraunces', serif; font-weight: 800; font-variation-settings: "SOFT" 100, "opsz" 144; letter-spacing: -0.02em; }
+.serif em { font-style: italic; color: var(--orange); font-variation-settings: "SOFT" 100, "opsz" 144; }
+.title { left: 64px; right: 64px; text-align: center; font-size: 112px; line-height: .98; }
+.sub { left: 110px; right: 110px; text-align: center; font: 500 33px/1.34 'Inter'; color: var(--ink-2); letter-spacing: -0.01em; }
+.dark .title { color: #F6EFE6; }
+.dark .sub { color: rgba(246,239,230,.78); }
+
+/* ---------- eyebrow pill ---------- */
+.pill {
+  height: 54px; padding: 0 28px; border-radius: 27px; background: var(--orange); color: #FFF3EA;
+  font: 800 22px/54px 'Inter'; letter-spacing: .15em; text-transform: uppercase; white-space: nowrap;
+}
+.pill.center { left: 50%; transform: translateX(-50%); top: 84px; }
+
+/* ---------- pagination ---------- */
+.dots { left: 0; right: 0; bottom: 58px; display: flex; justify-content: center; gap: 12px; align-items: center; }
+.dots i { width: 13px; height: 13px; border-radius: 50%; background: rgba(27,26,24,.18); }
+.dots i.on { width: 40px; border-radius: 7px; background: var(--orange); }
+.dark .dots i { background: rgba(246,239,230,.22); } .dark .dots i.on { background: var(--orange); }
+
+/* ---------- browser card ---------- */
+.card { background: var(--card); border-radius: 30px; overflow: hidden; box-shadow: 0 2px 0 rgba(27,26,24,.05), 0 30px 70px rgba(40,30,20,.20); }
+.dark .card { box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.bar { height: 54px; display: flex; align-items: center; gap: 10px; padding: 0 22px; background: #F4F2EF; border-bottom: 1px solid #E7E3DE; position: relative; }
+.bar i { width: 14px; height: 14px; border-radius: 50%; }
+.bar i:nth-child(1) { background: #FF5F57; } .bar i:nth-child(2) { background: #FEBC2E; } .bar i:nth-child(3) { background: #28C840; }
+.bar u { position: absolute; left: 50%; transform: translateX(-50%); height: 30px; padding: 0 18px; border-radius: 15px; background: #fff;
+         font: 500 16px/30px 'Inter'; color: #77736D; text-decoration: none; white-space: nowrap; }
+
+/* ---------- FREE sticker ---------- */
+.free { background: var(--free); color: #fff; font: 800 25px/1 'Inter'; letter-spacing: .06em; padding: 14px 22px 14px 18px; border-radius: 12px;
+        transform: rotate(9deg); box-shadow: 0 10px 22px rgba(31,157,88,.32); display: flex; align-items: center; gap: 10px; z-index: 6; }
+.free::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #fff; }
+
+/* ---------- tool chip (what Claude actually calls) ---------- */
+.call { background: var(--ink); color: #F6EFE6; border-radius: 16px; padding: 18px 22px; font: 500 21px/1.5 'JetBrains Mono'; box-shadow: 0 18px 40px rgba(0,0,0,.28); z-index: 5; }
+.call b { color: var(--orange); font-weight: 600; }
+
+svg.px { shape-rendering: crispEdges; display: block; }
+</style>
+</head>
+<body>
+
+<!-- ===================== 01 COVER ===================== -->
+<section class="slide" id="s1" style="background:var(--cream)">
+  <div class="pill" style="left:64px;top:64px">For Claude Code users</div>
+  <div class="serif" style="left:64px;right:64px;top:172px;text-align:center;font-size:118px;line-height:.95">Claude is coding</div>
+  <div class="serif" style="left:64px;right:64px;top:282px;text-align:center;font-size:178px;line-height:.95"><em>blind.</em></div>
+  <div class="sub" style="top:494px">4 free MCPs that let it see what it builds.</div>
+  <div id="tiles" style="left:0;right:0;top:582px;display:flex;justify-content:center;gap:26px"></div>
+  <svg style="left:186px;top:600px" width="70" height="80"><path d="M58 10 L44 26 M60 40 L40 42 M56 68 L42 58" stroke="#E4683C" stroke-width="6" stroke-linecap="round"/></svg>
+  <svg style="left:824px;top:600px" width="70" height="80"><path d="M12 10 L26 26 M10 40 L30 42 M14 68 L28 58" stroke="#E4683C" stroke-width="6" stroke-linecap="round"/></svg>
+  <div id="cover-bot" style="left:50%;transform:translateX(-50%);top:752px"></div>
+  <div class="pill" style="left:64px;top:1232px;height:60px;line-height:60px;font-size:24px;box-shadow:0 6px 0 var(--orange-deep)">Swipe →</div>
+  <div class="dots" style="bottom:90px"></div>
+</section>
+
+<!-- ===================== 02 THE PROBLEM ===================== -->
+<section class="slide" id="s2" style="background:var(--mist)">
+  <div class="pill center">The problem</div>
+  <div class="serif title" style="top:172px">It writes the code.<br>It never <em>sees it run.</em></div>
+  <div class="sub" style="top:418px">So every fix ends with “should work now.”<br>Then you open the app. It doesn't.</div>
+  <!-- the browser: what actually happened -->
+  <div class="card" style="left:300px;top:560px;width:716px;height:560px">
+    <div class="bar"><i></i><i></i><i></i><u>localhost:3000/signup</u></div>
+    <div style="padding:48px 64px 0 220px;position:relative;height:506px">
+      <div class="serif" style="font-size:44px;letter-spacing:-.02em">Create your account</div>
+      <div style="height:56px;border-radius:12px;border:2px solid #E2DDD6;margin-top:30px"></div>
+      <div style="height:56px;border-radius:12px;border:2px solid #E2DDD6;margin-top:16px"></div>
+      <div style="height:60px;border-radius:12px;background:var(--ink);margin-top:26px;color:#fff;font:700 20px/60px 'Inter';text-align:center">Create account</div>
+      <div style="position:absolute;left:220px;right:40px;bottom:40px;display:flex;align-items:center;gap:12px;background:#FDECEA;color:#C62F28;border-radius:12px;padding:14px 18px;font:600 20px 'JetBrains Mono'">
+        <span style="width:22px;height:22px;border-radius:50%;background:#E5484D;color:#fff;display:grid;place-items:center;font:800 15px 'Inter'">3</span>
+        onSubmit is not a function</div>
+    </div>
+  </div>
+  <!-- the terminal: what Claude believes -->
+  <div class="card" style="left:64px;top:846px;width:470px;height:300px;background:var(--ink);z-index:4">
+    <div style="padding:34px 34px;font:500 23px/1.6 'JetBrains Mono';color:#EDE6DC">
+      <div style="color:#8E887F">&gt; fix the signup button</div>
+      <div style="margin-top:18px"><span style="color:var(--orange)">●</span> Fixed the click handler.</div>
+      <div>&nbsp;&nbsp;It should work now.</div>
+      <div style="margin-top:18px;color:#8E887F">&gt; <span style="display:inline-block;width:13px;height:26px;background:#EDE6DC;vertical-align:-5px"></span></div>
+    </div>
+  </div>
+  <div class="dots"></div>
+</section>
+
+<!-- ===================== 03 PLAYWRIGHT ===================== -->
+<section class="slide dark" id="s3" style="background:var(--forest)">
+  <div class="pill center">01 / 04 · See the app</div>
+  <div class="serif title" style="top:172px">Playwright <em>MCP</em></div>
+  <div class="sub" style="top:316px">Claude opens your app in a real browser,<br>clicks through it and checks what broke.</div>
+  <div class="card" style="left:64px;top:490px;width:952px;height:640px">
+    <div class="bar"><i></i><i></i><i></i><u>localhost:3000/signup</u></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;height:586px">
+      <div style="padding:64px 60px;position:relative">
+        <div class="serif" style="font-size:46px;letter-spacing:-.02em">Create your account</div>
+        <div style="font:500 19px 'Inter';color:#8A857E;margin-top:12px">Start your 14-day trial.</div>
+        <div style="height:58px;border-radius:12px;border:2px solid #E2DDD6;margin-top:34px;padding:0 18px;font:500 19px/54px 'Inter';color:#55524D">ashu@studio.dev</div>
+        <div style="height:58px;border-radius:12px;border:2px solid #E2DDD6;margin-top:16px;padding:0 18px;font:600 22px/54px 'Inter';color:#55524D;letter-spacing:.2em">••••••••</div>
+        <div style="height:62px;border-radius:12px;background:var(--ink);margin-top:26px;color:#fff;font:700 20px/62px 'Inter';text-align:center;position:relative">Create account
+          <!-- click target -->
+          <span style="position:absolute;left:190px;top:12px;width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 3px var(--orange),0 0 0 14px rgba(228,104,60,.25)"></span>
+          <svg style="position:absolute;left:206px;top:28px" width="34" height="44" viewBox="0 0 34 44"><path d="M2 2 L2 36 L11 28 L17 42 L23 39 L17 26 L30 26 Z" fill="#fff" stroke="#1B1A18" stroke-width="3" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div style="background:#2E5A4C;position:relative;overflow:hidden">
+        <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:#E4683C;left:70px;top:90px;opacity:.95"></div>
+        <div style="position:absolute;left:-40px;right:-40px;bottom:-60px;height:260px;border-radius:50% 50% 0 0;background:#1D3A32"></div>
+      </div>
+    </div>
+  </div>
+  <div class="free" style="left:890px;top:466px">FREE</div>
+  <div class="call" style="left:504px;top:930px;width:460px"><b>playwright</b> · browser_click<br>“Create account” → 200 OK ✓</div>
+  <div class="dots"></div>
+</section>
+
+<!-- ===================== 04 CHROME DEVTOOLS ===================== -->
+<section class="slide" id="s4" style="background:var(--mist)">
+  <div class="pill center">02 / 04 · Read the errors</div>
+  <div class="serif title" style="top:172px">DevTools <em>MCP</em></div>
+  <div class="sub" style="top:316px">Console errors, failed requests, slow pages.<br>Claude reads them instead of guessing.</div>
+  <div class="card" style="left:64px;top:490px;width:952px;height:610px">
+    <div class="bar"><i></i><i></i><i></i><u>localhost:3000/dashboard</u></div>
+    <!-- page, dimmed -->
+    <div style="height:190px;padding:36px 44px;display:flex;gap:20px">
+      <div style="flex:1;border-radius:14px;background:#F2EFEA"></div><div style="flex:1;border-radius:14px;background:#F2EFEA"></div><div style="flex:1;border-radius:14px;background:#F2EFEA"></div>
+    </div>
+    <!-- devtools panel -->
+    <div style="position:absolute;left:0;right:0;bottom:0;height:366px;background:#1E1F24;border-top:1px solid #33343B">
+      <div style="display:flex;gap:34px;padding:0 30px;height:56px;align-items:center;border-bottom:1px solid #2E2F36;font:600 19px 'Inter';color:#8B8C95">
+        <span style="color:#fff;box-shadow:inset 0 -3px 0 var(--orange);height:56px;line-height:56px">Console</span><span>Network</span><span>Performance</span>
+        <span style="margin-left:auto;color:#FF6B6B">● 3 errors</span>
+      </div>
+      <div style="font:500 21px/1.45 'JetBrains Mono';padding:6px 0">
+        <div style="padding:16px 30px;background:rgba(229,72,77,.12);color:#FF8A86;border-bottom:1px solid #2E2F36">✕ GET /api/stats 500 (Internal Server Error)</div>
+        <div style="padding:16px 30px;background:rgba(229,72,77,.12);color:#FF8A86;border-bottom:1px solid #2E2F36">✕ TypeError: Cannot read properties of<br>&nbsp;&nbsp;undefined (reading 'total')</div>
+        <div style="padding:16px 30px;background:rgba(229,72,77,.12);color:#FF8A86;border-bottom:1px solid #2E2F36">✕ GET /fonts/inter.woff2 404 (Not Found)</div>
+        <div style="padding:16px 30px;color:#E8C46A;border-bottom:1px solid #2E2F36">▲ LCP 4.8s · largest image is 3.1 MB</div>
+      </div>
+    </div>
+  </div>
+  <div class="free" style="left:890px;top:466px">FREE</div>
+  <div class="dots"></div>
+</section>
+
+<!-- ===================== 05 CONTEXT7 ===================== -->
+<section class="slide" id="s5" style="background:var(--sand)">
+  <div class="pill center">03 / 04 · Current docs</div>
+  <div class="serif title" style="top:172px">Context7 <em>MCP</em></div>
+  <div class="sub" style="top:316px">Pulls current, version-specific docs into<br>the prompt. No more APIs that don't exist.</div>
+  <!-- prompt card -->
+  <div class="card" style="left:64px;top:490px;width:952px;height:200px;padding:40px 46px">
+    <div style="font:600 17px 'Inter';letter-spacing:.14em;color:#9A948B">YOUR PROMPT</div>
+    <div style="font:500 30px/1.38 'Inter';margin-top:16px;letter-spacing:-.01em">Add middleware that sends logged-out users to /login.<br><span style="display:inline-block;margin-top:10px"></span><span style="background:#FCE3D7;color:var(--orange-deep);padding:2px 10px;border-radius:8px;font-weight:700">use context7</span></div>
+  </div>
+  <!-- what gets pulled in -->
+  <div class="card" style="left:64px;top:720px;width:952px;height:410px;background:var(--ink)">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:70px;border-bottom:1px solid #2E2D2A;font:500 19px 'JetBrains Mono';color:#9C958B">
+      <span><span style="color:var(--orange)">context7</span> · docs pulled for your installed version</span><span style="color:#5FC48A">● current</span>
+    </div>
+    <pre style="padding:28px 40px;font:500 23px/1.6 'JetBrains Mono';color:#EDE6DC;white-space:pre"><span style="color:#8E887F">// middleware.ts</span>
+<span style="color:#E4683C">export function</span> middleware(req) {
+  <span style="color:#E4683C">const</span> session = req.cookies.get(<span style="color:#9BD49F">"session"</span>)
+  <span style="color:#E4683C">if</span> (!session) <span style="color:#E4683C">return</span> redirect(<span style="color:#9BD49F">"/login"</span>)
+}</pre>
+  </div>
+  <div class="free" style="left:890px;top:466px">FREE</div>
+  <div class="dots"></div>
+</section>
+
+<!-- ===================== 06 SHADCN ===================== -->
+<section class="slide dark" id="s6" style="background:var(--night)">
+  <div class="pill center">04 / 04 · Real components</div>
+  <div class="serif title" style="top:172px">shadcn <em>MCP</em></div>
+  <div class="sub" style="top:316px">Claude browses real component registries<br>and installs one, instead of inventing its own.</div>
+  <div id="comp" style="left:64px;top:490px;width:952px;height:640px;display:grid;grid-template-columns:1fr 1fr;gap:24px"></div>
+  <div class="free" style="left:890px;top:466px">FREE</div>
+  <div class="dots"></div>
+</section>
+
+<!-- ===================== 07 CTA ===================== -->
+<section class="slide" id="s7" style="background:var(--mist)">
+  <div class="pill" style="left:64px;top:84px">Get the commands</div>
+  <div class="serif title" style="top:178px;font-size:108px">Want all <em>4 MCPs?</em></div>
+  <div class="sub" style="top:304px">Every install command, plus the first prompt<br>to try with each. Free in your DMs.</div>
+  <div id="thumbs" style="left:64px;top:430px;width:952px;display:grid;grid-template-columns:1fr 1fr;gap:24px"></div>
+  <div style="left:64px;top:1112px;height:96px;padding:0 44px;border-radius:48px;background:var(--orange);box-shadow:0 7px 0 var(--orange-deep);display:flex;align-items:center">
+    <span class="serif" style="font-size:44px;color:#FFF3EA;letter-spacing:-.01em">Comment “EYES”</span></div>
+  <div style="left:112px;top:1236px;font:500 21px 'Inter';color:#77736D;display:flex;align-items:center;gap:10px"><span style="width:12px;height:16px;background:var(--orange);clip-path:polygon(0 0,100% 0,100% 100%,50% 72%,0 100%)"></span>Save this for your next build</div>
+  <div id="cta-bot" style="left:780px;top:1060px"></div>
+</section>
+
+<script>
+const slides = [...document.querySelectorAll(".slide")];
+slides.forEach((s, i) => { const d = s.querySelector(".dots"); if (d) d.innerHTML = slides.map((_, j) => `<i class="${j === i ? "on" : ""}"></i>`).join(""); });
+
+/* ---------- pixel mascot ---------- */
+const PAL = { k: "#1B1A18", o: "#E4683C", d: "#C9532A", n: "#22264A", w: "#FBF6EF", g: "#F2B544", s: "#8FA67E", b: "#8B5A3C", B: "#C9532A" };
+const BASE = [
+  "........gg..........", "........gg..........", ".........k..........",
+  "....nnnnnnnnnnn.....", "...nnnnnnnnnnnnn....", "...nwwwwwwwwwwwn....", "...nwkkwwwwwkkwn....", "...nwkkwwwwwkkwn....",
+  "...nwwwwwwwwwwwn....", "...nwwkwwwwwkwwn....", "...nnnkkkkkkknnn....", ".....ooooooooo......", "..oooooooooooooo....",
+  "..oooddooooooooo.ss.", "..ooooooooooooooobs.", "..oooooooooooooobb..", "..oooooooooooooo....", "....nnn....nnn......",
+  "....nnn....nnn......", "...kkkk....kkkk.....",
+];
+const BLIND = BASE.slice();
+BLIND[6] = "..BBBBBBBBBBBBBBB...";  // blindfold band over the eyes, knot trailing left
+BLIND[7] = ".BBBBBBBBBBBBBBBB...";
+BLIND[8] = "BB.nwwwwwwwwwwwn....";
+BLIND[9] = "B..nwwwkkkkkwwwn....";  // flat, unsure mouth
+BLIND[10] = "...nnnnnnnnnnnnn....";
+const SEEING = BASE.slice();
+SEEING[11] = "g....ooooooooo......"; SEEING[12] = ".gooooooooooooooo....";  // waving
+function pixel(rows, px) {
+  let r = ""; rows.forEach((row, y) => { let x = 0; while (x < row.length) { const v = row[x]; if (v === ".") { x++; continue; }
+    let e = x; while (row[e + 1] === v) e++; r += `<rect x="${x * px}" y="${y * px}" width="${(e - x + 1) * px + .4}" height="${px + .4}" fill="${PAL[v]}"/>`; x = e + 1; } });
+  const w = 20 * px, h = rows.length * px;
+  return `<svg class="px" width="${w}" height="${h + px}" viewBox="0 0 ${w} ${h + px}"><ellipse cx="${w * .45}" cy="${h + px * .3}" rx="${w * .32}" ry="${px * .6}" fill="rgba(60,40,20,.16)"/>${r}</svg>`;
+}
+document.getElementById("cover-bot").innerHTML = pixel(BLIND, 22);
+document.getElementById("cta-bot").innerHTML = pixel(SEEING, 11);
+
+/* ---------- cover tiles: one glyph per tool ---------- */
+const G = {
+  click: `<path d="M14 10 L14 44 L23 36 L29 50 L35 47 L29 34 L42 34 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>`,
+  console: `<rect x="8" y="12" width="44" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><path d="M17 26 l7 5 -7 5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M29 37 h11" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+  docs: `<path d="M12 12 h16 a6 6 0 0 1 6 6 v30 a5 5 0 0 0 -5 -5 h-17z M48 12 h-10 a6 6 0 0 0 -6 6" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><text x="37" y="41" font-family="Fraunces" font-weight="800" font-size="20" fill="currentColor">7</text>`,
+  blocks: `<rect x="10" y="10" width="18" height="18" rx="4" fill="currentColor"/><rect x="32" y="10" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><rect x="10" y="32" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><rect x="32" y="32" width="18" height="18" rx="4" fill="currentColor"/>`,
+};
+document.getElementById("tiles").innerHTML = [["click", "#1D3A32", "#F2E9DE"], ["console", "#FFFFFF", "#1B1A18"], ["docs", "#FFFFFF", "#1B1A18"], ["blocks", "#15161B", "#F2E9DE"]]
+  .map(([g, bg, fg]) => `<div style="width:118px;height:118px;border-radius:30px;background:${bg};color:${fg};display:grid;place-items:center;
+    box-shadow:0 2px 0 rgba(27,26,24,.06),0 16px 30px rgba(60,40,20,.14)"><svg width="60" height="60" viewBox="0 0 60 60">${G[g]}</svg></div>`).join("");
+
+/* ---------- shadcn component grid (mirrors the reference's 2x2 feature cards) ---------- */
+const comp = [
+  ["Dialog", `<div style="width:250px;border-radius:14px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.12);padding:20px">
+      <div style="font:700 18px 'Inter'">Delete project?</div><div style="font:500 14px/1.4 'Inter';color:#77736D;margin-top:6px">This can't be undone.</div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><span style="padding:8px 12px;border-radius:8px;border:1.5px solid #E2DDD6;font:600 13px 'Inter'">Cancel</span><span style="padding:8px 12px;border-radius:8px;background:#1B1A18;color:#fff;font:600 13px 'Inter'">Delete</span></div></div>`],
+  ["Command menu", `<div style="width:270px;border-radius:14px;background:#fff;border:1.5px solid #E2DDD6;overflow:hidden">
+      <div style="padding:12px 16px;border-bottom:1.5px solid #EEE9E3;font:500 15px 'Inter';color:#A29C93">Type a command…</div>
+      ${["Calendar", "Search emoji", "Settings"].map((t, k) => `<div style="padding:10px 16px;font:500 15px 'Inter';${k === 0 ? "background:#F4F1EC" : ""}">${t}</div>`).join("")}</div>`],
+  ["Data table", `<div style="width:290px;border-radius:12px;border:1.5px solid #E2DDD6;overflow:hidden;background:#fff">
+      ${[["Status", "Email", "Amount"], ["Paid", "ken@…", "$316"], ["Pending", "abe@…", "$242"], ["Paid", "mon@…", "$837"]].map((r, k) =>
+        `<div style="display:grid;grid-template-columns:1fr 1.2fr .8fr;padding:9px 14px;font:${k ? 500 : 700} 13px 'Inter';${k ? "border-top:1.5px solid #EEE9E3" : "color:#77736D"}">${r.map(c => `<span>${c}</span>`).join("")}</div>`).join("")}</div>`],
+  ["Calendar", `<div style="width:236px;border-radius:12px;border:1.5px solid #E2DDD6;background:#fff;padding:14px">
+      <div style="font:700 14px 'Inter';text-align:center">October 2026</div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px;font:500 12px 'Inter';text-align:center">
+        ${Array.from({ length: 28 }, (_, k) => `<span style="height:24px;line-height:24px;border-radius:6px;${k === 8 ? "background:#1B1A18;color:#fff" : ""}">${k + 1}</span>`).join("")}</div></div>`],
+];
+document.getElementById("comp").innerHTML = comp.map(([n, ui]) => `
+  <div class="card" style="position:relative;border-radius:26px;display:grid;place-items:center">
+    <div style="transform:translateY(-14px)">${ui}</div>
+    <div style="position:absolute;left:26px;bottom:22px;font:700 21px 'Inter'">${n}</div>
+  </div>`).join("");
+
+/* ---------- CTA thumbnails ---------- */
+const th = [
+  ["01", "Playwright MCP", "click", "#1D3A32"], ["02", "DevTools MCP", "console", "#1E1F24"],
+  ["03", "Context7 MCP", "docs", "#1B1A18"], ["04", "shadcn MCP", "blocks", "#15161B"],
+];
+const mini = {
+  click: `<div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr"><div style="background:#fff;padding:22px">
+      <div style="height:12px;width:70%;border-radius:6px;background:#1B1A18"></div><div style="height:22px;border-radius:6px;border:1.5px solid #E2DDD6;margin-top:16px"></div>
+      <div style="height:22px;border-radius:6px;border:1.5px solid #E2DDD6;margin-top:8px"></div><div style="height:24px;border-radius:6px;background:#1B1A18;margin-top:12px"></div></div>
+      <div style="background:#2E5A4C;position:relative;overflow:hidden"><div style="position:absolute;width:100px;height:100px;border-radius:50%;background:#E4683C;left:28px;top:28px"></div></div></div>`,
+  console: `<div style="position:absolute;inset:0;background:#1E1F24;font:500 13px/1.5 'JetBrains Mono';padding:22px 20px;color:#FF8A86">
+      <div style="padding:6px 8px;background:rgba(229,72,77,.14);border-radius:4px">✕ GET /api/stats 500</div><div style="padding:6px 8px;background:rgba(229,72,77,.14);border-radius:4px;margin-top:6px">✕ TypeError: …'total'</div>
+      <div style="padding:6px 8px;color:#E8C46A;margin-top:6px">▲ LCP 4.8s</div></div>`,
+  docs: `<div style="position:absolute;inset:0;background:#1B1A18;font:500 14px/1.6 'JetBrains Mono';padding:22px 22px;color:#EDE6DC">
+      <div style="color:#8E887F">// middleware.ts</div><div><span style="color:#E4683C">export function</span> middleware</div><div>&nbsp;&nbsp;redirect(<span style="color:#9BD49F">"/login"</span>)</div></div>`,
+  blocks: `<div style="position:absolute;inset:0;background:#15161B;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px">
+      ${[0, 1, 2, 3].map(() => `<div style="border-radius:10px;background:#fff"></div>`).join("")}</div>`,
+};
+document.getElementById("thumbs").innerHTML = th.map(([n, name, g, bg]) => `
+  <div class="card" style="border-radius:24px;height:304px;position:relative">
+    <div style="position:absolute;left:14px;right:14px;top:14px;height:204px;border-radius:14px;overflow:hidden;background:${bg}">${mini[g]}</div>
+    <div style="position:absolute;right:26px;top:26px;width:52px;height:38px;border-radius:9px;background:var(--orange);color:#fff;font:800 18px/38px 'Inter';text-align:center;z-index:2">${n}</div>
+    <div style="position:absolute;left:26px;bottom:24px;display:flex;align-items:center;gap:14px">
+      <span style="width:42px;height:42px;border-radius:11px;background:#1B1A18;color:#F2E9DE;display:grid;place-items:center"><svg width="28" height="28" viewBox="0 0 60 60">${G[g]}</svg></span>
+      <span class="serif" style="font-size:31px;letter-spacing:-.015em">${name}</span></div>
+  </div>`).join("");
+</script>
+</body>
+</html>
