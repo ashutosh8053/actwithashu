@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Design Stack</title>
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>
+:root {
+  --paper: #F3F3F0;
+  --ink: #0E0E11;
+  --ink-2: #3A3A40;
+  --mute: #8B8B92;
+  --hair: #DCDCD6;
+  --orange: #F26A1F;
+  --orange-deep: #D4550F;
+  --night: #0B0C10;
+  --sky: #B9CCFF;
+  --peach: #FFC7A0;
+  --red: #E5484D;
+  --green: #2FA36B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #777; font-family: 'Geist', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.slide { width: 1080px; height: 1350px; position: relative; overflow: hidden; background: var(--paper); margin-bottom: 40px; }
+.slide.dark { background: var(--night); color: #fff; }
+.slide.orange { background: var(--orange); }
+
+/* ---------- chrome ---------- */
+.run { position: absolute; top: 80px; left: 88px; right: 88px; display: flex; justify-content: space-between; align-items: center;
+       font: 600 19px/1 'Geist'; letter-spacing: .22em; text-transform: uppercase; color: var(--mute); z-index: 5; }
+.run .pg { font: 500 21px/1 'Geist Mono'; letter-spacing: 0; color: var(--ink); }
+.dark .run .pg { color: #fff; }
+.orange .run, .orange .run .pg { color: rgba(14,14,17,.7); }
+.dots-patch { position: absolute; top: 64px; right: 170px; width: 120px; height: 52px; z-index: 4;
+  background-image: radial-gradient(circle, rgba(14,14,17,.22) 1.6px, transparent 2px); background-size: 14px 14px; }
+.dark .dots-patch { background-image: radial-gradient(circle, rgba(255,255,255,.18) 1.6px, transparent 2px); }
+.orange .dots-patch { background-image: radial-gradient(circle, rgba(14,14,17,.25) 1.6px, transparent 2px); }
+
+.base { position: absolute; left: 88px; right: 88px; bottom: 72px; display: flex; align-items: center; gap: 28px; z-index: 5; }
+.prog { flex: 1; display: flex; gap: 8px; }
+.prog i { flex: 1; height: 5px; border-radius: 3px; background: rgba(14,14,17,.12); }
+.prog i.on { background: var(--ink); }
+.dark .prog i { background: rgba(255,255,255,.14); } .dark .prog i.on { background: #fff; }
+.orange .prog i { background: rgba(14,14,17,.18); }
+.handle { font: 600 21px/1 'Geist'; color: var(--mute); letter-spacing: .01em; }
+.dark .handle { color: rgba(255,255,255,.55); } .orange .handle { color: rgba(14,14,17,.7); }
+
+/* ---------- type ---------- */
+.eyebrow { position: absolute; left: 88px; top: 196px; font: 700 21px/1 'Geist'; letter-spacing: .22em; text-transform: uppercase; color: var(--mute); z-index: 5; }
+.eyebrow b { color: var(--orange); font-weight: 800; margin-right: 14px; }
+h1, h2 { font-family: 'Geist'; font-weight: 800; letter-spacing: -0.048em; }
+h2.title { position: absolute; left: 82px; top: 238px; font-size: 118px; line-height: .9; white-space: nowrap; z-index: 5; }
+h2.title span { color: var(--orange); }
+.lede { position: absolute; left: 88px; top: 384px; width: 800px; font: 450 33px/1.32 'Geist'; color: var(--ink-2); letter-spacing: -0.012em; z-index: 5; }
+.lede b { font-weight: 650; color: var(--ink); }
+.hand { font-family: 'Caveat'; font-weight: 700; color: var(--orange); position: absolute; z-index: 7; line-height: .95; }
+
+/* ---------- proof stage ---------- */
+.stage { position: absolute; left: 0; right: 0; top: 520px; height: 560px; z-index: 3; }
+.glow { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 1; }
+
+/* command pill: the constant anchor */
+.cmd { position: absolute; left: 88px; right: 88px; top: 1100px; min-height: 86px; border-radius: 22px; background: var(--ink); z-index: 6;
+       display: flex; align-items: center; gap: 18px; padding: 0 34px; color: #F3F3F0; font: 500 26px/1.35 'Geist Mono';
+       box-shadow: 0 22px 44px rgba(14,14,17,.22); }
+.cmd .d { color: var(--orange); font-weight: 600; }
+.cmd .f { color: #FFB27D; }
+
+/* generic window */
+.win { position: absolute; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 2px 0 rgba(14,14,17,.04), 0 40px 80px rgba(14,14,17,.18); }
+.win .bar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #F1F1EE; }
+.win .bar i { width: 11px; height: 11px; border-radius: 50%; background: #D6D6D0; }
+.win .bar u { margin-left: 14px; flex: 0 0 auto; padding: 0 14px; height: 22px; border-radius: 11px; background: #fff; font: 500 13px/22px 'Geist Mono'; color: var(--mute); text-decoration: none; }
+.win.darkw { background: #121318; } .win.darkw .bar { background: #1B1C22; } .win.darkw .bar i { background: #34353D; }
+.win.darkw .bar u { background: #24252C; color: #8E8F99; }
+
+svg.px { shape-rendering: crispEdges; display: block; }
+</style>
+</head>
+<body>
+
+<!-- ======================= 01 COVER ======================= -->
+<section class="slide dark" id="s1">
+  <div class="glow" style="width:760px;height:760px;left:160px;top:700px;background:#F26A1F;opacity:.34"></div>
+  <div class="glow" style="width:520px;height:520px;left:-200px;top:-140px;background:#3B4BFF;opacity:.16"></div>
+  <div class="eyebrow" style="top:190px;color:var(--orange)">The design stack</div>
+  <h1 style="position:absolute;left:82px;top:236px;font-size:128px;line-height:.9;z-index:5">Claude designs<br>like a <span style="color:rgba(255,255,255,.34);text-decoration:line-through;text-decoration-thickness:9px;text-decoration-color:var(--orange)">junior</span>.</h1>
+  <p style="position:absolute;left:88px;top:500px;font:500 38px/1.25 'Geist';color:rgba(255,255,255,.72);letter-spacing:-.015em;z-index:5">6 skills fix that. <span style="color:#fff">In the order you install them.</span></p>
+  <svg id="hub-lines" style="position:absolute;left:0;top:0;z-index:3" width="1080" height="1350"></svg>
+  <div id="hub" style="position:absolute;inset:0;z-index:4"></div>
+  <div class="hand" style="left:760px;top:618px;font-size:48px;transform:rotate(-6deg)">flip all six on ↓</div>
+</section>
+
+<!-- ======================= 02 TASTE ======================= -->
+<section class="slide" id="s2">
+  <div class="eyebrow"><b>01</b>Direction</div>
+  <h2 class="title"><span>Design</span> Taste</h2>
+  <p class="lede">Kills the purple-gradient default. Claude <b>commits to one direction</b> before it writes a line of CSS.</p>
+  <div class="stage">
+    <div class="glow" style="width:520px;height:420px;right:-60px;top:20px;background:var(--sky);opacity:.75"></div>
+    <div class="glow" style="width:420px;height:360px;left:40px;top:250px;background:var(--peach);opacity:.7"></div>
+    <!-- before: generic -->
+    <div class="win" style="left:70px;top:70px;width:400px;height:330px;transform:rotate(-4deg);filter:saturate(.55) brightness(.98);z-index:2">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div style="height:150px;background:linear-gradient(120deg,#6E5CF2,#B36BE8 60%,#E07BC9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+        <s style="width:230px;height:18px;border-radius:9px;background:rgba(255,255,255,.92);display:block"></s>
+        <s style="width:160px;height:11px;border-radius:6px;background:rgba(255,255,255,.7);display:block"></s>
+        <s style="width:86px;height:24px;border-radius:12px;background:#fff;display:block;margin-top:6px"></s>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px">
+        <div style="height:96px;border-radius:12px;background:#F4F2FA"></div><div style="height:96px;border-radius:12px;background:#F4F2FA"></div><div style="height:96px;border-radius:12px;background:#F4F2FA"></div>
+      </div>
+    </div>
+    <div class="hand" style="left:110px;top:418px;font-size:40px;color:var(--mute);transform:rotate(-4deg)">default</div>
+    <!-- after: directed -->
+    <div class="win" style="left:400px;top:24px;width:620px;height:470px;z-index:3">
+      <div class="bar"><i></i><i></i><i></i><u>fieldnotes.studio</u></div>
+      <div style="background:#F2EEE6;height:432px;padding:26px 30px;position:relative">
+        <div style="display:flex;justify-content:space-between;font:600 12px/1 'Geist';letter-spacing:.18em;color:#5B544A">
+          <span>FIELD NOTES</span><span style="display:flex;gap:22px"><span>INDEX</span><span>ARCHIVE</span><span>ABOUT</span></span></div>
+        <div style="font:800 92px/.86 'Geist';letter-spacing:-.06em;color:#1D1A16;margin-top:38px">Slow<br>places.</div>
+        <div style="position:absolute;right:30px;top:72px;width:236px;height:270px;background:#2F4A3A;border-radius:4px;overflow:hidden">
+          <div style="position:absolute;width:120px;height:120px;border-radius:50%;background:#F26A1F;left:58px;top:46px"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;height:110px;background:#1F3328"></div>
+          <div style="position:absolute;left:-20px;right:60px;bottom:70px;height:70px;background:#26402F;border-radius:50% 50% 0 0"></div>
+        </div>
+        <div style="position:absolute;left:30px;bottom:34px;width:250px;font:500 14px/1.5 'Geist';color:#5B544A">Twelve towns where nothing happens on schedule. Issue 04, autumn.</div>
+        <div style="position:absolute;right:30px;bottom:34px;font:600 13px/1 'Geist Mono';color:#1D1A16;border-bottom:2px solid #F26A1F;padding-bottom:6px">READ ISSUE 04 →</div>
+      </div>
+    </div>
+    <div class="hand" style="left:300px;top:470px;font-size:44px;transform:rotate(-3deg)">same prompt. ↗</div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add Leonxlnx/taste-skill</span></div>
+</section>
+
+<!-- ======================= 03 UX ======================= -->
+<section class="slide" id="s3">
+  <div class="eyebrow"><b>02</b>Structure</div>
+  <h2 class="title"><span>UX</span> Designer</h2>
+  <p class="lede">Reviews your screens like a senior would: <b>contrast, tap targets, error states</b>, WCAG 2.2.</p>
+  <div class="stage">
+    <div class="glow" style="width:520px;height:440px;left:-40px;top:40px;background:var(--sky);opacity:.75"></div>
+    <div class="glow" style="width:380px;height:320px;right:40px;top:300px;background:var(--peach);opacity:.65"></div>
+    <!-- form card -->
+    <div class="win" style="left:88px;top:22px;width:470px;height:500px;z-index:3;border-radius:28px">
+      <div style="padding:38px 40px">
+        <div style="font:800 34px/1 'Geist';letter-spacing:-.04em">Create account</div>
+        <div style="font:500 16px/1.4 'Geist';color:#6B6B72;margin-top:10px">Start your 14-day trial.</div>
+        <div style="font:600 14px/1 'Geist';margin-top:30px">Email</div>
+        <div style="height:52px;border-radius:12px;border:2px solid #D9D9D3;margin-top:10px;padding:0 16px;display:flex;align-items:center;font:500 16px 'Geist';color:#55555C">ashu@studio.dev</div>
+        <div style="font:600 14px/1 'Geist';margin-top:22px">Password</div>
+        <div style="height:52px;border-radius:12px;border:2px solid var(--red);margin-top:10px;padding:0 16px;display:flex;align-items:center;font:600 18px 'Geist';letter-spacing:.2em;color:#55555C">•••••</div>
+        <div style="font:500 14px/1.35 'Geist';color:var(--red);margin-top:10px">Use 8+ characters, including a number.</div>
+        <div style="height:56px;border-radius:14px;background:var(--ink);margin-top:26px;display:grid;place-items:center;font:700 17px 'Geist';color:#fff">Create account</div>
+      </div>
+    </div>
+    <!-- pins -->
+    <div id="pins"></div>
+    <!-- audit notes -->
+    <div style="position:absolute;left:612px;top:52px;width:380px;z-index:4">
+      <div style="font:700 15px/1 'Geist';letter-spacing:.2em;color:var(--mute)">REVIEW · 3 FIXES</div>
+      <div id="notes" style="margin-top:22px"></div>
+    </div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add szilu/ux-designer-skill</span></div>
+</section>
+
+<!-- ======================= 04 WEB ARTIFACTS ======================= -->
+<section class="slide" id="s4">
+  <div class="eyebrow"><b>03</b>Build</div>
+  <h2 class="title"><span>Web</span> Artifacts</h2>
+  <p class="lede">Real <b>React, Tailwind and shadcn/ui</b>, bundled into a single HTML file you can send to anyone.</p>
+  <div class="stage">
+    <div class="glow" style="width:620px;height:440px;left:260px;top:60px;background:var(--peach);opacity:.75"></div>
+    <div class="glow" style="width:400px;height:360px;left:-40px;top:220px;background:var(--sky);opacity:.7"></div>
+    <div class="win darkw" style="left:88px;top:16px;width:1000px;height:500px;z-index:3">
+      <div class="bar"><i></i><i></i><i></i><u>bundle.html</u></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;height:462px">
+        <div style="border-right:1px solid #22232A;padding:22px 18px;display:flex;flex-direction:column;gap:14px">
+          <div style="font:800 17px 'Geist';color:#fff;letter-spacing:-.03em">Northwind</div>
+          <div style="height:30px;border-radius:8px;background:#22232B;margin-top:10px"></div>
+          <div style="height:12px;width:80%;border-radius:6px;background:#26272F"></div>
+          <div style="height:12px;width:64%;border-radius:6px;background:#26272F"></div>
+          <div style="height:12px;width:72%;border-radius:6px;background:#26272F"></div>
+        </div>
+        <div style="padding:24px 28px;color:#fff">
+          <div style="font:700 15px/1 'Geist';color:#8E8F99">Revenue · last 30 days</div>
+          <div style="display:flex;gap:46px;margin-top:16px">
+            <div><div style="font:800 46px/1 'Geist';letter-spacing:-.05em">$48.2k</div><div style="font:600 14px 'Geist Mono';color:#3DD68C;margin-top:8px">▲ 12.4%</div></div>
+            <div><div style="font:800 46px/1 'Geist';letter-spacing:-.05em;color:#BFC0C8">1,284</div><div style="font:600 14px 'Geist Mono';color:#8E8F99;margin-top:8px">orders</div></div>
+            <div><div style="font:800 46px/1 'Geist';letter-spacing:-.05em;color:#BFC0C8">3.1%</div><div style="font:600 14px 'Geist Mono';color:#8E8F99;margin-top:8px">conversion</div></div>
+          </div>
+          <div id="bars" style="display:flex;align-items:flex-end;gap:9px;height:170px;margin-top:30px;border-bottom:1px solid #2A2B33"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:20px;font:500 14px 'Geist Mono';color:#6F707A"><span>Sep 01</span><span>Sep 15</span><span>Sep 30</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hand" style="left:640px;top:420px;font-size:46px;transform:rotate(-3deg)">one file. no deploy.</div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add anthropics/skills <span class="f" style="white-space:nowrap">--skill web-artifacts-builder</span></span></div>
+</section>
+
+<!-- ======================= 05 TRANSITIONS ======================= -->
+<section class="slide" id="s5">
+  <div class="eyebrow"><b>04</b>Motion</div>
+  <h2 class="title"><span>Transitions</span>.dev</h2>
+  <p class="lede">Production motion for modals, toasts and tabs. <b>One timing scale</b>, so nothing feels off.</p>
+  <div class="stage">
+    <div class="glow" style="width:560px;height:400px;right:-40px;top:120px;background:var(--sky);opacity:.75"></div>
+    <div class="glow" style="width:420px;height:340px;left:0;top:40px;background:var(--peach);opacity:.65"></div>
+    <svg id="curve" style="position:absolute;left:88px;top:40px;z-index:4" width="904" height="150"></svg>
+    <div id="film" style="position:absolute;left:88px;top:214px;width:904px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;z-index:4"></div>
+    <div class="hand" style="left:640px;top:-10px;font-size:44px;transform:rotate(-4deg)">ease-out, 240ms</div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add Jakubantalik/transitions.dev</span></div>
+</section>
+
+<!-- ======================= 06 REDESIGN ======================= -->
+<section class="slide" id="s6">
+  <div class="eyebrow"><b>05</b>Polish</div>
+  <h2 class="title"><span>Re</span>design</h2>
+  <p class="lede">Point it at a site you already shipped. It <b>finds the AI tells</b> and fixes them without breaking anything.</p>
+  <div class="stage">
+    <div class="glow" style="width:520px;height:420px;left:-40px;top:60px;background:var(--peach);opacity:.75"></div>
+    <div class="glow" style="width:460px;height:400px;right:-60px;top:160px;background:var(--sky);opacity:.75"></div>
+    <div class="win" style="left:88px;top:20px;width:620px;height:480px;z-index:3">
+      <div class="bar"><i></i><i></i><i></i><u>your-saas.com</u></div>
+      <div style="height:442px;padding:34px 30px;text-align:center;filter:saturate(.75)">
+        <div style="font:800 40px/1.05 'Geist';letter-spacing:-.04em;background:linear-gradient(90deg,#6E5CF2,#E07BC9);-webkit-background-clip:text;color:transparent">Supercharge your<br>workflow with AI</div>
+        <div style="width:300px;height:12px;border-radius:6px;background:#E4E4DF;margin:20px auto 0"></div>
+        <div style="width:220px;height:12px;border-radius:6px;background:#E4E4DF;margin:10px auto 0"></div>
+        <div style="width:150px;height:40px;border-radius:20px;background:#6E5CF2;margin:24px auto 0"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px">
+          <div style="height:130px;border-radius:14px;background:#F3F2F8"></div><div style="height:130px;border-radius:14px;background:#F3F2F8"></div><div style="height:130px;border-radius:14px;background:#F3F2F8"></div>
+        </div>
+      </div>
+    </div>
+    <div id="rpins"></div>
+    <!-- audit panel bleeding off the right edge -->
+    <div style="position:absolute;left:640px;top:110px;width:470px;border-radius:24px;background:var(--ink);color:#fff;padding:30px 34px;z-index:5;box-shadow:0 30px 60px rgba(14,14,17,.3)">
+      <div style="font:700 14px/1 'Geist';letter-spacing:.2em;color:#8E8F99">AUDIT · 3 AI TELLS</div>
+      <div id="tells" style="margin-top:20px"></div>
+    </div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add Leonxlnx/taste-skill <span class="f" style="white-space:nowrap">--skill redesign-existing-projects</span></span></div>
+</section>
+
+<!-- ======================= 07 APP STORE ======================= -->
+<section class="slide" id="s7">
+  <div class="eyebrow"><b>06</b>Launch</div>
+  <h2 class="title"><span>App Store</span> Shots</h2>
+  <p class="lede">Store screenshots that <b>sell, not just show</b>. Framed, captioned, exported at every required size.</p>
+  <div class="stage">
+    <div class="glow" style="width:600px;height:420px;left:220px;top:120px;background:var(--peach);opacity:.8"></div>
+    <div class="glow" style="width:380px;height:360px;right:-40px;top:0;background:var(--sky);opacity:.7"></div>
+    <div id="phones" style="position:absolute;inset:0;z-index:3"></div>
+  </div>
+  <div class="cmd"><span class="d">$</span><span>npx skills add ParthJadhav/app-store-screenshots</span></div>
+</section>
+
+<!-- ======================= 08 ORDER (interrupt) ======================= -->
+<section class="slide orange" id="s8">
+  <div class="eyebrow" style="color:rgba(14,14,17,.6)">The rule</div>
+  <h2 style="position:absolute;left:82px;top:238px;font-size:132px;line-height:.88;z-index:5">Order<br>matters.</h2>
+  <div class="hand" style="left:600px;top:300px;font-size:52px;color:var(--ink);transform:rotate(-5deg)">direction before<br>decoration.</div>
+  <div id="order" style="position:absolute;left:88px;right:88px;top:560px;z-index:5"></div>
+</section>
+
+<!-- ======================= 09 CTA ======================= -->
+<section class="slide dark" id="s9">
+  <div class="glow" style="width:900px;height:900px;left:420px;top:620px;background:#F26A1F;opacity:.42"></div>
+  <div class="eyebrow" style="color:var(--orange)">Your move</div>
+  <h2 style="position:absolute;left:82px;top:238px;font-size:136px;line-height:.88;z-index:5">Comment<br><span style="color:var(--orange)">“TASTE”</span></h2>
+  <p style="position:absolute;left:88px;top:540px;width:640px;font:500 38px/1.3 'Geist';color:rgba(255,255,255,.72);letter-spacing:-.015em;z-index:5">I'll DM you the exact prompt I run <span style="color:#fff">after each install.</span></p>
+  <div id="orb" style="position:absolute;left:560px;top:700px;width:560px;height:560px;z-index:4"></div>
+  <div style="position:absolute;left:88px;top:700px;z-index:5;border:2px solid var(--orange);color:var(--orange);border-radius:999px;padding:16px 26px;font:700 18px/1 'Geist';letter-spacing:.2em">SAVE FOR YOUR NEXT BUILD</div>
+</section>
+
+<script>
+const HANDLE = "@theashutoshjain";
+const slides = [...document.querySelectorAll(".slide")];
+
+/* ---------- shared chrome ---------- */
+slides.forEach((s, i) => {
+  s.insertAdjacentHTML("afterbegin",
+    `<div class="run"><span>${i === 0 || i === slides.length - 1 ? "" : "The design stack · 6 Claude skills"}</span><span class="pg">${String(i + 1).padStart(2, "0")}/${String(slides.length).padStart(2, "0")}</span></div><div class="dots-patch"></div>`);
+  s.insertAdjacentHTML("beforeend",
+    `<div class="base"><div class="prog">${slides.map((_, j) => `<i class="${j === i ? "on" : ""}"></i>`).join("")}</div><div class="handle">${HANDLE}</div></div>`);
+});
+
+/* fit single-line titles to the column */
+document.querySelectorAll("h2.title").forEach(h => { let f = 118; while (h.scrollWidth > 920 && f > 80) h.style.fontSize = (f -= 2) + "px"; });
+
+/* ---------- pixel mascot (brand mark) ---------- */
+const PAL = { k: "#0E0E11", o: "#F26A1F", d: "#D4550F", n: "#1E2140", w: "#FBF8F3", g: "#F5B841", s: "#8FA67E", b: "#8B5A3C" };
+const BOT = [
+  "........gg..........", "........gg..........", ".........k..........",
+  "....nnnnnnnnnnn.....", "...nnnnnnnnnnnnn....", "...nwwwwwwwwwwwn....", "...nwkkwwwwwkkwn....", "...nwkkwwwwwkkwn....",
+  "...nwwwwwwwwwwwn....", "...nwwkwwwwwkwwn....", "...nnnkkkkkkknnn....", ".....ooooooooo......", "..oooooooooooooo....",
+  "..oooddooooooooo.ss.", "..ooooooooooooooobs.", "..oooooooooooooobb..", "..oooooooooooooo....", "....nnn....nnn......",
+  "....nnn....nnn......", "...kkkk....kkkk.....",
+];
+function pixelSVG(rows, px) {
+  let r = ""; rows.forEach((row, y) => { let x = 0; while (x < row.length) { const v = row[x]; if (v === ".") { x++; continue; }
+    let e = x; while (row[e + 1] === v) e++; r += `<rect x="${x * px}" y="${y * px}" width="${(e - x + 1) * px + .3}" height="${px + .3}" fill="${PAL[v]}"/>`; x = e + 1; } });
+  return `<svg class="px" width="${20 * px}" height="${rows.length * px}" viewBox="0 0 ${20 * px} ${rows.length * px}">${r}</svg>`;
+}
+
+/* ---------- 01 hub ---------- */
+(() => {
+  const cx = 540, cy = 930;
+  const items = [
+    ["01", "Design Taste", 72, 690], ["02", "UX Designer", 44, 870], ["03", "Web Artifacts", 72, 1050],
+    ["04", "Transitions", 692, 780], ["05", "Redesign", 720, 960], ["06", "App Store Shots", 692, 1140],
+  ];
+  const hub = document.getElementById("hub"), lines = document.getElementById("hub-lines");
+  let paths = "";
+  items.forEach(([n, name, x, y]) => {
+    const left = x < cx, w = 316, h = 86, ax = left ? x + w : x, ay = y + h / 2;
+    const mx = (ax + cx) / 2;
+    paths += `<path d="M${ax} ${ay} C ${mx} ${ay}, ${mx} ${cy}, ${left ? cx - 130 : cx + 130} ${cy}" stroke="rgba(242,106,31,.55)" stroke-width="2.5" fill="none" stroke-dasharray="2 9" stroke-linecap="round"/>`;
+    hub.insertAdjacentHTML("beforeend", `
+      <div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:18px;background:rgba(255,255,255,.07);
+        border:1.5px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);display:flex;align-items:center;gap:14px;padding:0 18px">
+        <span style="font:600 17px 'Geist Mono';color:var(--orange)">${n}</span>
+        <span style="font:600 24px 'Geist';color:#fff;letter-spacing:-.01em;flex:1;white-space:nowrap">${name}</span>
+        <span style="width:46px;height:28px;border-radius:14px;background:var(--orange);position:relative;flex:0 0 auto">
+          <i style="position:absolute;right:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff"></i></span>
+      </div>`);
+  });
+  lines.innerHTML = paths;
+  hub.insertAdjacentHTML("beforeend", `
+    <div style="position:absolute;left:${cx - 128}px;top:${cy - 128}px;width:256px;height:256px;border-radius:50%;
+      background:radial-gradient(circle at 35% 30%, #FF8A47, #F26A1F 55%, #C94C0C);
+      box-shadow:0 0 0 14px rgba(242,106,31,.14), 0 0 0 30px rgba(242,106,31,.07), 0 30px 80px rgba(242,106,31,.45);
+      display:grid;place-items:center">${pixelSVG(BOT.map(r => r.replace(/o/g, "k").replace(/d/g, "n")), 7.5)}</div>`);
+})();
+
+/* ---------- 03 UX pins & notes ---------- */
+(() => {
+  const pins = [[1, 548, 70], [2, 548, 262], [3, 548, 446]];
+  document.getElementById("pins").innerHTML = pins.map(([n, x, y]) =>
+    `<div style="position:absolute;left:${x}px;top:${y}px;width:46px;height:46px;border-radius:50%;background:var(--orange);color:#fff;
+      display:grid;place-items:center;font:800 21px 'Geist';z-index:5;box-shadow:0 0 0 6px rgba(242,106,31,.2)">${n}</div>`).join("");
+  const notes = [
+    ["Subtitle contrast", "2.9:1", "4.6:1"],
+    ["Error says how to fix", "“Invalid”", "rule shown"],
+    ["Tap target height", "36px", "56px"],
+  ];
+  document.getElementById("notes").innerHTML = notes.map(([t, a, b], i) => `
+    <div style="padding:22px 0;border-top:1.5px solid var(--hair);display:grid;grid-template-columns:44px 1fr;gap:6px">
+      <div style="font:800 22px 'Geist';color:var(--orange)">${i + 1}</div>
+      <div><div style="font:700 25px/1.2 'Geist';letter-spacing:-.02em">${t}</div>
+        <div style="font:500 20px 'Geist Mono';margin-top:10px;color:var(--mute)"><s>${a}</s> <span style="color:var(--ink)">→ ${b}</span></div></div>
+    </div>`).join("");
+})();
+
+/* ---------- 04 bars ---------- */
+document.getElementById("bars").innerHTML = [38, 52, 44, 61, 57, 70, 64, 78, 72, 85, 69, 88, 82, 94, 90, 100]
+  .map((h, i, a) => `<div style="flex:1;height:${h}%;border-radius:5px 5px 0 0;background:${i === a.length - 1 ? "#F26A1F" : "#2C2D36"}"></div>`).join("");
+
+/* ---------- 05 curve + filmstrip ---------- */
+(() => {
+  const W = 904, H = 150, pts = [0, .33, .66, 1];
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  let d = ""; for (let i = 0; i <= 60; i++) { const t = i / 60; d += (i ? "L" : "M") + (t * (W - 40) + 20) + " " + (H - 20 - ease(t) * (H - 50)); }
+  const colX = i => 20 + i * ((W - 40) / 3);
+  document.getElementById("curve").innerHTML =
+    `<line x1="20" y1="${H - 20}" x2="${W - 20}" y2="${H - 20}" stroke="#CFCFC8" stroke-width="2"/>` +
+    `<path d="${d}" fill="none" stroke="#0E0E11" stroke-width="4" stroke-linecap="round"/>` +
+    pts.map((t, i) => `<circle cx="${t * (W - 40) + 20}" cy="${H - 20 - ease(t) * (H - 50)}" r="9" fill="${i === 3 ? "#F26A1F" : "#fff"}" stroke="#0E0E11" stroke-width="3"/>`).join("");
+  const frames = [[0, .9, .14], [80, .95, .55], [160, .99, .88], [240, 1, 1]];
+  document.getElementById("film").innerHTML = frames.map(([ms, sc, op], i) => `
+    <div>
+      <div style="height:250px;border-radius:18px;background:#16171C;position:relative;overflow:hidden;box-shadow:0 24px 50px rgba(14,14,17,.2)">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,${.45 * op})"></div>
+        <div style="position:absolute;left:50%;top:50%;width:150px;height:120px;border-radius:14px;background:#fff;
+          transform:translate(-50%,-50%) scale(${sc});opacity:${op};padding:16px">
+          <div style="height:12px;width:70%;border-radius:6px;background:#0E0E11"></div>
+          <div style="height:8px;width:90%;border-radius:4px;background:#DDDDD7;margin-top:12px"></div>
+          <div style="height:8px;width:60%;border-radius:4px;background:#DDDDD7;margin-top:8px"></div>
+          <div style="height:22px;width:60px;border-radius:7px;background:#F26A1F;margin-top:16px"></div>
+        </div>
+      </div>
+      <div style="font:600 21px 'Geist Mono';margin-top:16px;color:${i === 3 ? "var(--orange)" : "var(--ink-2)"}">${ms}ms</div>
+    </div>`).join("");
+})();
+
+/* ---------- 06 redesign pins & tells ---------- */
+(() => {
+  const pins = [[1, 120, 80], [2, 118, 330], [3, 600, 128]];
+  document.getElementById("rpins").innerHTML = pins.map(([n, x, y]) =>
+    `<div style="position:absolute;left:${x}px;top:${y}px;width:46px;height:46px;border-radius:50%;background:var(--orange);color:#fff;
+      display:grid;place-items:center;font:800 21px 'Geist';z-index:6;box-shadow:0 0 0 6px rgba(242,106,31,.22)">${n}</div>`).join("");
+  const tells = [["Gradient headline", "solid ink, set larger"], ["Three equal cards", "one lead, two support"], ["Everything centered", "left edge, real grid"]];
+  document.getElementById("tells").innerHTML = tells.map(([a, b], i) => `
+    <div style="padding:18px 0;border-top:1px solid #26272E;display:grid;grid-template-columns:40px 1fr;gap:4px">
+      <div style="font:800 20px 'Geist';color:var(--orange)">${i + 1}</div>
+      <div><div style="font:600 23px/1.2 'Geist';color:#8E8F99;text-decoration:line-through;text-decoration-color:rgba(242,106,31,.7)">${a}</div>
+        <div style="font:700 23px/1.2 'Geist';color:#fff;margin-top:6px">${b}</div></div>
+    </div>`).join("");
+})();
+
+/* ---------- 07 phones ---------- */
+(() => {
+  const ph = [
+    { x: 120, y: 70, r: -7, bg: "#F26A1F", fg: "#fff", cap: "Every habit,<br>one tap.", ui: "#fff" },
+    { x: 395, y: 20, r: 0, bg: "#0E0E11", fg: "#fff", cap: "See your<br>streak grow.", ui: "#1F2028" },
+    { x: 670, y: 70, r: 7, bg: "#EFE7DA", fg: "#0E0E11", cap: "Built for<br>bad days too.", ui: "#fff" },
+  ];
+  document.getElementById("phones").innerHTML = ph.map(p => `
+    <div style="position:absolute;left:${p.x}px;top:${p.y}px;width:270px;height:500px;border-radius:40px;background:${p.bg};
+      transform:rotate(${p.r}deg);box-shadow:0 34px 70px rgba(14,14,17,.25);padding:30px 22px;overflow:hidden">
+      <div style="font:800 32px/1 'Geist';letter-spacing:-.045em;color:${p.fg}">${p.cap}</div>
+      <div style="position:absolute;left:30px;right:30px;top:150px;bottom:-30px;border-radius:30px;background:#0E0E11;padding:8px">
+        <div style="height:100%;border-radius:24px;background:${p.ui};padding:28px 16px">
+          <div style="height:10px;width:60%;border-radius:5px;background:${p.bg === "#0E0E11" ? "#3A3B44" : "#0E0E11"}"></div>
+          ${[0, 1, 2, 3].map(k => `<div style="display:flex;align-items:center;gap:10px;margin-top:18px">
+            <i style="width:26px;height:26px;border-radius:8px;background:${k < 3 ? "#F26A1F" : (p.bg === "#0E0E11" ? "#2C2D36" : "#E7E4DD")}"></i>
+            <s style="flex:1;height:9px;border-radius:5px;background:${p.bg === "#0E0E11" ? "#2C2D36" : "#E7E4DD"}"></s></div>`).join("")}
+        </div>
+      </div>
+    </div>`).join("");
+})();
+
+/* ---------- 08 order list ---------- */
+document.getElementById("order").innerHTML = [
+  ["01", "Design Taste", "sets the direction"], ["02", "UX Designer", "makes it usable"], ["03", "Web Artifacts", "builds it for real"],
+  ["04", "Transitions", "makes it move"], ["05", "Redesign", "cleans what's live"], ["06", "App Store Shots", "sells the launch"],
+].map(([n, name, role]) => `
+  <div style="display:grid;grid-template-columns:76px 1fr auto;align-items:baseline;padding:20px 0;border-top:2px solid rgba(14,14,17,.22)">
+    <span style="font:600 24px 'Geist Mono';color:rgba(14,14,17,.55)">${n}</span>
+    <span style="font:800 54px/1 'Geist';letter-spacing:-.045em">${name}</span>
+    <span style="font:500 26px 'Geist';color:rgba(14,14,17,.72)">${role}</span>
+  </div>`).join("");
+
+/* ---------- 09 orb ---------- */
+document.getElementById("orb").innerHTML = `
+  <div style="width:560px;height:560px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #FF8A47, #F26A1F 55%, #C94C0C);
+    box-shadow:0 0 0 22px rgba(242,106,31,.12), 0 0 0 48px rgba(242,106,31,.06);display:grid;place-items:start center;padding-top:90px">
+    ${pixelSVG(BOT.map(r => r.replace(/o/g, "k").replace(/d/g, "n")), 13)}</div>`;
+</script>
+</body>
+</html>
