@@ -50,14 +50,8 @@ export default function Hero() {
       <FluidBackground hostRef={hostRef} />
 
       {/* Nav */}
-      <header className="relative z-10 flex w-full items-center justify-between px-4 py-5 sm:px-8 lg:px-12">
-        <a href="#" className="flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-emerald-300/60 text-[13px] font-semibold text-emerald-200">
-            A
-          </span>
-          <span className="text-[15px] font-semibold uppercase tracking-[0.18em] text-white/90">ActWithAshu</span>
-        </a>
-        <nav className="hidden items-center gap-8 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60 lg:flex">
+      <header className="relative z-10 flex w-full items-center justify-end px-4 py-5 sm:px-8 lg:px-12">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60 lg:flex">
           {SOCIALS.map((s) => (
             <a key={s.label} href={s.href} {...external} className="transition-colors duration-300 hover:text-white">
               {s.label}
