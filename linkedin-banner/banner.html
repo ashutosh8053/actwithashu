@@ -28,9 +28,21 @@ html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
 .bloom{position:absolute;left:560px;top:-40px;width:520px;height:420px;border-radius:50%;
   background:radial-gradient(closest-side,rgba(124,92,255,.35),rgba(34,211,238,.12) 55%,transparent);filter:blur(20px)}
 /* website mockup: one browser window, product-first */
-.web{position:absolute;left:530px;top:44px;width:450px;height:400px;border-radius:16px;overflow:hidden;
-  background:#fbfbfd;border:1px solid rgba(255,255,255,.7);
-  box-shadow:0 40px 90px -20px rgba(24,16,70,.45),0 12px 30px rgba(24,16,70,.18),0 0 0 1px rgba(30,30,60,.06)}
+/* physical display: slight backward tilt, receding left, right edge nearer (as in the reference) */
+.rig{position:absolute;inset:0;perspective:1500px;perspective-origin:792px 198px}
+.dev{position:absolute;left:524px;top:38px;width:464px;height:420px;transform-style:preserve-3d;
+  transform-origin:100% 50%;transform:rotateY(-15deg) rotateX(4deg)}
+.dev .side{position:absolute;right:0;top:14px;bottom:14px;width:30px;transform-origin:100% 50%;transform:rotateY(-90deg);
+  background:linear-gradient(90deg,#4a4766 0%,#6f6b92 45%,#9d99bf 85%,#c9c6e2 100%)}
+.dev .face{position:absolute;inset:0;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,#34334a,#16151f 60%,#0f0f18);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.3)}
+.dev .sheen{position:absolute;inset:0;border-radius:20px;pointer-events:none;
+  background:linear-gradient(112deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.06) 28%,rgba(255,255,255,0) 42%),
+             linear-gradient(90deg,rgba(124,92,255,.16),rgba(124,92,255,0) 38%)}
+/* screen's soft shadow on the backdrop, light coming from the aurora at left */
+.cast{position:absolute;left:720px;top:70px;width:300px;height:380px;border-radius:40px;background:rgba(28,20,80,.26);filter:blur(30px)}
+.web{position:absolute;inset:7px;border-radius:14px;overflow:hidden;background:#fbfbfd}
 .web .tb{height:28px;background:#f6f6f9;border-bottom:1px solid #ececf2;position:relative}
 .web .tb i{position:absolute;top:10px;width:8px;height:8px;border-radius:50%;background:#d9d9e1}
 .web .url{position:absolute;left:135px;top:7px;width:180px;height:14px;border-radius:7px;background:#ebebf1}
@@ -49,11 +61,11 @@ html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
 .web .fan:after{content:"";position:absolute;left:8px;top:18px;width:26px;height:5px;border-radius:3px;background:rgba(29,29,31,.28);box-shadow:0 9px 0 -1px rgba(29,29,31,.14),0 30px 0 6px rgba(255,255,255,.45)}
   background:rgba(255,255,255,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);box-shadow:0 10px 24px rgba(40,30,110,.18)}
 .web .card{position:absolute;top:282px;width:126px;height:96px;border-radius:14px;background:#f5f5f7}
-.cursor{position:absolute;left:944px;top:96px;width:22px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+.cursor{position:absolute;left:407px;top:51px;width:22px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
 .grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .rim{position:absolute;left:520px;top:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,rgba(124,92,255,.22),transparent)}
-.person{position:absolute;left:460px;top:-58px;height:560px;filter:drop-shadow(0 0 30px rgba(0,0,0,.45)) contrast(1.03)}
+.person{position:absolute;left:460px;top:-58px;height:560px;filter:drop-shadow(18px 10px 22px rgba(18,12,56,.38)) drop-shadow(0 0 26px rgba(0,0,0,.35)) contrast(1.03)}
 .logos{position:absolute;left:42px;top:38px;display:flex;gap:16px;align-items:center;color:#fff;font-weight:700;font-size:20px;letter-spacing:-.3px}.logos .dot{color:#a78bfa;font-weight:800}
 .ph{color:rgba(255,255,255,.55);font-weight:500;font-size:15px;border:1px dashed rgba(255,255,255,.35);padding:6px 12px;border-radius:6px}
 .right{position:absolute;left:1028px;top:0;width:520px;height:396px}
@@ -69,6 +81,10 @@ h1 .hl{font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4
   <div class="paper"></div>
   <div class="wash"></div>
   <div class="bloom"></div>
+  <div class="cast"></div>
+  <div class="rig"><div class="dev">
+  <div class="side"></div>
+  <div class="face">
   <div class="web">
     <div class="tb"><i style="left:12px"></i><i style="left:25px"></i><i style="left:38px"></i><div class="url"></div></div>
     <div class="nav"><div class="logo"></div>
@@ -88,8 +104,11 @@ h1 .hl{font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4
       <div class="fan" style="background:#4a5679;transform:rotate(33deg)"></div>
     </div>
     <div class="card" style="left:24px"></div><div class="card" style="left:162px"></div><div class="card" style="left:300px"></div>
+    <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#0d0f12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
   </div>
-  <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#0d0f12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  <div class="sheen"></div>
+  </div>
+  </div></div>
   <div class="rim"></div>
   <img class="person" src="person.png">
   <div class="grain"></div>
