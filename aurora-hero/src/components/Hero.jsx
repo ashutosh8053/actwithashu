@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import FluidBackground from './FluidBackground.jsx';
 
-const WHATSAPP_NUMBER = '+91 98174 05878';
 const WHATSAPP_HREF = `https://wa.me/919817405878?text=${encodeURIComponent(
   "Hi Ashutosh! I'd like a premium website for $5.",
 )}`;
@@ -126,9 +125,6 @@ export default function Hero() {
                 </a>
               ))}
             </div>
-            <p className="select-all text-[12px] font-medium tracking-[0.12em] text-white/50">
-              WhatsApp <span className="text-white/80">{WHATSAPP_NUMBER}</span>
-            </p>
           </div>
         </div>
       </div>
