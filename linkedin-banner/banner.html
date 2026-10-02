@@ -29,25 +29,26 @@ html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
   background:radial-gradient(closest-side,rgba(124,92,255,.35),rgba(34,211,238,.12) 55%,transparent);filter:blur(20px)}
 /* website mockup: one browser window, product-first */
 .web{position:absolute;left:530px;top:44px;width:450px;height:400px;border-radius:16px;overflow:hidden;
-  background:#fff;border:1px solid rgba(255,255,255,.7);
+  background:#fbfbfd;border:1px solid rgba(255,255,255,.7);
   box-shadow:0 40px 90px -20px rgba(24,16,70,.45),0 12px 30px rgba(24,16,70,.18),0 0 0 1px rgba(30,30,60,.06)}
 .web .tb{height:28px;background:#f6f6f9;border-bottom:1px solid #ececf2;position:relative}
 .web .tb i{position:absolute;top:10px;width:8px;height:8px;border-radius:50%;background:#d9d9e1}
 .web .url{position:absolute;left:135px;top:7px;width:180px;height:14px;border-radius:7px;background:#ebebf1}
 .web .nav{position:absolute;left:24px;right:24px;top:44px;height:18px}
-.web .logo{position:absolute;left:0;top:3px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#7c5cff)}
+.web .logo{position:absolute;left:0;top:3px;width:12px;height:12px;border-radius:50%;background:#1d1d1f}
 .web .ni{position:absolute;top:7px;height:4px;border-radius:2px;background:#c7c7d2}
-.web .ncta{position:absolute;right:0;top:0;width:58px;height:18px;border-radius:9px;background:#0d0f12}
-.web .eyebrow{position:absolute;left:24px;top:96px;width:60px;height:6px;border-radius:3px;background:linear-gradient(90deg,#22d3ee,#7c5cff)}
-.web .h{position:absolute;left:24px;height:11px;border-radius:4px;background:#1c1c26}
-.web .p{position:absolute;left:24px;height:4px;border-radius:2px;background:#cfcfda}
-.web .b1{position:absolute;left:24px;top:212px;width:66px;height:20px;border-radius:10px;background:linear-gradient(90deg,#5b5bff,#8b5cf6)}
-.web .b2{position:absolute;left:98px;top:212px;width:56px;height:20px;border-radius:10px;border:1px solid #d6d6e0}
-.web .hero{position:absolute;left:226px;top:84px;width:200px;height:164px;border-radius:14px;overflow:hidden;
-  background:radial-gradient(120px 100px at 30% 30%,rgba(34,211,238,.85),transparent 70%),radial-gradient(140px 120px at 80% 70%,rgba(236,72,153,.45),transparent 70%),linear-gradient(135deg,#6d5cff,#9b7bff 55%,#c4b5fd)}
-.web .hero svg{position:absolute;inset:0}
+.web .ncta{position:absolute;right:0;top:0;width:58px;height:18px;border-radius:9px;background:#0071e3}
+.web .eyebrow{position:absolute;left:24px;top:96px;width:48px;height:5px;border-radius:3px;background:#86868b}
+.web .h{position:absolute;left:24px;height:14px;border-radius:4px;background:#1d1d1f}
+.web .p{position:absolute;left:24px;height:4px;border-radius:2px;background:#d2d2d7}
+.web .b1{position:absolute;left:24px;top:212px;width:66px;height:20px;border-radius:10px;background:#0071e3}
+.web .b2{position:absolute;left:98px;top:212px;width:56px;height:20px;border-radius:10px;border:1px solid #0071e3;opacity:.55}
+.web .hero{position:absolute;left:226px;top:84px;width:200px;height:164px;border-radius:14px;overflow:hidden;background:#f5f5f7}
+.web .fan{position:absolute;left:90px;top:22px;width:50px;height:90px;border-radius:7px;transform-origin:50% 120%;box-shadow:0 8px 16px rgba(29,29,31,.16);overflow:hidden}
+.web .fan:before{content:"";position:absolute;left:0;right:0;top:0;height:9px;background:rgba(255,255,255,.55)}
+.web .fan:after{content:"";position:absolute;left:8px;top:18px;width:26px;height:5px;border-radius:3px;background:rgba(29,29,31,.28);box-shadow:0 9px 0 -1px rgba(29,29,31,.14),0 30px 0 6px rgba(255,255,255,.45)}
   background:rgba(255,255,255,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);box-shadow:0 10px 24px rgba(40,30,110,.18)}
-.web .card{position:absolute;top:282px;width:126px;height:96px;border-radius:12px;background:#f5f5f9;border:1px solid #efeff4}
+.web .card{position:absolute;top:282px;width:126px;height:96px;border-radius:14px;background:#f5f5f7}
 .cursor{position:absolute;left:944px;top:96px;width:22px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
 .grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
@@ -80,9 +81,12 @@ h1 .hl{font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4
     <div class="p" style="top:178px;width:160px"></div>
     <div class="p" style="top:188px;width:132px"></div>
     <div class="b1"></div><div class="b2"></div>
-    <div class="hero"><svg viewBox="0 0 200 164"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
-      <path d="M0 140 C40 136 60 120 90 108 S140 70 200 34 L200 164 L0 164Z" fill="url(#f)"/>
-      <path d="M0 140 C40 136 60 120 90 108 S140 70 200 34" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".95"/></svg></div>
+    <div class="hero">
+      <div class="fan" style="background:#e3e4e8;transform:rotate(-33deg)"></div>
+      <div class="fan" style="background:#f3cfc9;transform:rotate(-11deg)"></div>
+      <div class="fan" style="background:#e8e27d;transform:rotate(11deg)"></div>
+      <div class="fan" style="background:#4a5679;transform:rotate(33deg)"></div>
+    </div>
     <div class="card" style="left:24px"></div><div class="card" style="left:162px"></div><div class="card" style="left:300px"></div>
   </div>
   <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#0d0f12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
