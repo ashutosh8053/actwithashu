@@ -1,4 +1,4 @@
-# ActWithAshu — $1 Website Hero
+# ActWithAshu — $5 Website Hero
 
 A full-screen hero with a real-time **WebGL fluid simulation** behind it: smoky, ink-in-water color that follows your cursor, built with React + Tailwind CSS and raw WebGL (no Three.js needed).
 
@@ -36,6 +36,6 @@ npm run build    # static output in dist/
 
 ## Customise
 
-- Messaging and CTA link: `src/components/Hero.jsx` (set `CTA_HREF` to your WhatsApp, Instagram or booking link).
+- Messaging and CTA link: `src/components/Hero.jsx` (contact links are in the `SOCIALS` list at the top).
 - Fluid feel (curl, dissipation, bloom): the `DEFAULTS` block in `src/lib/fluid.js`.
 - Ink colors: `PALETTE` in `src/components/FluidBackground.jsx`.
