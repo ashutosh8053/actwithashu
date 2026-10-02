@@ -49,21 +49,14 @@ export default function Hero() {
       <FluidBackground hostRef={hostRef} />
 
       {/* Nav */}
-      <header className="relative z-10 flex w-full items-center justify-end px-4 py-5 sm:px-8 lg:px-12">
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60 lg:flex">
+      <header className="relative z-10 flex min-h-[77px] w-full items-center justify-center px-4 py-5 sm:px-8 lg:px-12">
+        <nav className="hidden items-center gap-8 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60 lg:flex">
           {SOCIALS.map((s) => (
             <a key={s.label} href={s.href} {...external} className="transition-colors duration-300 hover:text-white">
               {s.label}
             </a>
           ))}
         </nav>
-        <a
-          href={WHATSAPP_HREF}
-          {...external}
-          className="btn bg-gradient-to-b from-amber-200 to-amber-400 px-5 py-2.5 text-[11px] font-semibold text-ink shadow-[0_0_24px_-4px_rgba(251,191,36,0.6)] hover:shadow-[0_0_36px_-2px_rgba(251,191,36,0.85)]"
-        >
-          Claim $5 site
-        </a>
       </header>
 
       {/* Hero copy */}
@@ -92,7 +85,7 @@ export default function Hero() {
             <a
               href={WHATSAPP_HREF}
               {...external}
-              className="btn w-full border border-emerald-300/70 bg-emerald-400/10 px-9 text-emerald-100 shadow-[0_0_30px_-6px_rgba(52,211,153,0.6),inset_0_0_20px_rgba(52,211,153,0.12)] backdrop-blur-md hover:bg-emerald-400/20 hover:shadow-[0_0_44px_-4px_rgba(52,211,153,0.8),inset_0_0_20px_rgba(52,211,153,0.2)] sm:w-auto"
+              className="btn w-full bg-gradient-to-b from-amber-200 to-amber-400 px-9 font-semibold text-ink shadow-[0_0_30px_-4px_rgba(251,191,36,0.6)] hover:shadow-[0_0_44px_-2px_rgba(251,191,36,0.85)] sm:w-auto"
             >
               Get my $5 website
             </a>
