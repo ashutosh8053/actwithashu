@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="fonts/local.css" rel="stylesheet">
+<style>
+:root{
+  --dark:#07090c; --accent:#5fe0c8; --accent2:#2fb7a3; --ink:#0d0f12; --paper:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
+.b{position:relative;width:1584px;height:396px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:var(--dark)}
+/* right white panel, blending into dark stage */
+.paper{position:absolute;inset:0;background:linear-gradient(90deg,var(--dark) 0%,var(--dark) 44%,#2b3036 52%,#d9dcdf 60%,var(--paper) 66%)}
+/* teal glow bottom-left */
+.glow{position:absolute;left:-220px;top:40px;width:760px;height:520px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(95,224,200,.75),rgba(47,183,163,.35) 45%,rgba(7,9,12,0) 100%);filter:blur(30px)}
+/* stage screen behind speaker */
+.screen{position:absolute;left:600px;top:-40px;width:640px;height:500px;border-radius:22px;overflow:hidden;
+  transform:perspective(900px) rotateY(-14deg) rotateZ(-2deg);transform-origin:right center;
+  background:linear-gradient(160deg,#e9ecef,#cfd4d8);opacity:.9;-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent 92%)}
+.screen img{position:absolute;left:150px;top:200px;width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:50% 22%;opacity:.5;filter:blur(1px);border:6px solid var(--accent);}
+.screen .bar{position:absolute;left:150px;height:12px;border-radius:6px;background:#b9bfc4}
+.screen .chip{position:absolute;left:150px;top:70px;width:140px;height:24px;border-radius:12px;background:var(--accent2);opacity:.55}
+.screen .disc{display:none}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,12,1) 0%,rgba(7,9,12,.75) 38%,rgba(7,9,12,.15) 62%,rgba(255,255,255,0) 72%)}
+.spot{position:absolute;left:430px;top:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(120,160,255,.18),transparent);}
+.person{position:absolute;left:380px;top:-58px;height:560px;filter:drop-shadow(0 0 30px rgba(0,0,0,.45)) contrast(1.03)}
+.logos{position:absolute;left:42px;top:38px;display:flex;gap:16px;align-items:center;color:#fff;font-weight:700;font-size:20px;letter-spacing:-.3px}.logos .dot{color:var(--accent);font-weight:800}
+.ph{color:rgba(255,255,255,.55);font-weight:500;font-size:15px;border:1px dashed rgba(255,255,255,.35);padding:6px 12px;border-radius:6px}
+.right{position:absolute;left:1028px;top:0;width:520px;height:396px}
+.top{position:absolute;right:0;top:40px;display:flex;align-items:center;gap:26px}
+.cta{background:var(--ink);border-radius:30px;padding:10px 24px 11px;font-weight:500;font-size:21px;color:#fff;letter-spacing:-.2px;box-shadow:0 8px 24px rgba(13,15,18,.18)}.cta b{font-weight:800;font-size:27px;margin-left:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
+h1{position:absolute;left:0;bottom:62px;font-size:49px;line-height:1.07;letter-spacing:-1.6px;font-weight:400;color:var(--ink)}
+h1 b{font-weight:800}
+h1 .hl{font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
+</style></head>
+<body><div class="b" id="b">
+  <div class="paper"></div>
+  <div class="screen">
+    <div class="chip"></div>
+    <div class="bar" style="top:118px;width:220px"></div>
+    <div class="bar" style="top:142px;width:170px"></div>
+    <div class="disc"></div>
+    <img src="photo_small.jpg">
+    <div class="bar" style="top:390px;width:180px"></div>
+  </div>
+  <div class="shade"></div>
+  <div class="glow"></div>
+  <div class="spot"></div>
+  <img class="person" src="person.png">
+  <div class="logos" id="logos"></div>
+  <div class="right">
+    <div class="top"><div class="cta" id="cta"></div></div>
+    <h1 id="h1"></h1>
+  </div>
+</div>
+<script>
+const C = window.BANNER || {};
+document.getElementById('h1').innerHTML = C.headline || '';
+document.getElementById('cta').innerHTML = C.cta || '';
+if(!C.cta) document.getElementById('cta').style.display='none';
+document.getElementById('logos').innerHTML = (C.logos||[]).map(l=>`<span class="${C.logosPlaceholder?'ph':''}">${l}</span>`).join('');
+for (const [k,v] of Object.entries(C.colors||{})) document.documentElement.style.setProperty('--'+k, v);
+</script>
+</body></html>
