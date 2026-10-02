@@ -7,7 +7,7 @@ export default {
         sans: ['var(--font-sans)'],
       },
       colors: {
-        ink: '#04050d',
+        ink: '#07050d',
       },
       keyframes: {
         grain: {

@@ -1,6 +1,6 @@
-# Aurora Hero
+# ActWithAshu — $1 Website Hero
 
-A full-screen, interactive aurora-gradient hero built with React + Tailwind CSS.
+A full-screen hero with a real-time **WebGL fluid simulation** behind it: smoky, ink-in-water color that follows your cursor, built with React + Tailwind CSS and raw WebGL (no Three.js needed).
 
 ```bash
 npm install
@@ -12,20 +12,30 @@ npm run build    # static output in dist/
 
 | Piece | Where |
 | --- | --- |
-| Blob palette, sizes, parallax layers | `src/lib/blobs.js` |
-| Spring physics (semi-implicit Euler) | `src/lib/spring.js` |
-| Generated film-grain texture | `src/lib/grain.js` |
-| Animation engine + layers | `src/components/AuroraBackground.jsx` |
-| Nav + glass card | `src/components/Hero.jsx` |
+| Fluid solver, bloom, shading (GLSL) | `src/lib/fluid.js` |
+| Cursor emitter, color drift, ambient ink | `src/components/FluidBackground.jsx` |
+| Nav, headline, CTAs | `src/components/Hero.jsx` |
+| Spring physics | `src/lib/spring.js` |
+| Film-grain texture | `src/lib/grain.js` |
 
-- **Aurora:** nine large radial-gradient blobs (violet, blue, cyan, pink, emerald) in three parallax layers, blended with `mix-blend-mode: screen` for an additive glow that can't clip to white. Blob opacity is capped and a vignette darkens the edges to keep saturation in check.
-- **Motion:** each blob drifts on two detuned sine waves per axis. One `requestAnimationFrame` loop writes `translate3d` / `scale` / `opacity` straight to the DOM, so React never re-renders mid-animation.
-- **Interaction:** the cursor drives a spring that lags the pointer slightly, which gives the magnetic feel. Blobs near it (Gaussian falloff) are pulled toward it, scale up and brighten, each through its own spring.
-- **Bloom:** a masked `backdrop-filter: saturate() brightness()` disc plus a soft additive glow sit under the cursor. Their strength follows a movement-energy value that rises with pointer speed and fades out smoothly once the pointer stops.
-- **Light and depth:** a large `soft-light` radial light trails the cursor on a slower spring. The layers move against the cursor at different depths for parallax. The glass card tilts slightly through the `--px` / `--py` CSS variables, and a sheen across it follows the cursor.
-- **Idle and touch:** after 3.5 s without input, or on touch devices, a "ghost" light drifts along a slow Lissajous path so the scene keeps moving.
-- **Performance:** GPU-only properties (`transform`, `opacity`) and `will-change`. The loop pauses when the hero is off screen (IntersectionObserver), dt is clamped, and resizes go through ResizeObserver.
-- **Mobile:** detected by a coarse pointer or a width under 768 px. It uses six blobs instead of nine, lower interaction intensity, a smaller bloom and no backdrop-filter bloom.
-- **Reduced motion:** `prefers-reduced-motion` slows the drift to 30 % speed and stops the grain and entrance animations.
+- **Fluid:** a stable-fluids Navier–Stokes solver runs on the GPU in half-float framebuffers. Each step computes curl, applies vorticity confinement, computes divergence, solves pressure with Jacobi iterations, subtracts the pressure gradient and advects. Vorticity confinement creates the swirling, smoky tendrils.
+- **Cursor:** the pointer drives a spring-smoothed emitter, so trails curve and flow instead of snapping to the pointer. Faster movement injects more force and more vivid dye. Clicking or tapping releases a burst of color.
+- **Color:** the dye drifts slowly through violet, mint, cyan, magenta, crimson, gold and pearl. A filmic tone curve lets bright cores glow without clipping to white.
+- **Bloom and shading:** a threshold bloom chain makes dense ink glow, and normal-based shading gives the smoke volume.
+- **Always alive:** when the pointer is idle, a ghost emitter wanders a slow path and puffs of ink drift in from the edges.
+- **Depth:** a soft radial light trails the cursor, the copy moves with subtle parallax, and a vignette and animated grain sit on top.
+- **Performance:**
+  - Everything runs in one `requestAnimationFrame` loop that pauses when the hero is off screen.
+  - The device pixel ratio is capped at 1.5, and ink density is independent of frame rate.
+- **Mobile:**
+  - The simulation and dye resolution are lower, with fewer pressure iterations and lighter bloom.
+  - Touching and dragging stirs the ink.
+- **Fallbacks:**
+  - Browsers without WebGL get a static gradient.
+  - `prefers-reduced-motion` slows the fluid and turns off the ambient puffs.
 
-Customise the palette and composition in `src/lib/blobs.js`.
+## Customise
+
+- Messaging and CTA link: `src/components/Hero.jsx` (set `CTA_HREF` to your WhatsApp, Instagram or booking link).
+- Fluid feel (curl, dissipation, bloom): the `DEFAULTS` block in `src/lib/fluid.js`.
+- Ink colors: `PALETTE` in `src/components/FluidBackground.jsx`.

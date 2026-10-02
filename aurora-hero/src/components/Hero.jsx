@@ -1,7 +1,16 @@
 import { useRef } from 'react';
-import AuroraBackground from './AuroraBackground.jsx';
+import FluidBackground from './FluidBackground.jsx';
 
-const NAV = ['Product', 'Platform', 'Customers', 'Pricing'];
+const NAV = ['Work', 'Process', 'Pricing', 'FAQ', 'Contact'];
+
+// Replace with your real booking / WhatsApp / Instagram DM link.
+const CTA_HREF = '#contact';
+
+// Foreground drifts slightly with the cursor for parallax depth.
+const parallax = (depth) => ({
+  transform: `translate3d(calc(var(--px) * ${depth}px), calc(var(--py) * ${depth}px), 0)`,
+  willChange: 'transform',
+});
 
 export default function Hero() {
   const hostRef = useRef(null);
@@ -12,103 +21,87 @@ export default function Hero() {
       className="relative flex min-h-[100svh] w-full flex-col overflow-hidden"
       style={{ '--px': 0, '--py': 0 }}
     >
-      <AuroraBackground hostRef={hostRef} />
+      <FluidBackground hostRef={hostRef} />
 
       {/* Nav */}
-      <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-5 sm:px-8 sm:py-7">
-        <a href="#" className="flex items-center gap-2.5 text-[17px] font-semibold tracking-[-0.01em]">
-          <span className="h-6 w-6 rounded-full bg-[conic-gradient(from_200deg,#8b5cf6,#22c8ee,#10b981,#e848a0,#8b5cf6)] shadow-[0_0_24px_rgba(139,92,246,0.6)]" />
-          Lumina
+      <header className="relative z-10 flex w-full items-center justify-between px-4 py-5 sm:px-8 lg:px-12">
+        <a href="#" className="flex items-center gap-3">
+          <span className="grid h-8 w-8 place-items-center rounded-full border border-emerald-300/60 text-[13px] font-semibold text-emerald-200">
+            A
+          </span>
+          <span className="text-[15px] font-semibold uppercase tracking-[0.18em] text-white/90">ActWithAshu</span>
         </a>
-        <nav className="hidden items-center gap-9 text-sm font-medium text-white/70 md:flex">
+        <nav className="hidden items-center gap-8 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60 lg:flex">
           {NAV.map((item) => (
-            <a key={item} href="#" className="transition-colors duration-300 hover:text-white">
+            <a key={item} href={`#${item.toLowerCase()}`} className="transition-colors duration-300 hover:text-white">
               {item}
             </a>
           ))}
         </nav>
-        <a href="#" className="btn border border-white/15 bg-white/[0.04] px-5 py-2.5 text-[12px] backdrop-blur-md hover:bg-white/10">
-          Sign in
+        <a
+          href={CTA_HREF}
+          className="btn bg-gradient-to-b from-amber-200 to-amber-400 px-5 py-2.5 text-[11px] font-semibold text-ink shadow-[0_0_24px_-4px_rgba(251,191,36,0.6)] hover:shadow-[0_0_36px_-2px_rgba(251,191,36,0.85)]"
+        >
+          Claim $1 site
         </a>
       </header>
 
-      {/* Glass card */}
-      <div className="relative z-10 flex flex-1 items-center justify-center px-4 pb-16 pt-6 sm:px-8 [perspective:1400px]">
-        <div
-          className="group relative w-full max-w-3xl animate-fade-up"
-          style={{
-            transform:
-              'rotateX(calc(var(--py) * -3deg)) rotateY(calc(var(--px) * 4deg)) translate3d(calc(var(--px) * 8px), calc(var(--py) * 8px), 0)',
-            willChange: 'transform',
-          }}
-        >
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.12] bg-white/[0.045] px-6 py-10 text-center shadow-[0_30px_120px_-20px_rgba(10,8,40,0.8),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-[14px] sm:rounded-[36px] sm:px-14 sm:py-16">
-            {/* Sheen that tracks the cursor across the glass */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  'radial-gradient(600px circle at calc(50% + var(--px) * 50%) calc(50% + var(--py) * 50%), rgba(255,255,255,0.09), transparent 45%)',
-              }}
-            />
-            <div aria-hidden="true" className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      {/* Hero copy */}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pb-10 text-center sm:px-8">
+        <div className="flex flex-col items-center animate-fade-up" style={parallax(-10)}>
+          <p className="mb-7 text-[11px] font-medium uppercase tracking-[0.32em] text-emerald-300/90 sm:text-[12px]">
+            Premium web design studio
+          </p>
 
+          <h1 className="max-w-5xl text-balance text-[44px] font-semibold leading-[1.04] tracking-[-0.035em] text-white/95 [text-shadow:0_4px_40px_rgba(0,0,0,0.5)] sm:text-[72px] lg:text-[96px]">
+            <span className="block">Your Premium Website,</span>
+            <span className="block">
+              Built for Just{' '}
+              <span className="bg-gradient-to-r from-emerald-300 via-lime-200 to-amber-300 bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_0_28px_rgba(110,231,183,0.45)]">
+                $1
+              </span>
+            </span>
+          </h1>
+
+          <p className="mt-7 max-w-xl text-[15px] leading-[1.7] text-white/70 sm:text-[17px]">
+            Your brand. Your story. Your website. A cinematic, high-converting site like this one, designed and built
+            for you for just one dollar.
+          </p>
+
+          <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row sm:gap-8">
             <a
-              href="#"
-              className="relative mx-auto mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.06] py-1.5 pl-1.5 pr-4 text-[13px] font-medium text-white/80 transition hover:bg-white/10"
+              href={CTA_HREF}
+              className="btn w-full border border-emerald-300/70 bg-emerald-400/10 px-9 text-emerald-100 shadow-[0_0_30px_-6px_rgba(52,211,153,0.6),inset_0_0_20px_rgba(52,211,153,0.12)] backdrop-blur-md hover:bg-emerald-400/20 hover:shadow-[0_0_44px_-4px_rgba(52,211,153,0.8),inset_0_0_20px_rgba(52,211,153,0.2)] sm:w-auto"
             >
-              <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-ink">
-                New
-              </span>
-              Realtime rendering engine 2.0
-              <span aria-hidden="true" className="text-white/50">→</span>
+              Get my $1 website
             </a>
-
-            <h1 className="relative text-balance text-[34px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[52px] lg:text-[60px]">
-              <span className="block">Interfaces that breathe.</span>
-              <span className="block text-white/[0.62]">Shipped at the speed of thought.</span>
-            </h1>
-
-            <p className="relative mx-auto mt-6 max-w-xl text-[15px] leading-[1.7] text-white/65 sm:text-[17px]">
-              Lumina gives product teams a cinematic, GPU-accelerated design layer — fluid motion, living color and
-              pixel-perfect performance, without writing a single shader.
-            </p>
-
-            <div className="relative mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-              <a
-                href="#"
-                className="btn w-full bg-white text-ink shadow-[0_0_40px_-6px_rgba(200,180,255,0.7)] hover:shadow-[0_0_60px_-4px_rgba(200,180,255,0.9)] sm:w-auto"
-              >
-                Start building free
-              </a>
-              <a href="#" className="btn w-full border border-white/15 bg-white/[0.04] text-white hover:bg-white/10 sm:w-auto">
-                Watch the film
-              </a>
-            </div>
-
-            <div className="relative mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[13px] font-medium text-white/45">
-              <span>
-                <span className="text-white/85">60 FPS</span> on any device
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.16em] text-white/70 transition hover:text-white"
+            >
+              See the work
+              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+                →
               </span>
-              <span className="hidden h-1 w-1 rounded-full bg-white/25 sm:block" />
-              <span>
-                <span className="text-white/85">12k+</span> teams shipping
-              </span>
-              <span className="hidden h-1 w-1 rounded-full bg-white/25 sm:block" />
-              <span>
-                <span className="text-white/85">SOC 2</span> Type II
-              </span>
-            </div>
+            </a>
+          </div>
+
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/45">
+            <span>Mobile-ready</span>
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-white/25" />
+            <span>Lightning fast</span>
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-white/25" />
+            <span>Built to convert</span>
           </div>
         </div>
       </div>
 
       {/* Scroll cue */}
-      <div className="pointer-events-none relative z-10 mb-8 flex justify-center">
-        <div className="flex h-10 w-6 justify-center rounded-full border border-white/20 pt-2">
-          <span className="h-2 w-[3px] animate-bounce rounded-full bg-white/60" />
-        </div>
+      <div className="pointer-events-none relative z-10 mb-7 flex flex-col items-center gap-3">
+        <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/45">Scroll</span>
+        <span className="h-10 w-px overflow-hidden bg-white/15">
+          <span className="block h-1/2 w-px animate-[scrollcue_2s_ease-in-out_infinite] bg-white/70" />
+        </span>
       </div>
     </section>
   );
