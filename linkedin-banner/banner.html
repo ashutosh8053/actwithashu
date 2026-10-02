@@ -28,22 +28,19 @@ html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
 .bloom{position:absolute;left:560px;top:-40px;width:520px;height:420px;border-radius:50%;
   background:radial-gradient(closest-side,rgba(124,92,255,.35),rgba(34,211,238,.12) 55%,transparent);filter:blur(20px)}
 /* website mockup: one browser window, product-first */
-/* physical display: slight backward tilt, receding left, right edge nearer (as in the reference) */
-.rig{position:absolute;inset:0;perspective:1500px;perspective-origin:792px 198px}
-.dev{position:absolute;left:524px;top:38px;width:464px;height:420px;transform-style:preserve-3d;
-  transform-origin:100% 50%;transform:rotateY(-15deg) rotateX(4deg)}
-.dev .side{position:absolute;right:0;top:14px;bottom:14px;width:30px;transform-origin:100% 50%;transform:rotateY(-90deg);
-  background:linear-gradient(90deg,#4a4766 0%,#6f6b92 45%,#9d99bf 85%,#c9c6e2 100%)}
-.dev .face{position:absolute;inset:0;border-radius:20px;overflow:hidden;
-  background:linear-gradient(160deg,#34334a,#16151f 60%,#0f0f18);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.3)}
-.dev .sheen{position:absolute;inset:0;border-radius:20px;pointer-events:none;
-  background:linear-gradient(112deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.06) 28%,rgba(255,255,255,0) 42%),
-             linear-gradient(90deg,rgba(124,92,255,.16),rgba(124,92,255,0) 38%)}
-/* screen's soft shadow on the backdrop, light coming from the aurora at left */
-.cast{position:absolute;left:720px;top:70px;width:300px;height:380px;border-radius:40px;background:rgba(28,20,80,.26);filter:blur(30px)}
-.web{position:absolute;inset:7px;border-radius:14px;overflow:hidden;background:#fbfbfd}
-.web .tb{height:28px;background:#f6f6f9;border-bottom:1px solid #ececf2;position:relative}
+/* projector screen: frameless lit surface, top edge rising right, fading into the white panel */
+.surf{position:absolute;inset:0;filter:blur(1.6px);
+  clip-path:polygon(572px 37px,840px 0,1584px 0,1584px 396px,506px 396px);
+  background:
+    radial-gradient(280px 230px at 530px 390px,rgba(30,26,70,.55),transparent 75%),
+    radial-gradient(340px 280px at 600px 60px,rgba(124,110,240,.30),transparent 70%),
+    linear-gradient(90deg,#a7a6cf 0%,#aeacd9 33%,#cfcfec 41%,#eae9f6 50%,#f8f8fc 58%,#fff 64%)}
+.proj{position:absolute;inset:0;clip-path:polygon(572px 37px,840px 0,1584px 0,1584px 396px,506px 396px)}
+.pg{position:absolute;left:536px;top:40px;transform-origin:100% 50%;transform:perspective(1500px) rotateY(-10deg) scale(1.16);
+  mix-blend-mode:multiply;filter:blur(.6px) saturate(.95);opacity:.8;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 78%,transparent 98%)}
+.web{position:relative;width:450px;height:420px;overflow:hidden;background:#fbfbfd}
+.web .tb{height:28px;position:relative}
 .web .tb i{position:absolute;top:10px;width:8px;height:8px;border-radius:50%;background:#d9d9e1}
 .web .url{position:absolute;left:135px;top:7px;width:180px;height:14px;border-radius:7px;background:#ebebf1}
 .web .nav{position:absolute;left:24px;right:24px;top:44px;height:18px}
@@ -65,7 +62,7 @@ html,body{width:1584px;height:396px;background:var(--dark);overflow:hidden}
 .grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .rim{position:absolute;left:520px;top:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,rgba(124,92,255,.22),transparent)}
-.person{position:absolute;left:460px;top:-58px;height:560px;filter:drop-shadow(18px 10px 22px rgba(18,12,56,.38)) drop-shadow(0 0 26px rgba(0,0,0,.35)) contrast(1.03)}
+.person{position:absolute;left:460px;top:-58px;height:560px;filter:drop-shadow(14px 8px 22px rgba(18,12,56,.28)) drop-shadow(-2px -2px 10px rgba(120,130,255,.35)) contrast(1.03)}
 .logos{position:absolute;left:42px;top:38px;display:flex;gap:16px;align-items:center;color:#fff;font-weight:700;font-size:20px;letter-spacing:-.3px}.logos .dot{color:#a78bfa;font-weight:800}
 .ph{color:rgba(255,255,255,.55);font-weight:500;font-size:15px;border:1px dashed rgba(255,255,255,.35);padding:6px 12px;border-radius:6px}
 .right{position:absolute;left:1028px;top:0;width:520px;height:396px}
@@ -81,12 +78,10 @@ h1 .hl{font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4
   <div class="paper"></div>
   <div class="wash"></div>
   <div class="bloom"></div>
-  <div class="cast"></div>
-  <div class="rig"><div class="dev">
-  <div class="side"></div>
-  <div class="face">
+  <div class="surf"></div>
+  <div class="proj"><div class="pg">
   <div class="web">
-    <div class="tb"><i style="left:12px"></i><i style="left:25px"></i><i style="left:38px"></i><div class="url"></div></div>
+    <div class="tb"></div>
     <div class="nav"><div class="logo"></div>
       <div class="ni" style="left:150px;width:34px"></div><div class="ni" style="left:196px;width:30px"></div><div class="ni" style="left:238px;width:36px"></div>
       <div class="ncta"></div></div>
@@ -106,11 +101,9 @@ h1 .hl{font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4
     <div class="card" style="left:24px"></div><div class="card" style="left:162px"></div><div class="card" style="left:300px"></div>
     <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#0d0f12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
   </div>
-  <div class="sheen"></div>
-  </div>
   </div></div>
   <div class="rim"></div>
-  <img class="person" src="person.png">
+  <img class="person" src="person_lit.png">
   <div class="grain"></div>
   <div class="logos" id="logos"></div>
   <div class="right">
