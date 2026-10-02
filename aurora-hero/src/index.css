@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
+html,
+body {
+  @apply bg-ink font-sans text-white antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-medium uppercase tracking-[0.08em] transition duration-300 ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-grain,
+  .animate-fade-up {
+    animation: none !important;
+  }
+}
+
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
