@@ -4,7 +4,7 @@
 export const profile = {
   name: 'Ashutosh',
   surname: 'Jain',
-  handle: '@actwithashu',
+  handle: '@theashutoshjain',
   // TODO: drop your photo at public/media/avatar.jpg and set this to 'media/avatar.jpg'
   avatar: null,
   // Colour split: `lead` renders full white, `rest` renders muted.
@@ -25,8 +25,7 @@ export const offer = {
   },
   cta: {
     label: 'Claim the $5 website',
-    // TODO: point at your booking form / WhatsApp / DM link
-    href: 'https://instagram.com/actwithashu',
+    href: 'https://topmate.io/ashutosh_jain/1527603',
   },
 }
 
@@ -34,18 +33,13 @@ export const offer = {
 export const links = [
   // TODO: replace with your real portfolio URL
   { label: 'Explore my work', hint: 'Portfolio', href: '#work' },
-  // TODO: replace with your Calendly / Cal.com link
-  { label: 'Book a 15-min call', hint: 'Free', href: 'mailto:aashutoshjain1999@gmail.com?subject=Website%20inquiry' },
+  { label: 'Book a call', hint: 'Topmate', href: 'https://topmate.io/ashutosh_jain/1527603' },
 ]
 
-// TODO: confirm each handle/URL.
 export const socials = [
-  { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/actwithashu' },
-  { id: 'youtube', label: 'YouTube', href: 'https://youtube.com/@actwithashu' },
-  { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/actwithashu' },
-  { id: 'x', label: 'X', href: 'https://x.com/actwithashu' },
-  { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/' },
-  { id: 'mail', label: 'Email', href: 'mailto:aashutoshjain1999@gmail.com' },
+  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/theashutoshjain' },
+  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutosh-jain-7b2816171' },
+  { id: 'topmate', label: 'Book a call on Topmate', href: 'https://topmate.io/ashutosh_jain/1527603' },
 ]
 
 /*

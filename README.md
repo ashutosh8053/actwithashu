@@ -1,4 +1,4 @@
-# actwithashu — link-in-bio landing page
+# Ashutosh Jain — link-in-bio landing page
 
 A cinematic one-page link hub: a WebGL aurora background that reacts to the cursor, tilted website-preview screens, and the **Premium Website Built for $5** offer.
 
