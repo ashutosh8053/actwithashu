@@ -12,7 +12,7 @@ import ShowcaseStack from './ShowcaseStack'
  */
 export default function Hero() {
   return (
-    <main className="relative mx-auto grid min-h-svh w-full max-w-[1240px] grid-cols-1 items-center gap-12 px-5 pb-10 pt-[max(3.5rem,env(safe-area-inset-top))] sm:px-8 lg:grid-cols-[minmax(0,430px)_minmax(0,1fr)] lg:gap-20 lg:px-12 lg:py-16">
+    <main className="relative z-10 mx-auto grid min-h-svh w-full max-w-[1240px] grid-cols-1 items-center gap-12 px-5 pb-10 pt-[max(3.5rem,env(safe-area-inset-top))] sm:px-8 lg:grid-cols-[minmax(0,430px)_minmax(0,1fr)] lg:gap-20 lg:px-12 lg:py-16">
       <div className="mx-auto flex w-full max-w-[430px] flex-col items-center gap-7 lg:items-start">
         <ProfileContent />
         <div className="reveal" style={{ '--d': 4 }}>

@@ -214,7 +214,7 @@ export default function AuroraBackground() {
   }, [])
 
   return (
-    <div aria-hidden className="fixed inset-0 -z-10 bg-[#030305]">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-[#030305]">
       {fallback ? (
         <div className="aurora-fallback absolute inset-0" />
       ) : (

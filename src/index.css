@@ -17,7 +17,9 @@
 html { background: var(--bg); -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
-  /* No body background: it would paint over the fixed -z-10 aurora layer. html carries it. */
+  /* The aurora sits on its own z-0 layer and content on z-10, so a body background
+     (ours or a host page's) can never paint over it. */
+  background: var(--bg) !important;
   color: #fff;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
