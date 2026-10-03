@@ -1,0 +1,98 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="../fonts/local.css" rel="stylesheet">
+<style>
+:root{--ink:#0d0f12;--muted:#4a4a5a;--cyan:#22d3ee;--violet:#7c5cff;--blue:#0071e3}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:627px;overflow:hidden;background:#fff}
+.c{position:relative;width:1200px;height:627px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:#fff}
+/* stage on the right: the banner's navy-indigo with aurora, resolving into white on the left */
+.stage{position:absolute;inset:0;background:
+  radial-gradient(420px 320px at 1210px 640px,rgba(34,211,238,.55),transparent 70%),
+  radial-gradient(460px 360px at 1000px 680px,rgba(139,92,246,.55),transparent 70%),
+  radial-gradient(380px 260px at 900px 40px,rgba(59,90,246,.32),transparent 70%),
+  linear-gradient(180deg,#0f1534,#100c26);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 50%,rgba(0,0,0,.35) 53.5%,#000 59%)}
+.wash{position:absolute;left:-200px;top:-220px;width:760px;height:520px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(139,92,246,.07),rgba(34,211,238,.04) 60%,transparent)}
+.grain{position:absolute;inset:0;opacity:.08;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* copy */
+.copy{position:absolute;left:72px;top:0;bottom:0;width:500px;display:flex;flex-direction:column;justify-content:center}
+.rule{width:56px;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));margin-bottom:26px}
+h1{font-size:64px;line-height:1.02;letter-spacing:-2.2px;font-weight:800;color:var(--ink)}
+h1 span{font-weight:400}
+h1 em{font-style:normal;font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4dff);-webkit-background-clip:text;color:transparent}
+p{font-size:19.5px;line-height:1.5;color:var(--muted);letter-spacing:-.15px;max-width:450px}
+p.a{margin-top:26px;color:#2b2b38}
+p.b{margin-top:14px}
+/* display: the banner's website mockup, coach edition */
+.bloom{position:absolute;left:760px;top:60px;width:500px;height:460px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(124,92,255,.38),rgba(34,211,238,.12) 55%,transparent);filter:blur(16px)}
+.rig{position:absolute;inset:0;perspective:1600px;perspective-origin:600px 313px}
+.dev{position:absolute;left:690px;top:118px;width:470px;height:400px;transform-style:preserve-3d;transform-origin:0 50%;transform:rotateY(16deg) rotateX(3deg)}
+.side{position:absolute;left:0;top:14px;bottom:14px;width:28px;transform-origin:0 50%;transform:rotateY(90deg);
+  background:linear-gradient(90deg,#c9c6e2 0%,#9d99bf 15%,#6f6b92 55%,#4a4766 100%)}
+.face{position:absolute;inset:0;border-radius:20px;overflow:hidden;background:linear-gradient(160deg,#34334a,#16151f 60%,#0f0f18);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.3),0 40px 80px -20px rgba(10,8,40,.6)}
+.sheen{position:absolute;inset:0;border-radius:20px;pointer-events:none;
+  background:linear-gradient(112deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.05) 28%,rgba(255,255,255,0) 42%)}
+.web{position:absolute;inset:7px;border-radius:14px;overflow:hidden;background:#fbfbfd}
+.web .nav{position:absolute;left:24px;right:24px;top:22px;height:18px}
+.web .logo{position:absolute;left:0;top:3px;width:12px;height:12px;border-radius:50%;background:#1d1d1f}
+.web .ni{position:absolute;top:7px;height:4px;border-radius:2px;background:#c7c7d2}
+.web .ncta{position:absolute;right:0;top:0;width:62px;height:18px;border-radius:9px;background:var(--blue)}
+.web .eyebrow{position:absolute;left:24px;top:84px;width:52px;height:5px;border-radius:3px;background:#86868b}
+.web .h{position:absolute;left:24px;height:15px;border-radius:4px;background:#1d1d1f}
+.web .p{position:absolute;left:24px;height:4px;border-radius:2px;background:#d2d2d7}
+.web .b1{position:absolute;left:24px;top:206px;width:84px;height:22px;border-radius:11px;background:var(--blue)}
+.web .b2{position:absolute;left:116px;top:206px;width:60px;height:22px;border-radius:11px;border:1px solid var(--blue);opacity:.55}
+/* coach portrait tile */
+.web .por{position:absolute;left:236px;top:70px;width:196px;height:178px;border-radius:16px;overflow:hidden;
+  background:linear-gradient(160deg,#f3cfc9 0%,#e9e3f7 55%,#d9dcf3 100%)}
+.web .por .head{position:absolute;left:73px;top:40px;width:50px;height:56px;border-radius:50%;background:#4a5679}
+.web .por .body{position:absolute;left:38px;top:100px;width:120px;height:110px;border-radius:60px 60px 0 0;background:#4a5679}
+.web .chip{position:absolute;left:214px;top:212px;width:118px;height:40px;border-radius:12px;background:rgba(255,255,255,.86);
+  box-shadow:0 10px 22px rgba(30,30,70,.16);border:1px solid rgba(255,255,255,.9)}
+.web .chip b{position:absolute;left:10px;top:10px;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,var(--cyan),var(--violet))}
+.web .chip i{position:absolute;left:38px;height:4px;border-radius:2px;background:#c9c9d6}
+.web .card{position:absolute;top:280px;width:130px;height:110px;border-radius:14px;background:#f5f5f7}
+.web .card i{position:absolute;left:14px;height:4px;border-radius:2px;background:#d2d2d7}
+.cursor{position:absolute;left:412px;top:28px;width:20px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+</style></head>
+<body><div class="c">
+  <div class="wash"></div>
+  <div class="stage"></div>
+  <div class="bloom"></div>
+  <div class="rig"><div class="dev">
+    <div class="side"></div>
+    <div class="face">
+      <div class="web">
+        <div class="nav"><div class="logo"></div>
+          <div class="ni" style="left:170px;width:34px"></div><div class="ni" style="left:216px;width:30px"></div><div class="ni" style="left:258px;width:36px"></div>
+          <div class="ncta"></div></div>
+        <div class="eyebrow"></div>
+        <div class="h" style="top:100px;width:178px"></div>
+        <div class="h" style="top:121px;width:160px"></div>
+        <div class="h" style="top:142px;width:118px"></div>
+        <div class="p" style="top:170px;width:170px"></div>
+        <div class="p" style="top:180px;width:140px"></div>
+        <div class="b1"></div><div class="b2"></div>
+        <div class="por"><div class="head"></div><div class="body"></div></div>
+        <div class="chip"><b></b><i style="top:13px;width:62px"></i><i style="top:23px;width:42px;opacity:.7"></i></div>
+        <div class="card" style="left:24px"><i style="top:72px;width:80px"></i><i style="top:84px;width:56px"></i></div>
+        <div class="card" style="left:166px"><i style="top:72px;width:80px"></i><i style="top:84px;width:56px"></i></div>
+        <div class="card" style="left:308px"><i style="top:72px;width:80px"></i><i style="top:84px;width:56px"></i></div>
+        <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#0d0f12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sheen"></div>
+    </div>
+  </div></div>
+  <div class="copy">
+    <div class="rule"></div>
+    <h1>Landing Pages<br><span>for</span> <em>Coaches</em></h1>
+    <p class="a">Professionally designed landing pages that turn your expertise and offer into a clear, credible online experience.</p>
+    <p class="b">Built to build trust, communicate your value, and turn visitors into potential clients.</p>
+  </div>
+  <div class="grain"></div>
+</div></body></html>
