@@ -1,0 +1,74 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="../fonts/local.css" rel="stylesheet">
+<style>
+:root{--ink:#0d0f12;--muted:#4a4a5a;--cyan:#22d3ee;--violet:#7c5cff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:627px;overflow:hidden;background:#fff}
+.c{position:relative;width:1200px;height:627px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:#fff}
+.wash{position:absolute;left:-200px;top:-220px;width:760px;height:520px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(139,92,246,.07),rgba(34,211,238,.04) 60%,transparent)}
+/* the banner's navy-indigo stage with aurora, resolving into white */
+.stage{position:absolute;inset:0;background:
+  radial-gradient(420px 320px at 1210px 640px,rgba(34,211,238,.5),transparent 70%),
+  radial-gradient(460px 360px at 960px 690px,rgba(139,92,246,.55),transparent 70%),
+  radial-gradient(380px 260px at 920px 30px,rgba(59,90,246,.3),transparent 70%),
+  linear-gradient(180deg,#0f1534,#100c26);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 50%,rgba(0,0,0,.35) 53.5%,#000 59%)}
+.bloom{position:absolute;left:760px;top:70px;width:480px;height:460px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(124,92,255,.42),rgba(34,211,238,.12) 55%,transparent);filter:blur(18px)}
+.grain{position:absolute;inset:0;opacity:.08;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* copy: identical system to the landing-page creative */
+.copy{position:absolute;left:72px;top:0;bottom:0;width:500px;display:flex;flex-direction:column;justify-content:center}
+.rule{width:56px;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));margin-bottom:26px}
+h1{font-size:56px;line-height:1.02;letter-spacing:-2px;font-weight:800;color:var(--ink)}
+.pos{margin-top:22px;font-size:24px;line-height:1.25;letter-spacing:-.6px;font-weight:700;color:var(--ink);max-width:440px}
+h1 span{font-weight:400}
+h1 em{font-style:normal;font-weight:800;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4dff);-webkit-background-clip:text;color:transparent}
+p{font-size:19.5px;line-height:1.5;color:var(--muted);letter-spacing:-.15px;max-width:450px}
+p.a{margin-top:14px}
+p.b{margin-top:14px}
+/* the journey: a narrowing funnel of glass steps joined by a light path */
+.flow{position:absolute;left:770px;top:132px;width:380px;height:370px}
+.line{position:absolute;left:189px;top:30px;width:2px;height:300px;background:linear-gradient(180deg,rgba(34,211,238,.0),rgba(34,211,238,.7) 15%,rgba(124,92,255,.8) 85%,rgba(124,92,255,0))}
+.dot{position:absolute;left:186px;width:8px;height:8px;border-radius:50%;background:#a5f3fc;box-shadow:0 0 12px 3px rgba(103,232,249,.7)}
+.step{position:absolute;left:50%;height:64px;transform:translateX(-50%);border-radius:18px;display:flex;align-items:center;gap:14px;padding:0 18px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 18px 40px -16px rgba(5,4,25,.8);color:#fff}
+.step b{flex:none;width:32px;height:32px;border-radius:10px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:#c4b5fd}
+.step span{font-size:18px;font-weight:700;letter-spacing:-.4px;flex:1}
+.step .viz{flex:none;display:flex;gap:3px;align-items:center}
+.step .viz i{display:block;border-radius:50%;background:rgba(255,255,255,.5)}
+.step.out{background:linear-gradient(#fbfbfd,#fbfbfd) padding-box,linear-gradient(90deg,#22d3ee,#7c5cff,#c084fc) border-box;border:1.5px solid transparent;color:var(--ink);
+  box-shadow:0 0 40px -6px rgba(124,92,255,.65),0 20px 40px -14px rgba(5,4,25,.8)}
+.step.out b{background:linear-gradient(135deg,#22d3ee,#7c5cff);color:#fff}
+.ad{width:34px;height:24px;border-radius:6px;background:linear-gradient(135deg,#22d3ee,#7c5cff);position:relative;opacity:.9}
+.ad:after{content:"";position:absolute;left:5px;right:12px;bottom:5px;height:3px;border-radius:2px;background:rgba(255,255,255,.8)}
+.form{display:flex;flex-direction:column;gap:3px}
+.form i{border-radius:2px!important;height:4px;background:rgba(255,255,255,.55)!important}
+.chk{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#7c5cff);display:flex;align-items:center;justify-content:center}
+</style></head>
+<body><div class="c">
+  <div class="wash"></div>
+  <div class="stage"></div>
+  <div class="bloom"></div>
+  <div class="flow">
+    <div class="line"></div>
+    <div class="dot" style="top:84px"></div><div class="dot" style="top:174px"></div><div class="dot" style="top:264px"></div>
+    <div class="step" style="top:0;width:340px"><b>01</b><span>Right audience</span>
+      <div class="viz"><i style="width:9px;height:9px"></i><i style="width:9px;height:9px;opacity:.8"></i><i style="width:9px;height:9px;opacity:.6"></i><i style="width:9px;height:9px;opacity:.45"></i><i style="width:9px;height:9px;opacity:.3"></i></div></div>
+    <div class="step" style="top:100px;width:306px"><b>02</b><span>Meta Ads</span><div class="ad"></div></div>
+    <div class="step" style="top:200px;width:272px"><b>03</b><span>Relevant leads</span>
+      <div class="viz form"><i style="width:30px"></i><i style="width:22px"></i><i style="width:26px"></i></div></div>
+    <div class="step out" style="top:300px;width:250px"><b>04</b><span>Potential clients</span>
+      <div class="chk"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2 5 8.6 9.6 3.6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+  <div class="copy">
+    <div class="rule"></div>
+    <h1>Performance<br>Marketing &amp;<br><em>Meta Ads</em></h1>
+    <div class="pos">Turn ad spend into a<br>client-acquisition system.</div>
+    <p class="a">Strategic Meta Ads built to reach the right audience, generate relevant leads, and move prospects from click to potential client.</p>
+  </div>
+  <div class="grain"></div>
+</div></body></html>
