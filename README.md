@@ -1,37 +1,45 @@
-## Welcome to GitHub Pages
+# actwithashu — link-in-bio landing page
 
-You can use the [editor on GitHub](https://github.com/ashutosh8053/actwithashu/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+A cinematic one-page link hub: a WebGL aurora background that reacts to the cursor, tilted website-preview screens, and the **Premium Website Built for $5** offer.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # production build → dist/
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Edit your content
 
-### Jekyll Themes
+Everything editable lives in **`src/config/site.js`**: name, handle, bio, the offer, links, social URLs and the showcase playlists. Lines marked `TODO` are placeholders.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ashutosh8053/actwithashu/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Assets still needed
 
-### Support or Contact
+| Asset | Where it goes | Used for |
+|---|---|---|
+| Profile photo (square, ≥ 300px) | `public/media/avatar.jpg`, then set `profile.avatar = 'media/avatar.jpg'` | Avatar in the gradient ring (a monogram is shown until then) |
+| 4–7 screen recordings of your sites (16:10, 1280×800, H.264, muted, 2–4 s, ~1–2 MB each) + a poster JPG each | `public/media/`, then listed in `showcase.back` / `showcase.front` as `{ type: 'video', src, poster, duration }` | The two tilted preview screens (built-in animated placeholders are shown until then) |
+| Real social, booking and portfolio URLs | `src/config/site.js` | Socials dock, CTA, link rows |
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Structure
+
+```
+src/
+  config/site.js              content + media playlists
+  lib/motion.js               one shared rAF loop, spring-smoothed pointer, device capability flags
+  lib/useMagnetic.js          magnetic hover + cursor-tracking border light
+  components/
+    AuroraBackground.jsx      WebGL aurora shader (cursor bloom, parallax, grain) + CSS fallback
+    Hero.jsx                  layout: one column on mobile, split on desktop
+    ProfileContent.jsx        avatar, name, handle, bio
+    SocialLinks.jsx           glass socials dock
+    OfferCTA.jsx              $5 offer panel + pastel gradient pill CTA
+    LinkList.jsx              secondary links
+    ShowcaseStack.jsx         the two tilted screens, 3D cursor tilt / scroll parallax
+    VideoCard.jsx             playlist player: hard cuts, lazy loading, plays only on screen
+    MockSite.jsx              placeholder site previews
+```
+
+## Deploy
+
+`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `master`/`main`.
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
