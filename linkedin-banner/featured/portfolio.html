@@ -1,0 +1,96 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="../fonts/local.css" rel="stylesheet">
+<style>
+:root{--ink:#0d0f12;--muted:#4a4a5a;--cyan:#22d3ee;--violet:#7c5cff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:627px;overflow:hidden;background:#fff}
+.c{position:relative;width:1200px;height:627px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:#fff}
+.wash{position:absolute;left:-200px;top:-220px;width:760px;height:520px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(139,92,246,.07),rgba(34,211,238,.04) 60%,transparent)}
+.stage{position:absolute;inset:0;background:
+  radial-gradient(420px 320px at 1210px 640px,rgba(34,211,238,.5),transparent 70%),
+  radial-gradient(460px 360px at 900px 700px,rgba(139,92,246,.55),transparent 70%),
+  radial-gradient(420px 300px at 980px 60px,rgba(59,90,246,.32),transparent 70%),
+  linear-gradient(180deg,#0f1534,#100c26);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 48%,rgba(0,0,0,.35) 51.5%,#000 57%)}
+.bloom{position:absolute;left:760px;top:60px;width:500px;height:480px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(124,92,255,.38),rgba(34,211,238,.1) 55%,transparent);filter:blur(18px)}
+.grain{position:absolute;inset:0;opacity:.08;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* copy */
+.copy{position:absolute;left:72px;top:0;bottom:0;width:480px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:1.8px;color:#5b4ae0;margin-bottom:20px}
+.eyebrow i{width:28px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+h1{font-size:72px;line-height:.98;letter-spacing:-2.8px;font-weight:800;color:var(--ink)}
+h1 em{font-style:normal;background:linear-gradient(90deg,#0ea5c6,#5b5bff 45%,#9b4dff);-webkit-background-clip:text;color:transparent}
+.sub{margin-top:22px;font-size:21px;line-height:1.35;color:var(--muted);letter-spacing:-.3px}
+.cta{margin-top:34px;align-self:flex-start;display:flex;align-items:center;gap:12px;height:56px;padding:0 10px 0 26px;border-radius:28px;
+  background:linear-gradient(135deg,#14143a,#0b0b18);border:1px solid rgba(167,139,250,.4);color:#fff;font-size:17px;font-weight:700;letter-spacing:-.2px;
+  box-shadow:0 14px 32px -10px rgba(91,74,224,.55),inset 0 1px 0 rgba(255,255,255,.14)}
+.cta span{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#22d3ee,#7c5cff)}
+/* three websites, layered through space */
+.rig{position:absolute;inset:0;perspective:1500px;perspective-origin:860px 300px}
+.sp{position:absolute;inset:0;transform-style:preserve-3d}
+.win{position:absolute;width:372px;height:232px;border-radius:12px;overflow:hidden;transform-origin:50% 50%;
+  box-shadow:0 40px 70px -20px rgba(6,4,30,.75),0 0 0 1px rgba(255,255,255,.18)}
+.win:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 35%)}
+.bar{height:22px;display:flex;align-items:center;gap:5px;padding:0 10px;position:relative}
+.bar i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.35}
+.bar u{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:130px;height:10px;border-radius:5px;background:currentColor;opacity:.12}
+/* 1. service business: clean, blue, structured (back) */
+.w3{left:810px;top:34px;transform:rotateY(16deg) rotateX(4deg) translateZ(-120px);background:#fff;color:#94a3b8}
+.w3 .in{position:absolute;inset:22px 0 0;padding:18px 22px;color:#0f172a}
+.w3 .nv{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700}
+.w3 .nv b{display:flex;gap:6px;align-items:center}.w3 .nv b:before{content:"";width:10px;height:10px;border-radius:3px;background:#2563eb}
+.w3 .nv span{background:#2563eb;color:#fff;padding:4px 9px;border-radius:6px;font-size:9px}
+.w3 h3{margin-top:20px;font-size:26px;letter-spacing:-.9px;font-weight:800}
+.w3 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}
+.w3 .cards div{height:74px;border-radius:9px;background:#f1f5f9;padding:10px}
+.w3 .cards div:before{content:"";display:block;width:16px;height:16px;border-radius:5px;background:#dbeafe;box-shadow:inset 0 0 0 4px #bfdbfe}
+.w3 .cards div:after{content:"";display:block;margin-top:14px;height:4px;width:70%;border-radius:2px;background:#cbd5e1}
+/* 2. creator / personal brand: dark, bold, warm glow (middle) */
+.w2{left:742px;top:178px;transform:rotateY(16deg) rotateX(4deg) translateZ(-50px);background:#0a0a0f;color:#fff}
+.w2 .in{position:absolute;inset:22px 0 0;padding:20px 24px}
+.w2 .orb{position:absolute;right:-20px;top:-10px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fde68a,#fb7185 45%,#9333ea 80%);filter:blur(2px);opacity:.9}
+.w2 .k{position:relative;font-size:9px;font-weight:700;letter-spacing:1.4px;color:rgba(255,255,255,.6)}
+.w2 h3{position:relative;margin-top:14px;font-size:38px;line-height:.95;letter-spacing:-1.6px;font-weight:800}
+.w2 h3 em{font-style:normal;background:linear-gradient(90deg,#fde68a,#fb7185);-webkit-background-clip:text;color:transparent}
+.w2 .btn{position:relative;margin-top:22px;display:inline-block;background:#fff;color:#0a0a0f;font-size:10px;font-weight:800;padding:7px 14px;border-radius:14px}
+/* 3. coach / consultant: warm editorial serif (front) */
+.w1{left:668px;top:334px;transform:rotateY(16deg) rotateX(4deg) translateZ(20px);background:#f6f1e8;color:#8a7a66}
+.w1 .in{position:absolute;inset:22px 0 0;padding:20px 22px;color:#2b211a}
+.w1 .nv{display:flex;justify-content:space-between;font-size:9px;font-weight:600;color:#6b5a4a}
+.w1 .nv b{font-family:'Fraunces',serif;font-size:13px;color:#2b211a}
+.w1 h3{margin-top:22px;width:200px;font-family:'Fraunces',serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.8px}
+.w1 p{margin-top:10px;width:180px;height:4px;border-radius:2px;background:#d9cbb8;box-shadow:0 9px 0 #d9cbb8}
+.w1 .btn{margin-top:26px;display:inline-block;background:#2b211a;color:#f6f1e8;font-size:10px;font-weight:700;padding:8px 15px;border-radius:16px}
+.w1 .por{position:absolute;right:18px;top:40px;width:132px;height:160px;border-radius:80px 80px 14px 14px;overflow:hidden;
+  background:linear-gradient(170deg,#e9b89a,#c9785a)}
+.w1 .por:before{content:"";position:absolute;left:39px;top:40px;width:54px;height:60px;border-radius:50%;background:#5b3a2c}
+.w1 .por:after{content:"";position:absolute;left:11px;top:104px;width:110px;height:100px;border-radius:55px 55px 0 0;background:#5b3a2c}
+</style></head>
+<body><div class="c">
+  <div class="wash"></div>
+  <div class="stage"></div>
+  <div class="bloom"></div>
+  <div class="rig"><div class="sp">
+    <div class="win w3"><div class="bar"><i></i><i></i><i></i><u></u></div>
+      <div class="in"><div class="nv"><b>Agency</b><span>Book a Call</span></div>
+        <h3>Explore Services.</h3><div class="cards"><div></div><div></div><div></div></div></div></div>
+    <div class="win w2"><div class="bar"><i></i><i></i><i></i><u></u></div>
+      <div class="in"><div class="orb"></div><div class="k">CREATOR · STUDIO</div>
+        <h3>Work<br><em>With Me.</em></h3><div class="btn">Join the community</div></div></div>
+    <div class="win w1"><div class="bar"><i></i><i></i><i></i><u></u></div>
+      <div class="in"><div class="nv"><b>Coaching</b><span>About · Programs · Contact</span></div>
+        <h3>Build Your Brand.</h3><p></p><div class="btn">Book a Call</div><div class="por"></div></div></div>
+  </div></div>
+  <div class="copy">
+    <div class="eyebrow"><i></i>PORTFOLIO</div>
+    <h1>See what<br>I <em>build.</em></h1>
+    <div class="sub">Websites. Landing Pages.<br>Digital Experiences.</div>
+    <div class="cta">Check my portfolio<span><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+  </div>
+  <div class="grain"></div>
+</div></body></html>
