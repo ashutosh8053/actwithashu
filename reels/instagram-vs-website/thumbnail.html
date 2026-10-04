@@ -1,0 +1,110 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="fonts/local.css" rel="stylesheet">
+<style>
+:root{--acc:#f5b942}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0b0d}
+.t{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:#0b0b0d;color:#fff}
+.bg{position:absolute;inset:0;background:radial-gradient(700px 600px at 260px 900px,rgba(150,120,255,.14),transparent 70%),radial-gradient(600px 600px at 860px 1250px,rgba(200,200,190,.06),transparent 70%),linear-gradient(180deg,#111114,#0a0a0c)}
+h1{position:absolute;left:46px;top:46px;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;color:#f5f5f7}
+h1 span{display:block}
+h1 .a{font-size:118px}
+h1 .x{color:var(--acc)}
+h1 .d{font-size:180px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-spacing:2px;line-height:.86}
+.tag{position:absolute;font-size:16px;font-weight:800;letter-spacing:2.2px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;z-index:5}
+/* polished Instagram-style profile */
+.ig{position:absolute;left:36px;top:690px;width:476px;height:470px;border-radius:26px;padding:24px;
+  background:linear-gradient(160deg,#1c1b24,#121117);border:1px solid rgba(255,255,255,.14);box-shadow:0 40px 80px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.12);transform:rotate(-2deg)}
+.ig .hd{display:flex;align-items:center;gap:18px}
+.ig .pic{width:92px;height:92px;border-radius:50%;padding:4px;background:conic-gradient(#f5b942,#f472b6,#8b5cf6,#f5b942)}
+.ig .pic img{width:100%;height:100%;border-radius:50%;border:3px solid #16151c;display:block}
+.ig .nm b{display:block;font-size:20px;letter-spacing:-.3px}
+.ig .nm span{display:block;font-size:13px;color:#a7a5b5;margin-top:3px}
+.ig .bio{margin-top:14px;font-size:14px;line-height:1.45;color:#dcdbe4}
+.ig .link{margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#c8c1ff;position:relative}
+.ig .btns{display:flex;gap:8px;margin-top:14px}
+.ig .btns div{flex:1;height:32px;border-radius:9px;background:#2a2934;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ig .btns div:first-child{background:#f5f5f7;color:#121117}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:16px}
+.grid div{height:92px;border-radius:6px;position:relative;overflow:hidden;font-family:'Anton';font-size:15px;line-height:1;padding:10px;color:#fff}
+.g1{background:linear-gradient(150deg,#2b2440,#8b5cf6)}
+.g2{background:#f3eee6;color:#1b1a20!important}
+.g3{background:radial-gradient(circle at 30% 30%,#f5b942,#7c3aed 80%)}
+.g4{background:#16151c;border:1px solid rgba(255,255,255,.12)}
+.g5{background:linear-gradient(160deg,#c9b2a0,#5b4436)}
+.g6{background:linear-gradient(150deg,#111,#3b3550)}
+/* generic, flat website */
+.rig{position:absolute;inset:0;perspective:2000px;perspective-origin:820px 1200px}
+.br{position:absolute;left:592px;top:900px;width:470px;height:690px;border-radius:12px;overflow:hidden;background:#f2f2f0;transform:rotateY(-12deg) rotateZ(1.5deg);transform-origin:0 50%;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.18);filter:saturate(.55) brightness(.94)}
+.br .bar{height:28px;background:#dcdcd8;display:flex;align-items:center;gap:6px;padding:0 12px}
+.br .bar i{width:9px;height:9px;border-radius:50%;background:#bdbdb8}
+.ws{font-family:'Liberation Serif','DejaVu Serif',serif;color:#333}
+.ws .nv{background:#3b5b7a;color:#e8eef4;font-family:'Liberation Sans',sans-serif;font-size:10.5px;display:flex;gap:9px;padding:7px 10px;flex-wrap:wrap}
+.ws .hero{height:150px;background:linear-gradient(#c9ccd0,#b8bcc1);position:relative;display:flex;align-items:center;justify-content:center}
+.ws .hero svg{opacity:.55}
+.ws h3{font-size:26px;text-align:center;margin:14px 10px 4px;color:#2a2a2a;font-weight:700}
+.ws .sub{font-size:12.5px;text-align:center;color:#666;margin:0 26px}
+.ws .cols{display:flex;gap:10px;padding:14px 16px 0}
+.ws .cols div{flex:1;font-size:10.5px;line-height:1.35;color:#555}
+.ws .cols b{display:block;font-size:13px;color:#333;margin-bottom:3px}
+.ws .lnk{font-family:'Liberation Sans',sans-serif;font-size:11px;color:#2a5db0;text-decoration:underline;margin:12px 16px 0;display:block}
+.ws .wall{margin:10px 16px 0;font-size:10px;line-height:1.35;color:#777}
+.ins{position:absolute;left:606px;top:1080px;width:440px;height:140px;border:2px dashed rgba(255,255,255,.75);border-radius:10px;transform:rotateZ(1.5deg)}
+/* click path + trust meter: the one accent */
+.flow{position:absolute;inset:0;pointer-events:none}
+.meter{position:absolute;left:872px;top:1640px;width:178px;height:230px;border-radius:18px;background:rgba(20,20,24,.92);border:1px solid rgba(255,255,255,.14);padding:16px 18px}
+.meter b{display:block;font-size:20px;font-weight:800;letter-spacing:1.5px}
+.meter b em{font-style:normal;color:var(--acc)}
+.segs{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.segs i{height:14px;border-radius:4px;background:rgba(255,255,255,.1)}
+.segs i.on{background:var(--acc)}
+.segs i.dim{background:rgba(245,185,66,.35)}
+.person{position:absolute;left:94px;top:998px;height:922px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.post{position:absolute;left:-40px;top:1470px;width:300px;height:420px;border-radius:22px;background:#16151c;border:1px solid rgba(255,255,255,.12);transform:rotate(-6deg);opacity:.75;overflow:hidden}
+.post .ph{display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:13px;font-weight:700}
+.post .ph img{width:30px;height:30px;border-radius:50%}
+.post .im{height:260px;background:radial-gradient(circle at 30% 30%,#f5b942,#7c3aed 75%);display:flex;align-items:flex-end;padding:18px;font-family:'Anton';font-size:30px;line-height:1}
+.post .ac{display:flex;gap:14px;padding:12px 16px}.post .ac i{width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.7)}
+.vig{position:absolute;inset:0;background:radial-gradient(1200px 1500px at 50% 50%,transparent 60%,rgba(0,0,0,.5))}
+.grain{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+</style></head>
+<body><div class="t">
+  <div class="bg"></div>
+  <h1><span class="a">Your Instagram</span><span class="a">looks <span class="x">expensive.</span></span><span class="a">Your website</span><span class="d">doesn’t.</span></h1>
+  <div class="post"><div class="ph"><img src="avatar.jpg">yourbrand.coach</div><div class="im">LEAD WITH<br>CLARITY.</div><div class="ac"><i></i><i></i><i></i></div></div>
+  <div class="ig">
+    <div class="hd"><div class="pic"><img src="avatar.jpg"></div><div class="nm"><b>yourbrand.coach</b><span>Leadership Coach</span></div></div>
+    <div class="bio">Helping founders lead with clarity.<br>Frameworks, stories &amp; weekly lessons.</div>
+    <div class="link">🔗 yourbrand.com</div>
+    <div class="btns"><div>Follow</div><div>Message</div></div>
+    <div class="grid"><div class="g1">LEAD<br>BETTER</div><div class="g2">“CLARITY<br>IS KIND.”</div><div class="g3"></div><div class="g4">3 RULES<br>FOR CEOs</div><div class="g5"></div><div class="g6">THE<br>FRAMEWORK</div></div>
+  </div>
+  <div class="tag" style="left:44px;top:650px;transform:rotate(-2deg)">PERSONAL BRAND</div>
+  <div class="rig"><div class="br">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div class="ws">
+      <div class="nv"><span>Home</span><span>About Me</span><span>Services</span><span>Blog</span><span>Gallery</span><span>Events</span><span>FAQ</span><span>Contact</span></div>
+      <div class="hero"><svg width="70" height="54" viewBox="0 0 70 54"><path d="M2 52 L24 22 L38 38 L48 28 L68 52 Z" fill="#8a8f96"/><circle cx="52" cy="12" r="7" fill="#8a8f96"/></svg></div>
+      <h3>Welcome To My Website!</h3>
+      <div class="sub">I am a coach. I help people with many different things in life and business.</div>
+      <div class="cols"><div><b>Services</b>Coaching, mentoring, workshops, consulting and more depending on needs.</div><div><b>About</b>Over the years I have worked with many people from different backgrounds.</div><div><b>News</b>Check out my latest updates and blog posts below.</div></div>
+      <a class="lnk">Click here to contact me</a>
+      <div class="wall">Lorem ipsum style paragraphs continue here with general information about the business, the history, the approach and other details that a visitor needs to scroll through before finding a reason to act.</div>
+    </div>
+  </div></div>
+  <div class="ins"></div>
+  <div class="tag" style="left:860px;top:858px">WEBSITE</div>
+  <svg class="flow" viewBox="0 0 1080 1920" fill="none">
+    <path d="M212 884 C330 880 450 860 520 880 S580 920 606 944" stroke="#f5b942" stroke-width="5" stroke-linecap="round"/>
+    <path d="M586 928 L611 948 L584 970" stroke="#f5b942" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(176,874)"><path d="M4 2 L4 26 L10.5 20 L15 29 L19 27 L14.5 18.5 L23 18.5 Z" fill="#fff" stroke="#0b0b0d" stroke-width="1.8" stroke-linejoin="round"/></g>
+  </svg>
+  <div class="tag" style="left:356px;top:812px;background:var(--acc);color:#141414;border-color:var(--acc)">CLICK</div>
+  <img class="person" src="person.png">
+  <div class="meter"><b>TRUST <em>↓</em></b><div class="segs"><i></i><i></i><i></i><i class="dim"></i><i class="on"></i></div></div>
+  <div class="vig"></div>
+  <div class="grain"></div>
+</div></body></html>
