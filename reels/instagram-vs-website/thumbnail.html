@@ -7,11 +7,11 @@
 html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0b0d}
 .t{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter Tight',sans-serif;background:#0b0b0d;color:#fff}
 .bg{position:absolute;inset:0;background:radial-gradient(700px 600px at 260px 900px,rgba(150,120,255,.14),transparent 70%),radial-gradient(600px 600px at 860px 1250px,rgba(200,200,190,.06),transparent 70%),linear-gradient(180deg,#111114,#0a0a0c)}
-h1{position:absolute;left:46px;top:46px;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;color:#f5f5f7}
+h1{position:absolute;left:46px;top:262px;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;color:#f5f5f7}
 h1 span{display:block}
-h1 .a{font-size:118px}
+h1 .a{font-size:96px}
 h1 .x{color:var(--acc)}
-h1 .d{font-size:180px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-spacing:2px;line-height:.86}
+h1 .d{font-size:146px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-spacing:2px;line-height:.86}
 .tag{position:absolute;font-size:16px;font-weight:800;letter-spacing:2.2px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;z-index:5}
 /* polished Instagram-style profile */
 .ig{position:absolute;left:36px;top:690px;width:476px;height:470px;border-radius:26px;padding:24px;
@@ -54,14 +54,14 @@ h1 .d{font-size:180px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-s
 .ins{position:absolute;left:606px;top:1080px;width:440px;height:140px;border:2px dashed rgba(255,255,255,.75);border-radius:10px;transform:rotateZ(1.5deg)}
 /* click path + trust meter: the one accent */
 .flow{position:absolute;inset:0;pointer-events:none}
-.meter{position:absolute;left:872px;top:1640px;width:178px;height:230px;border-radius:18px;background:rgba(20,20,24,.92);border:1px solid rgba(255,255,255,.14);padding:16px 18px}
+.meter{position:absolute;left:872px;top:1530px;width:178px;height:230px;border-radius:18px;background:rgba(20,20,24,.92);border:1px solid rgba(255,255,255,.14);padding:16px 18px}
 .meter b{display:block;font-size:20px;font-weight:800;letter-spacing:1.5px}
 .meter b em{font-style:normal;color:var(--acc)}
 .segs{display:flex;flex-direction:column;gap:6px;margin-top:14px}
 .segs i{height:14px;border-radius:4px;background:rgba(255,255,255,.1)}
 .segs i.on{background:var(--acc)}
 .segs i.dim{background:rgba(245,185,66,.35)}
-.person{position:absolute;left:94px;top:998px;height:922px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.person{position:absolute;left:94px;top:1040px;height:922px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
 .post{position:absolute;left:-40px;top:1470px;width:300px;height:420px;border-radius:22px;background:#16151c;border:1px solid rgba(255,255,255,.12);transform:rotate(-6deg);opacity:.75;overflow:hidden}
 .post .ph{display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:13px;font-weight:700}
 .post .ph img{width:30px;height:30px;border-radius:50%}
@@ -74,7 +74,8 @@ h1 .d{font-size:180px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-s
 <body><div class="t">
   <div class="bg"></div>
   <h1><span class="a">Your Instagram</span><span class="a">looks <span class="x">expensive.</span></span><span class="a">Your website</span><span class="d">doesn’t.</span></h1>
-  <div class="post"><div class="ph"><img src="avatar.jpg">yourbrand.coach</div><div class="im">LEAD WITH<br>CLARITY.</div><div class="ac"><i></i><i></i><i></i></div></div>
+  <div style="position:absolute;inset:0;transform-origin:540px 650px;transform:translateY(120px) scale(0.82)">
+<div class="post"><div class="ph"><img src="avatar.jpg">yourbrand.coach</div><div class="im">LEAD WITH<br>CLARITY.</div><div class="ac"><i></i><i></i><i></i></div></div>
   <div class="ig">
     <div class="hd"><div class="pic"><img src="avatar.jpg"></div><div class="nm"><b>yourbrand.coach</b><span>Leadership Coach</span></div></div>
     <div class="bio">Helping founders lead with clarity.<br>Frameworks, stories &amp; weekly lessons.</div>
@@ -103,8 +104,9 @@ h1 .d{font-size:180px;color:transparent;-webkit-text-stroke:3px #d9d9de;letter-s
     <g transform="translate(176,874)"><path d="M4 2 L4 26 L10.5 20 L15 29 L19 27 L14.5 18.5 L23 18.5 Z" fill="#fff" stroke="#0b0b0d" stroke-width="1.8" stroke-linejoin="round"/></g>
   </svg>
   <div class="tag" style="left:356px;top:812px;background:var(--acc);color:#141414;border-color:var(--acc)">CLICK</div>
-  <img class="person" src="person.png">
   <div class="meter"><b>TRUST <em>↓</em></b><div class="segs"><i></i><i></i><i></i><i class="dim"></i><i class="on"></i></div></div>
+  
+</div><img class="person" src="person.png">
   <div class="vig"></div>
   <div class="grain"></div>
 </div></body></html>
