@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="s2v" viewBox="0 0 1200 470" width="1200" height="470" role="img" aria-label="The 97% not buying now: Info gathering Mode 17%, Problem Aware 20%, Not problem Aware 60%">
+<title>The 97% not buying now: Info gathering Mode 17%, Problem Aware 20%, Not problem Aware 60%</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+.disp{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:700;letter-spacing:-0.01em}
+.num{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.sans{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.mono{font-family:'IBM Plex Mono',Menlo,Consolas,monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+</style>
+<defs>
+  <pattern id="s2v-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="9" height="9" fill="#DDE1E8"/>
+    <line x1="0" y1="0" x2="0" y2="9" stroke="#C3C9D4" stroke-width="2"/>
+  </pattern>
+  <marker id="s2v-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0E1525"/>
+  </marker>
+  <marker id="s2v-arrow-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2D46F5"/>
+  </marker>
+  <marker id="s2v-arrow-mute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#566075"/>
+  </marker>
+</defs>
+<rect width="1200" height="470" fill="#EEF0F3"/>
+<rect x="60" y="214" width="32.4" height="54" fill="#0E1525" stroke="#EEF0F3" stroke-width="2.5"/><rect x="92.4" y="214" width="183.6" height="54" fill="#2D46F5" stroke="#EEF0F3" stroke-width="2.5"/><rect x="276" y="214" width="216" height="54" fill="#7C8CF8" stroke="#EEF0F3" stroke-width="2.5"/><rect x="492" y="214" width="648" height="54" fill="url(#s2v-hatch)" stroke="#EEF0F3" stroke-width="2.5"/><text x="616.2" y="78" class="sans" fill="#566075" font-size="21" text-anchor="middle" font-style="italic">The GOAL is move the 97% of potential Customers up the pyramid faster.</text><text x="616.2" y="160" class="num" fill="#2D46F5" font-size="76" text-anchor="middle">97%</text><path d="M95.4,202 V188 H1137 V202" fill="none" stroke="#2D46F5" stroke-width="2.5"/><text x="98.4" y="314" class="num" fill="#2D46F5" font-size="30" >17%</text><text x="98.4" y="340" class="sans" fill="#0E1525" font-size="17" >Info gathering Mode</text><text x="282" y="314" class="num" fill="#7C8CF8" font-size="30" >20%</text><text x="282" y="340" class="sans" fill="#0E1525" font-size="17" >Problem Aware</text><text x="498" y="314" class="num" fill="#566075" font-size="30" >60%</text><text x="498" y="340" class="sans" fill="#0E1525" font-size="17" >Not problem Aware</text><line x1="76" y1="272" x2="76" y2="372" stroke="#566075" stroke-width="1.2" stroke-dasharray="2 4"/><text x="60" y="408" class="num" fill="#0E1525" font-size="30" >3%</text><text x="116" y="406" class="sans" fill="#0E1525" font-size="17" >Buying Now</text>
+</svg>

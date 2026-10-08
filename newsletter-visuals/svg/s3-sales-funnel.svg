@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="s3" viewBox="0 0 1200 380" width="1200" height="380" role="img" aria-label="Sales funnel: Website Visitor, then Prospect, then Customer">
+<title>Sales funnel: Website Visitor, then Prospect, then Customer</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+.disp{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:700;letter-spacing:-0.01em}
+.num{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.sans{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.mono{font-family:'IBM Plex Mono',Menlo,Consolas,monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+</style>
+<defs>
+  <pattern id="s3-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="9" height="9" fill="#DDE1E8"/>
+    <line x1="0" y1="0" x2="0" y2="9" stroke="#C3C9D4" stroke-width="2"/>
+  </pattern>
+  <marker id="s3-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0E1525"/>
+  </marker>
+  <marker id="s3-arrow-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2D46F5"/>
+  </marker>
+  <marker id="s3-arrow-mute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#566075"/>
+  </marker>
+</defs>
+<rect width="1200" height="380" fill="#EEF0F3"/>
+<text x="60" y="78" class="mono" fill="#2D46F5" font-size="15" >Sales funnel</text><polygon points="60,110 466,138.2 466,301.8 60,330" fill="#DDE1E8"/><text x="263" y="229" class="disp" fill="#0E1525" font-size="28" text-anchor="middle">Website Visitor</text><polygon points="474,138.8 816,162.5 816,277.5 474,301.3" fill="#7C8CF8"/><text x="645" y="229" class="disp" fill="#EEF0F3" font-size="28" text-anchor="middle">Prospect</text><polygon points="824,163.1 1140,185 1140,255 824,276.9" fill="#2D46F5"/><text x="982" y="229" class="disp" fill="#EEF0F3" font-size="28" text-anchor="middle">Customer</text>
+</svg>

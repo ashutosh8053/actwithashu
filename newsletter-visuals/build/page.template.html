@@ -1,0 +1,252 @@
+<title>Large Market Visual System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one 760px reading column, figures break out to 1040px; spec tables scroll inside their own box. */
+:root {
+  --bg: #F6F7F9; --surface: #FFFFFF; --fg: #0E1525; --muted: #566075; --line: #D6DBE3;
+  --accent: #2D46F5; --warn: #B3261E; --warn-bg: #FCEDEB; --gold: #B57610;
+  --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0B101B; --surface: #131A28; --fg: #E6E9F0; --muted: #9AA3B5; --line: #263044;
+  --accent: #8C9BFF; --warn: #FF8A80; --warn-bg: #2A1517; --gold: #E9A93A; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0B101B; --surface: #131A28; --fg: #E6E9F0; --muted: #9AA3B5; --line: #263044;
+  --accent: #8C9BFF; --warn: #FF8A80; --warn-bg: #2A1517; --gold: #E9A93A; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); padding-inline: 16px; padding-block: 48px 96px; }
+.col { max-width: 760px; margin: 0 auto; }
+.wide { max-width: 1040px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 700; margin-top: 72px; padding-top: 24px; border-top: 2px solid var(--fg); }
+h3 { font-size: 22px; font-weight: 700; margin-top: 40px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: block; }
+p { margin: 12px 0; } .lede { font-size: 19px; color: var(--muted); }
+code, .q { font-family: var(--mono); font-size: .88em; }
+.q { background: color-mix(in srgb, var(--accent) 10%, transparent); padding: 1px 5px; border-radius: 3px; }
+ul, ol { padding-left: 22px; } li { margin: 6px 0; }
+.flag { background: var(--warn-bg); border-left: 3px solid var(--warn); padding: 14px 18px; margin: 14px 0; }
+.flag b { color: var(--warn); }
+.tbl { overflow-x: auto; margin: 20px 0; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+td.n { font: 600 14px var(--mono); font-variant-numeric: tabular-nums; }
+.pri { font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.pri.hero { color: var(--accent); } .pri.sup { color: var(--muted); } .pri.opt { color: var(--muted); border-style: dashed; } .pri.cut { color: var(--warn); }
+figure { margin: 28px auto; }
+figure .plate { background: #EEF0F3; border: 1px solid var(--line); }
+figure svg { display: block; width: 100%; height: auto; }
+figure.small { max-width: 520px; }
+figcaption { font: 500 12px/1.5 var(--mono); color: var(--muted); margin-top: 10px; letter-spacing: .02em; }
+dl.spec { display: grid; grid-template-columns: 170px 1fr; gap: 8px 20px; margin: 16px 0; }
+dl.spec dt { font: 500 11px/1.9 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+dl.spec dd { margin: 0; min-width: 0; }
+@media (max-width: 600px) { dl.spec { grid-template-columns: 1fr; gap: 2px; } dl.spec dd { margin-bottom: 10px; } }
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.sw { display: flex; align-items: center; gap: 8px; font: 12px var(--mono); }
+.sw i { width: 28px; height: 28px; border: 1px solid var(--line); display: inline-block; }
+.rhythm { font: 13px/1.9 var(--mono); background: var(--surface); border: 1px solid var(--line); padding: 16px 20px; overflow-x: auto; white-space: pre; }
+a { color: var(--accent); }
+</style>
+
+<header class="col">
+  <span class="eyebrow">Art direction · Newsletter visual system</span>
+  <h1>How To TAKE Customers from Just looking</h1>
+  <p class="lede">Eight graphics, down from the ten in the brief: seven placed in the newsletter plus one optional key. All are drawn to scale and use only the newsletter's own words. The one blocking error in the copy, the opening 97% line, has been fixed (flag 1 below).</p>
+</header>
+
+<section class="col">
+  <h2>Read this first: the content check</h2>
+  <p>I checked every number. The pyramid math holds: 3 + 17 + 20 + 60 = 100, 17 + 20 = 37, 37 + 60 = 97. The problems are in the sentences that use those numbers.</p>
+
+  <div class="flag" style="border-left-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)"><b style="color:var(--accent)">1 · Fixed. The opening line now agrees with the framework.</b><br>
+  Was: <span class="q">1st To Reach 97% who're ready to buy now (but could be very soon)</span><br>
+  Now: <span class="q">1st To Reach 97% who're NOT ready to buy now (but could be very soon)</span><br>
+  Only the 3% are <span class="q">Buying Now</span>, so the 97% are the people who aren't. The only change is the added word "NOT". It's in capitals to match how the copy stresses other words ("TAKE", "SHUT UP"). M1 can now go next to this line.</div>
+
+  <div class="flag"><b>2 · Three different return figures.</b><br>
+  <span class="q">put 1$ in which generate $2, $5, $10, $50 or even $200 back</span>, then <span class="q">putting $1 in &amp; getting $3 back</span>, then <span class="q">put in a dollar &amp; buy a $5 or a $10 note</span>. They don't contradict each other, but $3 isn't in the first list. The graphic (H3) uses only the first set, word for word, as a range on a log scale with no single value highlighted. It shows a range, not a promised return.</div>
+
+  <div class="flag"><b>3 · Unsupported claims. None of these appear in a graphic.</b><br>
+  <span class="q">They're virtually 99% ready to buy</span> (99% is a figure of speech, not a segment of the pyramid). <span class="q">smashes these woeful returns on investment</span> (it compares against returns the text never states, so a paragraph seems to be missing). <span class="q">Advertising is an Investment that makes more money than anything else. Period.</span></div>
+
+  <div class="flag"><b>4 · "Right away" vs. "up the pyramid faster".</b><br>
+  <span class="q">shift … 97% … to becoming your customer right away</span> conflicts with <span class="q">move the 97% of potential Customers up the pyramid faster</span>. Every graphic shows gradual movement, which matches most of the copy.</div>
+
+  <div class="flag"><b>5 · Naming and stage words.</b><br>
+  The text uses both <span class="q">THE LARGE MARKET FORMULA</span> and <span class="q">The LARGER MARKET FORMULA</span>. The graphics use the heading's spelling. The copy's stages are <span class="q">Attract / Educates / Nurtures / Gets prospects to act</span>. The brief asked for ATTRACT / EDUCATE / NURTURE / ACT, so H2 uses the brief's labels. If the author wants the exact copy wording, change them.</div>
+
+  <div class="flag"><b>6 · Attribution risk.</b><br>
+  The 3 / 17 / 20 / 60 split, "HVCO", "The Godfather Strategy" and "The HALO STRATEGY" closely match Sabri Suby's <em>Sell Like Crazy</em>. I'm fairly confident of this but haven't checked it against the book. A polished, branded infographic makes a borrowed framework look like the author's own. Add a credit line under H1 or check the source before publishing.</div>
+</section>
+
+<section class="col">
+  <h2>Part 1 · Visual strategy</h2>
+  <h3>The structural problem the graphics have to solve</h3>
+  <p>The newsletter's argument runs backwards. It refers to <span class="q">97%</span> and <span class="q">moving them up the pyramid</span> in the first lines, but doesn't define the pyramid until the last third. The graphics can't reorder locked copy. They can give the reader the model early: a small pyramid key at the opening (optional) and the full formula as the strongest graphic where the copy finally defines it.</p>
+  <p>Second problem: the copy uses two metaphors that point in opposite directions. In the pyramid, buyers are at the <em>top</em> and readers move <em>up</em>. In a funnel, buyers are at the <em>bottom</em>. If both are drawn vertically, the reader has to flip the picture in their head. So the vertical axis is reserved for the market pyramid, where up means closer to buying. Every process (Attract → Act, the funnel, the advertising system) runs left to right.</p>
+
+  <h3>Direction</h3>
+  <ul>
+    <li><b>Style:</b> flat editorial information design, like a financial-press chart, not a SaaS landing page. Hairline leaders, bracket annotations, and numbers set as the main visual element.</li>
+    <li><b>Density:</b> four hero graphics, three supporting, and one optional micro key. The brief listed ten. Three of them (cold traffic system, advertising → profit, advertising as a system) were the same pipeline drawn three times, so they're merged into one hero (H3). The vending machine is cut because H3 already shows the $1-in, return-out idea, and a vending machine drawing tends toward clip-art.</li>
+    <li><b>Typography:</b> Bricolage Grotesque (heavy, for numbers and key ideas), IBM Plex Sans (labels), IBM Plex Mono uppercase (eyebrows, structural notes, and short verbatim quotes from the copy). Three roles, two families.</li>
+    <li><b>Color:</b> one cobalt accent with tonal steps, on cool paper with blue-black ink. Encoding: <b>ink</b> = the crowded 3%, <b>cobalt</b> = the 37% opportunity and progress toward action, <b>hatched grey</b> = the 60% not problem aware. Amber is used <em>only</em> for money ($1 in, returns back). No rainbow categories.</li>
+    <li><b>3D:</b> none. Any perspective distorts the areas, and the pyramid's credibility depends on the areas being honest. 3D also dates quickly and pushes the look toward generic SaaS.</li>
+  </ul>
+  <div class="swatches">
+    <span class="sw"><i style="background:#EEF0F3"></i>paper</span>
+    <span class="sw"><i style="background:#0E1525"></i>ink · 3%</span>
+    <span class="sw"><i style="background:#2D46F5"></i>accent · 17%</span>
+    <span class="sw"><i style="background:#7C8CF8"></i>accent-mid · 20%</span>
+    <span class="sw"><i style="background:repeating-linear-gradient(45deg,#DDE1E8 0 5px,#C3C9D4 5px 7px)"></i>hatch · 60%</span>
+    <span class="sw"><i style="background:#E9A93A"></i>money only</span>
+  </div>
+
+  <h3>Rhythm in the newsletter</h3>
+  <div class="rhythm">Opening ............. text · [M1 key, optional]
+The Key to Install .. H2 HERO  Attract → Act
+cold traffic → 99% .. text
+What you Need to do . text
+Sales funnel ........ S3 small
+HALO STRATEGY ....... H4 HERO
+Automated Lead gen .. H3 HERO  $1 → system → return
+budget / vending .... text (no graphic)
+LARGE MARKET FORMULA  H1 HERO  replaces the raw table's layout
+water example ....... text
+Compitor / 3% ....... S1 small (first to cut if the end feels crowded)
+37% ................. S2 small
+closing ............. text</div>
+  <p>The last third of the copy holds the core idea and three graphics. If it feels crowded in the final layout, cut S1 first: H1 already shows the 3% as a tiny tip.</p>
+</section>
+
+<section class="col">
+  <h2>Part 2 · Visual map</h2>
+</section>
+<div class="wide tbl">
+<table>
+<thead><tr><th>#</th><th>Exact newsletter location</th><th>Visual</th><th>Size</th><th>Purpose</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td class="n">H1</td><td>Directly after <span class="q">Let's understand THE LARGE MARKET FORMULA</span>, in place of the <span class="q">Pyramid level / Share</span> table layout</td><td>Area-true market pyramid + 3% / 97% strip</td><td>Full width, 1200×1180</td><td>Make the 97% vs 3% split obvious; anchor the whole argument</td><td><span class="pri hero">Hero</span></td></tr>
+<tr><td class="n">H2</td><td>After <span class="q">④ Gets prospects to act</span></td><td>Four-stage warming track</td><td>Full width, 1200×430</td><td>Show the movement from cold traffic to pre qualified</td><td><span class="pri hero">Hero</span></td></tr>
+<tr><td class="n">H3</td><td>After <span class="q">You need a System you can put 1$ in which generate $2, $5, $10, $50 or even $200 back.</span></td><td>Advertising → profit system with return range</td><td>Full width, 1200×600</td><td>Connect the stages spread across the text into one operating system</td><td><span class="pri hero">Hero</span></td></tr>
+<tr><td class="n">H4</td><td>After <span class="q">⑤ The stuff they're thinking but not telling anyone.</span></td><td>Halo rings around CUSTOMER</td><td>Full width, 1200×900</td><td>Put the hidden layer closest to the customer</td><td><span class="pri hero">Hero</span></td></tr>
+<tr><td class="n">S1</td><td>After <span class="q">you're never going to make much money</span></td><td>Competitors converging on the 3% tip</td><td>Full width, 1200×660</td><td>Show the crowding at the tip and the 97% left alone</td><td><span class="pri sup">Support</span></td></tr>
+<tr><td class="n">S2</td><td>After <span class="q">They are either gathering Info (17%) or problem Aware (20%)</span></td><td>100-unit strip, 37% bracket</td><td>Full width, 1200×470</td><td>17% + 20% = 37%, separate from 3% and 60%</td><td><span class="pri sup">Support</span></td></tr>
+<tr><td class="n">S3</td><td>After <span class="q">It's way to convert prospects from uninterested confused wanderers in to your best customers.</span></td><td>Horizontal narrowing funnel</td><td>Full width, 1200×380</td><td>Website Visitor → Prospect → Customer</td><td><span class="pri sup">Support</span></td></tr>
+<tr><td class="n">M1</td><td>After <span class="q">① 1st To Reach 97%…</span></td><td>Small pyramid key</td><td>Inline, 600×360 (show at 300px)</td><td>Define 3% / 97% before the copy uses them</td><td><span class="pri opt">Optional</span></td></tr>
+<tr><td class="n">—</td><td><span class="q">It's like Vending machine…</span></td><td>Vending machine</td><td>—</td><td>Repeats H3; tends toward cartoon</td><td><span class="pri cut">Cut</span></td></tr>
+<tr><td class="n">—</td><td><span class="q">When you've a system that takes cold traffic…</span></td><td>Cold traffic → customer system</td><td>—</td><td>Merged into H3</td><td><span class="pri cut">Merged</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<section class="col">
+  <h2>Part 3 + 4 · Specifications and the finished graphics</h2>
+  <p>Each graphic below is the production file: vector SVG built from computed geometry, plus a 2× PNG for email. Source, SVG and PNG files are in <code>newsletter-visuals/</code> on the branch.</p>
+</section>
+
+<!-- H1 -->
+<section class="col"><h3>H1 · The Large Market Formula</h3></section>
+<figure class="wide"><div class="plate">{{h1-large-market-formula}}</div>
+<figcaption>Band areas are exact. Cut depth = √(cumulative share), because a triangle's area grows with the square of its depth.</figcaption></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">Let's understand THE LARGE MARKET FORMULA</span>. It shows the same data as the table, so the table can stay as accessible text below it or be removed. That's the author's call.</dd>
+<dt>Objective</dt><dd>Within 3 seconds: the buying group is tiny, the 37% above the base is the opportunity, and 97% of the market is outside "buying now".</dd>
+<dt>Composition</dt><dd>Pyramid on the left two-thirds; labels in a right column joined by dotted leaders; 37% bracket on the left; full-width 100-unit strip at the foot that restates 3% vs 97% as a straight line.</dd>
+<dt>Hierarchy</dt><dd>1 · 3% tip in solid ink (smallest area, darkest) → 2 · 37% bracket in accent → 3 · 97% under the strip → 4 · segment names.</dd>
+<dt>Text</dt><dd>Only copy terms: <span class="q">THE LARGE MARKET FORMULA</span>, <span class="q">Pyramid level · Share</span>, the four segment names exactly as written, <span class="q">at any given time 3% of people are in buying mode!</span>. Added structural label: "Area to scale".</dd>
+<dt>Why area-true</dt><dd>With equal-height bands, the 3% tip would look like about 25%, which is the failure the brief warned about. Here the 3% band takes 17% of the height but exactly 3% of the area. The strip at the foot covers readers who judge by height.</dd>
+<dt>Don't</dt><dd>Don't use equal-height tiers, 3D or perspective, or the 99% figure. Don't use the brief's phrase "closer to buying" as a label, because the copy doesn't say it.</dd>
+</dl></section>
+
+<!-- H2 -->
+<section class="col"><h3>H2 · Attract → Educate → Nurture → Act</h3></section>
+<figure class="wide"><div class="plate">{{h2-attract-educate-nurture-act}}</div>
+<figcaption>Node size and fill grow at each stage, and the track warms from grey to cobalt.</figcaption></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">④ Gets prospects to act</span>.</dd>
+<dt>Objective</dt><dd>The four stages read as one movement from cold to ready, not four boxes.</dd>
+<dt>Composition</dt><dd>One horizontal track with an arrowhead; four nodes spaced evenly; stage word above, copy numeral above that; end labels below the track.</dd>
+<dt>Encoding</dt><dd>Two cues show momentum: node radius 12 → 30 and fill from outline to solid accent. ACT is the only word set in accent.</dd>
+<dt>Text</dt><dd><span class="q">The Key to Install them is -</span>, ①–④, stage words (see flag 5), <span class="q">cold traffic</span>, <span class="q">pre qualified</span>.</dd>
+<dt>Don't</dt><dd>Don't use rounded rectangles, icons per stage, or a circular loop. The copy describes a one-way path, not a cycle.</dd>
+</dl></section>
+
+<!-- H3 -->
+<section class="col"><h3>H3 · Advertising → profit system</h3></section>
+<figure class="wide"><div class="plate">{{h3-advertising-to-profit-system}}</div>
+<figcaption>Suggested caption under the image: "Figures as stated above, not a guaranteed return." The return range is on a log scale, so no single value stands out.</figcaption></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">You need a System you can put 1$ in which generate $2, $5, $10, $50 or even $200 back.</span></dd>
+<dt>Objective</dt><dd>One picture that joins the stages the copy spreads across four sections: traffic sources, HVCO education, auto-pilot nurture, conversion, profit, and reinvestment.</dd>
+<dt>Composition</dt><dd>$1 input (amber) → seven-station line → vertical return scale (amber). Bracketed zones above the line use copy phrases. A dashed reinvestment loop below returns to the input.</dd>
+<dt>Hierarchy</dt><dd>$1 → the line → the return range → zone labels → sub-labels.</dd>
+<dt>Text</dt><dd>All from copy: <span class="q">Automated Lead generation and Client Conversion System</span>, <span class="q">that turns Advertising into profit</span>, <span class="q">put 1$ in</span>, <span class="q">Your System - not you</span>, <span class="q">google · facebook</span>, <span class="q">HVCO</span>, <span class="q">on auto pilot</span>, <span class="q">Customer</span>, <span class="q">back</span>, <span class="q">or even</span>, <span class="q">invest as much as your cash flows allows</span>.</dd>
+<dt>Don't</dt><dd>Don't put "$200" large on its own, draw a bar chart of returns (it reads as a result), add $3 to the scale, or use a vending machine.</dd>
+</dl></section>
+
+<!-- H4 -->
+<section class="col"><h3>H4 · The Halo Strategy</h3></section>
+<figure class="wide"><div class="plate">{{h4-halo-strategy}}</div>
+<figcaption>①–④ sit in the outer ring. ⑤, the unspoken layer, is the solid ring touching the core.</figcaption></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">⑤ The stuff they're thinking but not telling anyone.</span></dd>
+<dt>Honest weakness</dt><dd>This is the weakest hero because it repeats a five-item list. It earns its place with one idea the list can't show: the item that matters most is the one hidden closest to the customer. If space is tight, use it at half width.</dd>
+<dt>Composition</dt><dd>Concentric rings: ink core <span class="q">CUSTOMER</span>, solid accent ring ⑤ with text set along the arc, four equal pale quadrants ①–④ (equal because the copy doesn't rank them), and a dotted outer halo.</dd>
+<dt>Text</dt><dd><span class="q">The HALO STRATEGY</span>, <span class="q">YOU MUST KNOW YOUR CUSTOMER INTIMATELY!</span>, the five items as written, <span class="q">Customer's deepest &amp; most</span> on the lower arc.</dd>
+<dt>Don't</dt><dd>Don't use brains, silhouettes, thought bubbles or icebergs.</dd>
+</dl></section>
+
+<!-- S1 -->
+<section class="col"><h3>S1 · The 3% competition problem</h3></section>
+<figure class="wide"><div class="plate">{{s1-3pct-competition}}</div></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">you're never going to make much money</span>.</dd>
+<dt>Composition</dt><dd>The same area-true pyramid split 3 / 97. Nine identical square markers (businesses) all aim at the tip, and nothing aims at the hatched 97%. <span class="q">being Ignored</span> is from the copy.</dd>
+<dt>Don't</dt><dd>Don't draw cartoon people, logos, or a "you" marker. The copy doesn't say where the reader stands.</dd>
+</dl></section>
+
+<!-- S2 -->
+<section class="col"><h3>S2 · The 37% opportunity</h3></section>
+<figure class="wide"><div class="plate">{{s2-37pct-opportunity}}</div></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After <span class="q">They are either gathering Info (17%) or problem Aware (20%)</span>.</dd>
+<dt>Composition</dt><dd>The same four segments, laid out as a straight 100-unit strip (honest by length). A bracket marks 17% + 20%, with the copy's own line <span class="q">I'm kinda thirsty - What Should I drink?</span> above it.</dd>
+<dt>Don't</dt><dd>Don't write equation notation ("17 + 20 = 37") in display type. That's the worksheet look the brief wanted to avoid.</dd>
+</dl></section>
+
+<!-- S3 -->
+<section class="col"><h3>S3 · Sales funnel</h3></section>
+<figure class="wide"><div class="plate">{{s3-sales-funnel}}</div></figure>
+<section class="col">
+<dl class="spec">
+<dt>Placement</dt><dd>After the two <span class="q">Sales funnel</span> sentences.</dd>
+<dt>Composition</dt><dd>Horizontal on purpose (see Part 1), so it doesn't fight the pyramid's direction. Three tapering segments with fill that deepens toward Customer.</dd>
+<dt>Don't</dt><dd>Don't add conversion rates. The copy has none.</dd>
+</dl></section>
+
+<!-- M1 -->
+<section class="col"><h3>M1 · Pyramid key (optional)</h3></section>
+<figure class="small"><div class="plate">{{m1-pyramid-key}}</div>
+<figcaption>Place it after the corrected opening line.</figcaption></figure>
+
+<section class="col">
+  <h2>Final quality pass</h2>
+  <ul>
+    <li><b>Is each graphic necessary?</b> Two from the brief were cut and three were merged into one. S1 is the first to drop if needed.</li>
+    <li><b>Does any graphic add information?</b> No. Every word on the graphics is copy text, except two structural labels ("Area to scale", stage numerals).</li>
+    <li><b>Does any graphic make a weak claim look stronger?</b> The return range is shown as a range, the 99% figure and "more money than anything else" aren't drawn, and the opening-line contradiction is flagged rather than illustrated.</li>
+    <li><b>Do they look like one system?</b> Same paper, ink, accent steps, hatch, three type roles, dotted leaders and bracket style throughout.</li>
+  </ul>
+</section>
