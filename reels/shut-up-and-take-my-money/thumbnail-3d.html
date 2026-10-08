@@ -2,47 +2,47 @@
 <html><head><meta charset="utf-8">
 <link href="fonts/local.css" rel="stylesheet">
 <style>
-:root{--gold:#f5b942;--cool:#9fb0d6}
+:root{--cobalt:#2f5bff;--elec:#5aa8ff;--violet:#8b6cff;--chrome:#dfe5f2;--soft:#f3f5fb}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#08090e}
 .t{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter Tight',sans-serif;color:#fff;
-  background:radial-gradient(700px 520px at 880px 380px,rgba(120,150,220,.16),transparent 70%),
-             radial-gradient(760px 640px at 300px 1360px,rgba(245,185,66,.17),transparent 70%),
-             linear-gradient(180deg,#0e1018 0%,#0a0b12 50%,#07070b 100%)}
+  background:radial-gradient(700px 520px at 880px 400px,rgba(139,108,255,.16),transparent 70%),
+             radial-gradient(800px 660px at 300px 1360px,rgba(47,91,255,.22),transparent 70%),
+             linear-gradient(180deg,#070a18 0%,#05070f 55%,#04050a 100%)}
 /* floor plane for depth */
-.floor{position:absolute;left:-200px;right:-200px;top:1560px;height:500px;background:radial-gradient(600px 160px at 50% 0%,rgba(245,185,66,.10),transparent 70%);transform:perspective(600px) rotateX(70deg)}
+.floor{position:absolute;left:-200px;right:-200px;top:1560px;height:500px;background:radial-gradient(600px 160px at 50% 0%,rgba(47,91,255,.14),transparent 70%);transform:perspective(600px) rotateX(70deg)}
 /* typography */
-.k{position:absolute;font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;letter-spacing:.5px}
-.l1{left:64px;top:282px;font-size:58px;color:#e9ebf2}
-.l2{left:64px;top:340px;font-size:118px;color:transparent;-webkit-text-stroke:2.5px var(--cool)}
-.l3{left:64px;top:600px;font-size:58px;color:#e9ebf2}
-.pay{position:absolute;left:58px;top:660px;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:112px;line-height:.92;letter-spacing:.5px;
-  background:linear-gradient(180deg,#ffe7a8 0%,#f5b942 55%,#d38a25 100%);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 10px 28px rgba(245,185,66,.3))}
+.k{position:absolute;font-family:'Inter Tight',sans-serif;line-height:.9}
+.l1{left:64px;top:290px;font-size:46px;font-weight:600;letter-spacing:-.5px;color:#c9d0e4}
+.l2{left:60px;top:346px;font-size:108px;font-weight:300;letter-spacing:-4px;color:#7f8bb0;font-style:italic}
+.l3{left:64px;top:590px;font-size:46px;font-weight:600;letter-spacing:-.5px;color:#c9d0e4}
+.pay{position:absolute;left:58px;top:648px;font-family:'Inter Tight',sans-serif;font-weight:900;font-size:86px;line-height:.95;letter-spacing:-3.8px;color:var(--soft);text-shadow:0 0 40px rgba(47,91,255,.35)}
+.pay em{font-style:normal;background:linear-gradient(180deg,#9cc8ff 0%,#5aa8ff 40%,#2f5bff 100%);-webkit-background-clip:text;color:transparent}
 /* 3D #1: the glass eye-lens, "just looking" */
 .eye{position:absolute;left:790px;top:292px;width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle at 50% 50%,#05070d 0 13%,#2c3e6a 14% 22%,#7d93c7 23% 30%,#c9d4ef 31% 34%,#e8ecf6 35% 100%);
-  box-shadow:inset -22px -30px 50px rgba(20,28,60,.55),inset 14px 18px 30px rgba(255,255,255,.65),0 30px 60px rgba(0,0,0,.55),0 0 60px rgba(120,150,220,.35)}
+  background:radial-gradient(circle at 50% 50%,#03040a 0 13%,#1a2fa8 14% 21%,#3f6dff 22% 28%,#8b6cff 29% 31%,#c8cfe2 32% 35%,#e6eaf3 36% 100%);
+  box-shadow:inset -24px -32px 50px rgba(15,22,70,.6),inset 14px 18px 30px rgba(255,255,255,.7),0 30px 60px rgba(0,0,0,.6),0 0 60px rgba(47,91,255,.35)}
 .eye:before{content:"";position:absolute;left:56px;top:40px;width:62px;height:36px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-24deg)}
-.eye:after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(159,176,214,.35);transform:rotateX(70deg)}
+.eye:after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(139,108,255,.4);transform:rotateX(70deg)}
 .eyesh{position:absolute;left:820px;top:530px;width:170px;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent)}
 /* 3D #2: the light path from looking to buying, passing behind the portrait */
 .path{position:absolute;inset:0;width:1080px;height:1920px}
 /* portrait */
-.halo{position:absolute;left:520px;top:700px;width:620px;height:820px;border-radius:50%;background:radial-gradient(closest-side,rgba(245,185,66,.14),transparent 70%)}
+.halo{position:absolute;left:520px;top:700px;width:620px;height:820px;border-radius:50%;background:radial-gradient(closest-side,rgba(47,91,255,.18),transparent 70%)}
 .person{position:absolute;left:342px;top:594px;height:1065px;filter:drop-shadow(-20px 30px 50px rgba(0,0,0,.6))}
-.fade{position:absolute;left:0;right:0;top:1650px;height:270px;background:linear-gradient(180deg,rgba(8,8,12,0),#07070b 70%)}
+.fade{position:absolute;left:0;right:0;top:1650px;height:270px;background:linear-gradient(180deg,rgba(4,5,10,0),#04050a 70%)}
 /* 3D #3: the checkout card, "take my money", in the foreground */
 .card{position:absolute;left:64px;top:1110px;width:360px;padding:28px 26px 30px;border-radius:26px;
   background:linear-gradient(150deg,rgba(255,255,255,.18),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(14px);
   transform:perspective(900px) rotateY(20deg) rotateX(8deg) rotateZ(-3deg);
-  box-shadow:0 50px 80px -20px rgba(0,0,0,.8),0 0 70px rgba(245,185,66,.22),inset 0 1px 0 rgba(255,255,255,.5)}
+  box-shadow:0 50px 80px -20px rgba(0,0,0,.8),0 0 70px rgba(47,91,255,.28),inset 0 1px 0 rgba(255,255,255,.5)}
 .card .hd{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:700;color:#e9ebf2;letter-spacing:.5px}
-.card .hd i{width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f5d58a,#c98a2a)}
+.card .hd i{width:44px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f1f4fa,#9aa3b8 55%,#dfe5f2)}
 .card .ln{height:12px;border-radius:6px;background:rgba(255,255,255,.22);margin-top:16px}
-.card .btn{margin-top:26px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;letter-spacing:.5px;color:#1a1306;
-  background:linear-gradient(180deg,#ffe29a,#f5b942 60%,#d9912b);box-shadow:0 14px 30px -6px rgba(245,185,66,.65),inset 0 2px 0 rgba(255,255,255,.6),inset 0 -4px 0 rgba(150,90,10,.35)}
+.card .btn{margin-top:26px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;letter-spacing:-.3px;color:#f3f5fb;
+  background:linear-gradient(180deg,#5aa8ff,#2f5bff 60%,#2240c9);box-shadow:0 14px 30px -6px rgba(47,91,255,.7),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(15,25,110,.45)}
 .cursor{position:absolute;left:300px;top:1330px;width:64px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
-.ripple{position:absolute;left:262px;top:1300px;width:84px;height:84px;border-radius:50%;border:3px solid rgba(255,226,154,.8);box-shadow:0 0 30px rgba(245,185,66,.7)}
+.ripple{position:absolute;left:262px;top:1300px;width:84px;height:84px;border-radius:50%;border:3px solid rgba(156,200,255,.85);box-shadow:0 0 30px rgba(90,168,255,.7)}
 .grain{position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 </style></head>
@@ -50,7 +50,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#08090e}
   <div class="floor"></div>
   <svg class="path" viewBox="0 0 1080 1920" fill="none">
     <defs>
-      <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb0d6" stop-opacity=".25"/><stop offset=".45" stop-color="#c9b27a" stop-opacity=".7"/><stop offset="1" stop-color="#f5b942"/></linearGradient>
+      <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b6cff" stop-opacity=".3"/><stop offset=".5" stop-color="#2f5bff" stop-opacity=".8"/><stop offset="1" stop-color="#7cc0ff"/></linearGradient>
       <filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
     </defs>
     <path d="M900 512 C1010 660 980 860 760 980 S330 1060 300 1250" stroke="url(#pg)" stroke-width="34" stroke-linecap="round" filter="url(#gl)" opacity=".75"/>
@@ -62,9 +62,9 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#08090e}
   <img class="person" src="person.png">
   <div class="fade"></div>
   <div class="k l1">Take customers from</div>
-  <div class="k l2">Just looking</div>
+  <div class="k l2">just looking</div>
   <div class="k l3">to</div>
-  <div class="pay">“Shut up<br>and take<br>my money.”</div>
+  <div class="pay">“Shut up<br>and <em>take</em><br><em>my money.”</em></div>
   <div class="card"><div class="hd">Checkout<i></i></div><div class="ln" style="width:80%"></div><div class="ln" style="width:55%"></div><div class="btn">Pay now</div></div>
   <div class="ripple"></div>
   <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#fff" stroke="#0b0b0d" stroke-width="1.4" stroke-linejoin="round"/></svg>
