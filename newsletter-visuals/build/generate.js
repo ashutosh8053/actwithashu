@@ -85,8 +85,8 @@ const SHARES = [3, 17, 20, 60];
 const LABELS = ['Buying Now', 'Info gathering Mode', 'Problem Aware', 'Not problem Aware'];
 
 // ============ H1 · THE LARGE MARKET FORMULA ============
-function h1() {
-  const id = 'h1';
+function h1(v97 = false) {
+  const id = v97 ? 'h1v' : 'h1';
   const W = 1200, Hh = 1180;
   const P = pyramid({ cx: 520, top: 210, H: 760, half: 330, shares: SHARES });
   const fills = [C.ink, C.accent, C.accentMid, `url(#${id}-hatch)`];
@@ -106,11 +106,19 @@ function h1() {
     b += text(886, y + 44, LABELS[i], 'sans', C.ink, 21);
   });
 
-  // 37% bracket (17% + 20%) on the left
-  const y37a = P.ys[1] + 4, y37b = P.ys[3] - 4;
-  b += `<path d="M262,${f(y37a)} H250 V${f(y37b)} H262" fill="none" stroke="${C.accent}" stroke-width="2.5"/>`;
-  b += text(232, (y37a + y37b) / 2 + 6, '37%', 'num', C.accent, 48, 'text-anchor="end"');
-  b += text(232, (y37a + y37b) / 2 + 34, '17% + 20%', 'mono', C.ink2, 13, 'text-anchor="end"');
+  if (v97) {
+    // 97% variant: bracket spans everything below the tip (17% + 20% + 60%)
+    const ya = P.ys[1] + 4, yz = P.ys[4] - 2;
+    b += `<path d="M172,${f(ya)} H160 V${f(yz)} H172" fill="none" stroke="${C.accent}" stroke-width="2.5"/>`;
+    b += text(146, (ya + yz) / 2 + 6, '97%', 'num', C.accent, 48, 'text-anchor="end"');
+    b += text(146, (ya + yz) / 2 + 32, '17+20+60', 'mono', C.ink2, 12, 'text-anchor="end"');
+  } else {
+    // 37% bracket (17% + 20%) on the left
+    const y37a = P.ys[1] + 4, y37b = P.ys[3] - 4;
+    b += `<path d="M262,${f(y37a)} H250 V${f(y37b)} H262" fill="none" stroke="${C.accent}" stroke-width="2.5"/>`;
+    b += text(232, (y37a + y37b) / 2 + 6, '37%', 'num', C.accent, 48, 'text-anchor="end"');
+    b += text(232, (y37a + y37b) / 2 + 34, '17% + 20%', 'mono', C.ink2, 13, 'text-anchor="end"');
+  }
 
   // footer: the same market as a 100-unit strip, 3% vs 97%
   const x0 = 60, x1 = 1140, bw = x1 - x0, by = 1052, bh = 26;
@@ -301,8 +309,8 @@ function s1() {
 }
 
 // ============ S2 · THE 37% OPPORTUNITY ============
-function s2() {
-  const id = 's2';
+function s2(v97 = false) {
+  const id = v97 ? 's2v' : 's2';
   const W = 1200, Hh = 470;
   const x0 = 60, x1 = 1140, bw = x1 - x0, by = 214, bh = 54;
   const fills = [C.ink, C.accent, C.accentMid, `url(#${id}-hatch)`];
@@ -312,10 +320,14 @@ function s2() {
   SHARES.forEach((s, i) => {
     b += `<rect x="${f(xs[i])}" y="${by}" width="${f(xs[i + 1] - xs[i])}" height="${bh}" fill="${fills[i]}" stroke="${C.paper}" stroke-width="2.5"/>`;
   });
-  const m37 = (xs[1] + xs[3]) / 2;
-  b += text(m37, 78, "“I'm kinda thirsty - What Should I drink?”", 'sans', C.ink2, 21, 'text-anchor="middle" font-style="italic"');
-  b += text(m37, 160, '37%', 'num', C.accent, 76, 'text-anchor="middle"');
-  b += `<path d="M${f(xs[1] + 3)},202 V188 H${f(xs[3] - 3)} V202" fill="none" stroke="${C.accent}" stroke-width="2.5"/>`;
+  const end = v97 ? 4 : 3;
+  const mid = (xs[1] + xs[end]) / 2;
+  const quote = v97
+    ? 'The GOAL is move the 97% of potential Customers up the pyramid faster.'
+    : "\u201CI'm kinda thirsty - What Should I drink?\u201D";
+  b += text(mid, 78, quote, 'sans', C.ink2, 21, 'text-anchor="middle" font-style="italic"');
+  b += text(mid, 160, v97 ? '97%' : '37%', 'num', C.accent, 76, 'text-anchor="middle"');
+  b += `<path d="M${f(xs[1] + 3)},202 V188 H${f(xs[end] - 3)} V202" fill="none" stroke="${C.accent}" stroke-width="2.5"/>`;
   const lab = (i, y) => {
     b += text(xs[i] + 6, y, `${SHARES[i]}%`, 'num', [C.ink, C.accent, C.accentMid, C.ink2][i], 30);
     b += text(xs[i] + 6, y + 26, LABELS[i], 'sans', C.ink, 17);
@@ -325,7 +337,9 @@ function s2() {
   b += `<line x1="${f(xs[0] + 16)}" y1="${by + bh + 4}" x2="${f(xs[0] + 16)}" y2="372" stroke="${C.ink2}" stroke-width="1.2" stroke-dasharray="2 4"/>`;
   b += text(x0, 408, '3%', 'num', C.ink, 30);
   b += text(x0 + 56, 406, 'Buying Now', 'sans', C.ink, 17);
-  return svg(id, W, Hh, "The real money is in 37%: Info gathering Mode 17% plus Problem Aware 20%", b);
+  return svg(id, W, Hh, v97
+    ? 'The 97% not buying now: Info gathering Mode 17%, Problem Aware 20%, Not problem Aware 60%'
+    : 'The real money is in 37%: Info gathering Mode 17% plus Problem Aware 20%', b);
 }
 
 // ============ S3 · SALES FUNNEL ============
@@ -365,7 +379,8 @@ function m1() {
   return svg(id, W, Hh, 'Key: 3% at the top of the pyramid, 97% below it', b);
 }
 
-const all = { 'h1-large-market-formula': h1, 'h2-attract-educate-nurture-act': h2, 'h3-advertising-to-profit-system': h3, 'h4-halo-strategy': h4, 's1-3pct-competition': s1, 's2-37pct-opportunity': s2, 's3-sales-funnel': s3, 'm1-pyramid-key': m1 };
+const all = { 'h1-large-market-formula': h1, 'h2-attract-educate-nurture-act': h2, 'h3-advertising-to-profit-system': h3, 'h4-halo-strategy': h4, 's1-3pct-competition': s1, 's2-37pct-opportunity': s2, 's3-sales-funnel': s3, 'm1-pyramid-key': m1,
+  'h1-large-market-formula-97': () => h1(true), 's2-97pct-not-buying-now': () => s2(true) };
 for (const [name, fn] of Object.entries(all)) {
   fs.writeFileSync(path.join(OUT, `${name}.svg`), fn());
 }
