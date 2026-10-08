@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="m1" viewBox="0 0 600 360" width="600" height="360" role="img" aria-label="Key: 3% at the top of the pyramid, 97% below it">
+<title>Key: 3% at the top of the pyramid, 97% below it</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+.disp{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:700;letter-spacing:-0.01em}
+.num{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.sans{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.mono{font-family:'IBM Plex Mono',Menlo,Consolas,monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+</style>
+<defs>
+  <pattern id="m1-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="9" height="9" fill="#DDE1E8"/>
+    <line x1="0" y1="0" x2="0" y2="9" stroke="#C3C9D4" stroke-width="2"/>
+  </pattern>
+  <marker id="m1-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0E1525"/>
+  </marker>
+  <marker id="m1-arrow-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2D46F5"/>
+  </marker>
+  <marker id="m1-arrow-mute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#566075"/>
+  </marker>
+</defs>
+<rect width="600" height="360" fill="#EEF0F3"/>
+<polygon points="220,40 254.6,88.5 185.4,88.5" fill="#0E1525" stroke="#EEF0F3" stroke-width="3" stroke-linejoin="round" /><polygon points="185.4,88.5 254.6,88.5 309.4,165.2 130.6,165.2" fill="#2D46F5" stroke="#EEF0F3" stroke-width="3" stroke-linejoin="round" /><polygon points="130.6,165.2 309.4,165.2 346.5,217.1 93.5,217.1" fill="#7C8CF8" stroke="#EEF0F3" stroke-width="3" stroke-linejoin="round" /><polygon points="93.5,217.1 346.5,217.1 420,320 20,320" fill="url(#m1-hatch)" stroke="#EEF0F3" stroke-width="3" stroke-linejoin="round" /><line x1="253.5" y1="78.5" x2="400" y2="78.5" stroke="#566075" stroke-width="1" stroke-dasharray="2 4"/><text x="410" y="88.5" class="num" fill="#0E1525" font-size="30" >3%</text><path d="M478,104.5 H490 V320 H478" fill="none" stroke="#2D46F5" stroke-width="2.5"/><text x="502" y="220.2" class="num" fill="#2D46F5" font-size="40" >97%</text>
+</svg>

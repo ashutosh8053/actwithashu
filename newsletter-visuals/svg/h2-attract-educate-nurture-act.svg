@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="h2" viewBox="0 0 1200 430" width="1200" height="430" role="img" aria-label="Attract, Educate, Nurture, Act: from cold traffic to pre qualified">
+<title>Attract, Educate, Nurture, Act: from cold traffic to pre qualified</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+.disp{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:700;letter-spacing:-0.01em}
+.num{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.sans{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.mono{font-family:'IBM Plex Mono',Menlo,Consolas,monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+</style>
+<defs>
+  <pattern id="h2-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="9" height="9" fill="#DDE1E8"/>
+    <line x1="0" y1="0" x2="0" y2="9" stroke="#C3C9D4" stroke-width="2"/>
+  </pattern>
+  <marker id="h2-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0E1525"/>
+  </marker>
+  <marker id="h2-arrow-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2D46F5"/>
+  </marker>
+  <marker id="h2-arrow-mute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#566075"/>
+  </marker>
+</defs>
+<rect width="1200" height="430" fill="#EEF0F3"/>
+<defs><linearGradient id="h2-warm" gradientUnits="userSpaceOnUse" x1="60" x2="1130" y1="0" y2="0">
+    <stop offset="0" stop-color="#C3C9D4"/><stop offset="1" stop-color="#2D46F5"/></linearGradient></defs><text x="60" y="78" class="mono" fill="#2D46F5" font-size="15" >The Key to Install them is -</text><line x1="60" y1="270" x2="1130" y2="270" stroke="url(#h2-warm)" stroke-width="6" stroke-linecap="round"/><path d="M1124,258 L1146,270 L1124,282 z" fill="#2D46F5"/><text x="170" y="178" class="sans" fill="#566075" font-size="20" text-anchor="middle">①</text><text x="170" y="228" class="disp" fill="#0E1525" font-size="46" text-anchor="middle">ATTRACT</text><circle cx="170" cy="270" r="12" fill="#EEF0F3" stroke="#566075" stroke-width="2"/><text x="450" y="178" class="sans" fill="#566075" font-size="20" text-anchor="middle">②</text><text x="450" y="228" class="disp" fill="#0E1525" font-size="46" text-anchor="middle">EDUCATE</text><circle cx="450" cy="270" r="17" fill="#D3D9FD" stroke="#2D46F5" stroke-width="0"/><text x="730" y="178" class="sans" fill="#566075" font-size="20" text-anchor="middle">③</text><text x="730" y="228" class="disp" fill="#0E1525" font-size="46" text-anchor="middle">NURTURE</text><circle cx="730" cy="270" r="22" fill="#7C8CF8" stroke="#2D46F5" stroke-width="0"/><text x="1010" y="178" class="sans" fill="#566075" font-size="20" text-anchor="middle">④</text><text x="1010" y="228" class="disp" fill="#2D46F5" font-size="46" text-anchor="middle">ACT</text><circle cx="1010" cy="270" r="30" fill="#2D46F5" stroke="#2D46F5" stroke-width="0"/><text x="60" y="352" class="mono" fill="#566075" font-size="14" >cold traffic</text><text x="1146" y="352" class="mono" fill="#2D46F5" font-size="14" text-anchor="end">pre qualified</text>
+</svg>

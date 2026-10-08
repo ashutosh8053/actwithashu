@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="h4" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Halo Strategy: the customer's primary desire, fears, wishes, dreams, and the stuff they're thinking but not telling anyone">
+<title>Halo Strategy: the customer's primary desire, fears, wishes, dreams, and the stuff they're thinking but not telling anyone</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+.disp{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:700;letter-spacing:-0.01em}
+.num{font-family:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.sans{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.mono{font-family:'IBM Plex Mono',Menlo,Consolas,monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+</style>
+<defs>
+  <pattern id="h4-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="9" height="9" fill="#DDE1E8"/>
+    <line x1="0" y1="0" x2="0" y2="9" stroke="#C3C9D4" stroke-width="2"/>
+  </pattern>
+  <marker id="h4-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0E1525"/>
+  </marker>
+  <marker id="h4-arrow-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2D46F5"/>
+  </marker>
+  <marker id="h4-arrow-mute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#566075"/>
+  </marker>
+</defs>
+<rect width="1200" height="900" fill="#EEF0F3"/>
+<text x="60" y="78" class="mono" fill="#2D46F5" font-size="15" >The HALO STRATEGY</text><text x="60" y="132" class="disp" fill="#0E1525" font-size="44" >YOU MUST KNOW YOUR CUSTOMER INTIMATELY!</text><circle cx="600" cy="540" r="330" fill="none" stroke="#7C8CF8" stroke-width="1.5" stroke-dasharray="2 7"/><path d="M395.4,320.6 A300,300 0 0 1 804.6,320.6 L744.6,385 A212,212 0 0 0 455.4,385 Z" fill="#D3D9FD"/><text x="600" y="276" class="sans" fill="#2D46F5" font-size="18" text-anchor="middle">①</text><text x="600" y="304" class="sans" fill="#0E1525" font-size="22" text-anchor="middle">primary desire</text><path d="M819.4,335.4 A300,300 0 0 1 819.4,744.6 L755,684.6 A212,212 0 0 0 755,395.4 Z" fill="#D3D9FD"/><text x="856" y="532" class="sans" fill="#2D46F5" font-size="18" text-anchor="middle">②</text><text x="856" y="560" class="sans" fill="#0E1525" font-size="22" text-anchor="middle">Fears</text><path d="M804.6,759.4 A300,300 0 0 1 395.4,759.4 L455.4,695 A212,212 0 0 0 744.6,695 Z" fill="#D3D9FD"/><text x="600" y="788" class="sans" fill="#2D46F5" font-size="18" text-anchor="middle">③</text><text x="600" y="816" class="sans" fill="#0E1525" font-size="22" text-anchor="middle">wishes</text><path d="M380.6,744.6 A300,300 0 0 1 380.6,335.4 L445,395.4 A212,212 0 0 0 445,684.6 Z" fill="#D3D9FD"/><text x="344" y="532" class="sans" fill="#2D46F5" font-size="18" text-anchor="middle">④</text><text x="344" y="560" class="sans" fill="#0E1525" font-size="22" text-anchor="middle">dreams</text><circle cx="600" cy="540" r="160" fill="none" stroke="#2D46F5" stroke-width="84"/><path id="h4-top" d="M440,540 A160,160 0 0 1 760,540" fill="none"/><path id="h4-bot" d="M440,540 A160,160 0 0 0 760,540" fill="none"/><text class="sans" font-size="16.5" fill="#EEF0F3" font-weight="600" dominant-baseline="middle"><textPath href="#h4-top" startOffset="50%" text-anchor="middle">⑤  The stuff they're thinking but not telling anyone.</textPath></text><text class="mono" font-size="12" fill="#D3D9FD" dominant-baseline="middle"><textPath href="#h4-bot" startOffset="50%" text-anchor="middle">Customer's deepest &amp; most</textPath></text><circle cx="600" cy="540" r="112" fill="#0E1525"/><text x="600" y="550" class="disp" fill="#EEF0F3" font-size="30" text-anchor="middle" letter-spacing="2">CUSTOMER</text>
+</svg>
